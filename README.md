@@ -1,3 +1,2 @@
-# PaperPuzzles
-Repository for the revised Paper Puzzles Project. 
-This repository was created following a series of fatal errors involving the original Paper Puzzles project.
+# PaperPaladin
+Repository for my Year 12 SDD Major Work, Paper Paladin, a 2D action adventure RPG set in a fantasy paper world.
