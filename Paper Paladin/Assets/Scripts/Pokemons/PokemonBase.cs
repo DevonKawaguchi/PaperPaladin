@@ -122,3 +122,33 @@ public enum PokemonType
     Ghost,
     Dragon
 }
+
+public class TypeChart
+{
+    //2D array to store type weaknesses and strengths in attack and defense
+
+    static float[][] chart =
+    {
+        //Important: Order must be in the same order as specified in PokemonType above as modifiers are assigned to each respective index value of PokemonType
+        //Columns in Order: Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison
+        /*Normal*/  new float [] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f },
+        /*Fire*/  new float [] { 1f, 0.5f, 0.5f, 1f, 2f, 2f, 1f, 1f },
+        /*Water*/  new float [] { 1f, 2f, 0.5f, 2f, 0.5f, 1f, 1f, 1f },
+        /*Electric*/  new float [] { 1f, 1f, 2f, 0.5f, 0.5f, 2f, 1f, 1f },
+        /*Grass*/  new float [] { 1f, 0.5f, 2f, 2f, 0.5f, 1f, 1f, 0.5f },
+        /*Poison*/  new float [] { 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f } //Make sure to add full list of types
+    };
+
+    public static float GetEffectiveness(PokemonType attackType, PokemonType defenseType)
+    {
+        if (attackType == PokemonType.None || defenseType == PokemonType.None)
+        {
+            return 1;
+        }
+
+        int row = (int)attackType - 1;
+        int col = (int)defenseType - 1;
+
+        return chart[row][col];
+    }
+}

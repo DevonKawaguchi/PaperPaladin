@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    public event Action OnEnountered;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void HandleUpdate()
     {
         if(!isMoving)
         {
@@ -74,9 +77,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
         {
-            if (Random.Range(1, 101) <= 10)
+            if (UnityEngine.Random.Range(1, 101) <= 10) //As System and UnityEngine both have their own interpretations of Random, UnityEngine.Random is used to specify
             {
-                Debug.Log("Encountered a wild pokemon"); //Temporary code
+                //Debug.Log("Encountered a wild pokemon"); //Temporary code
+                animator.SetBool("isMoving", false); //Disables freeroam player moving animations when entering battle
+                OnEnountered();
             }
         }
     }
