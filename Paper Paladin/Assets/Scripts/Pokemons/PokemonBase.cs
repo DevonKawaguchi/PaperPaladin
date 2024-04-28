@@ -123,20 +123,46 @@ public enum PokemonType
     Dragon
 }
 
+public enum Stat
+{
+    Attack,
+    Defense,
+    SpAttack,
+    SpDefense,
+    Speed,
+
+    //These 2 are not actual stats, they're used to boost the moveAccuracy
+    Accuracy,
+    Evasion
+}
+
 public class TypeChart
 {
     //2D array to store type weaknesses and strengths in attack and defense
 
     static float[][] chart =
     {
+        //18 rows, 18 columns
         //Important: Order must be in the same order as specified in PokemonType above as modifiers are assigned to each respective index value of PokemonType
-        //Columns in Order: Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison
-        /*Normal*/  new float [] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f },
-        /*Fire*/  new float [] { 1f, 0.5f, 0.5f, 1f, 2f, 2f, 1f, 1f },
-        /*Water*/  new float [] { 1f, 2f, 0.5f, 2f, 0.5f, 1f, 1f, 1f },
-        /*Electric*/  new float [] { 1f, 1f, 2f, 0.5f, 0.5f, 2f, 1f, 1f },
-        /*Grass*/  new float [] { 1f, 0.5f, 2f, 2f, 0.5f, 1f, 1f, 0.5f },
-        /*Poison*/  new float [] { 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f } //Make sure to add full list of types
+        //Columns in Order: Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy
+        /*Normal*/  new float [] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 0f, 1f, 1f, 0.5f, 1f }, //Done
+        /*Fire*/  new float [] { 1f, 0.5f, 0.5f, 1f, 2f, 2f, 1f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 0.5f, 1f, 2f, 1f }, //Done
+        /*Water*/  new float [] { 1f, 2f, 0.5f, 1f, 0.5f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 1f, 1f }, //Done
+        /*Electric*/  new float [] { 1f, 1f, 2f, 0.5f, 0.5f, 1f, 1f, 1f, 0f, 2f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f, 1f }, //Done
+        /*Grass*/  new float [] { 1f, 0.5f, 2f, 1f, 0.5f, 1f, 1f, 0.5f, 2f, 0.5f, 1f, 0.5f, 2f, 1f, 0.5f, 1f, 0.5f, 1f }, //Done
+        /*Ice*/  new float [] { 1f, 0.5f, 0.5f, 1f, 2f, 0.5f, 1f, 1f, 2f, 2f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f }, //Done
+        /*Fighting*/  new float [] { 2f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f, 0.5f, 0.5f, 2f, 0f, 1f, 2f, 2f, 0.5f }, //Done
+        /*Poison*/  new float [] { 1f, 1f, 1f, 1f, 2f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 1f, 0.5f, 0.5f, 1f, 1f, 0f, 2f }, //Done
+        /*Ground*/  new float [] { 1f, 2f, 1f, 2f, 0.5f, 1f, 1f, 2f, 1f, 0f, 1f, 0.5f, 2f, 1f, 1f, 1f, 2f, 1f }, //Done
+        /*Flying*/  new float [] { 1f, 1f, 1f, 0.5f, 2f, 1f, 2f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 0.5f, 1f }, //Done
+        /*Psychic*/  new float [] { 1f, 1f, 1f, 1f, 1f, 1f, 2f, 2f, 1f, 1f, 0.5f, 1f, 1f, 1f, 1f, 0f, 0.5f, 1f }, //Done
+        /*Bug*/  new float [] { 1f, 0.5f, 1f, 1f, 2f, 1f, 0.5f, 0.5f, 1f, 0.5f, 2f, 1f, 1f, 0.5f, 1f, 2f, 0.5f, 0.5f }, //Done
+        /*Rock*/  new float [] { 1f, 2f, 1f, 1f, 1f, 2f, 0.5f, 1f, 0.5f, 2f, 1f, 2f, 1f, 1f, 1f, 1f, 0.5f, 1f }, //Done
+        /*Ghost*/  new float [] { 0f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 2f, 1f, 0.5f, 1f, 1f }, //Done
+        /*Dragon*/  new float [] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 0.5f, 0f }, //Done
+        /*Dark*/  new float [] { 1f, 1f, 1f, 1f, 1f, 1f, 0.5f, 1f, 1f, 1f, 2f, 1f, 1f, 2f, 1f, 0.5f, 1f, 0.5f }, //Done
+        /*Steel*/  new float [] { 1f, 0.5f, 0.5f, 0.5f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 2f }, //Done
+        /*Fairy*/  new float [] { 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 2f, 0.5f, 1f } //Done
     };
 
     public static float GetEffectiveness(PokemonType attackType, PokemonType defenseType)

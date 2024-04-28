@@ -13,7 +13,12 @@ public class MoveBase : ScriptableObject
     [SerializeField] PokemonType type;
     [SerializeField] int power; 
     [SerializeField] int accuracy;
+    [SerializeField] bool alwaysHits;
     [SerializeField] int pp; //PP stands for number of times a move can be performed.
+    [SerializeField] MoveCategory category;
+    [SerializeField] MoveEffects effects;
+    [SerializeField] List<SecondaryEffects> secondaries;
+    [SerializeField] MoveTarget target;
 
     public string Name
     {
@@ -37,23 +42,87 @@ public class MoveBase : ScriptableObject
     {
         get { return accuracy; }
     }
+    public bool AlwaysHits
+    {
+        get { return alwaysHits; }
+    }
     public int PP
     {
         get { return pp; }
     }
-
-    public bool IsSpecial
+    public MoveCategory Category
     {
-        get
-        {
-            if (type == PokemonType.Fire || type == PokemonType.Water || type == PokemonType.Grass || type == PokemonType.Ice || type == PokemonType.Electric || type == PokemonType.Dragon)
-            {
-                return true; //Indicates move is special
-            }
-            else
-            {
-                return false; //Indicates move is physical
-            }
-        }
+        get { return category; }
     }
+
+    public MoveEffects Effects
+    {
+        get { return effects; }
+    }
+    public List<SecondaryEffects> Secondaries
+    {
+        get { return secondaries; }
+    }
+
+    public MoveTarget Target
+    {
+        get { return target; }
+    }
+}
+
+[System.Serializable] //Allows class to be shown in inspector
+public class MoveEffects
+{
+    [SerializeField] List<StatBoost> boosts;
+    [SerializeField] ConditionID status;
+    [SerializeField] ConditionID volatileStatus;
+
+
+    public List<StatBoost> Boosts
+    {
+        get { return boosts; }
+    }
+
+    public ConditionID Status
+    {
+        get { return status; }
+    }
+
+    public ConditionID VolatileStatus
+    {
+        get { return volatileStatus; }
+    }
+}
+
+[System.Serializable]
+public class SecondaryEffects : MoveEffects //MoveEffects inherited inside SecondaryEffects, meaning all the lines in MoveEffects are in this script
+{
+    [SerializeField] int chance;
+    [SerializeField] MoveTarget target;
+
+    public int Chance
+    {
+        get { return chance; }
+    }
+    public MoveTarget Target
+    {
+        get { return target;  }
+    }
+}
+
+[System.Serializable]
+public class StatBoost
+{
+    public Stat stat;
+    public int boost;
+}
+
+public enum MoveCategory
+{
+    Physical, Special, Status
+}
+
+public enum MoveTarget
+{
+    Foe, Self
 }

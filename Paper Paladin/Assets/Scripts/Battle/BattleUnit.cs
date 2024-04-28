@@ -9,6 +9,17 @@ public class BattleUnit : MonoBehaviour
     //[SerializeField] PokemonBase _base;
     //[SerializeField] int level;
     [SerializeField] bool isPlayerUnit;
+    [SerializeField] BattleHUD hud;
+
+    public bool IsPlayerUnit
+    {
+        get { return isPlayerUnit; }
+    }
+
+    public BattleHUD HUD
+    {
+        get { return hud; }
+    }
 
     public Pokemon Pokemon { get; set; }
 
@@ -34,6 +45,8 @@ public class BattleUnit : MonoBehaviour
         {
             image.sprite = Pokemon.Base.FrontSprite;
         }
+
+        hud.SetData(pokemon);
 
         image.color = originalColour; //Reverts image to original color - this is to revert the faint transition if initiating another battle as originally the respective image would remain transparent
 

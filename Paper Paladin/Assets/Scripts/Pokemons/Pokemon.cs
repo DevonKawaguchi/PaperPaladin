@@ -14,7 +14,7 @@ public class Pokemon
     public PokemonBase Base {
         get
         {
-            return _base;
+            return _base; 
         }
 
     }
@@ -28,11 +28,21 @@ public class Pokemon
     public int HP { get; set; }
 
     public List<Move> Moves { get; set; }
+    public Dictionary<Stat, int> Stats { get; private set; } //Dictionary instead of list as it'll be easier to find values through keys - better storage of Pokemon stat values
+    public Dictionary<Stat, int> StatBoosts { get; private set; }
+    public Condition Status { get; private set; }
+    public int StatusTime { get; set; }
+    public Condition VolatileStatus { get; private set; }
+    public int VolatileStatusTime { get; set; }
+
+    public Queue<string> StatusChanges { get; private set; } = new Queue<string>(); //Queue<> used to store list of elements such as a list, and allows elements to be taken out of the queue while retaining order of elements added in the queue. Queue also simplifies code in comparison to List<>
+    public bool HPChanged { get; set; }
+
+    public event System.Action OnStatusChanged; //Could use "using System", though just put "System." instead - same thing, different form
+
 
     public void Init()
     {
-        HP = MaxHp;
-
         //Generate moves
         Moves = new List<Move>();
         foreach (var move in Base.LearnableMoves)
@@ -47,31 +57,107 @@ public class Pokemon
                 break;
             }
         }
+
+        CalculateStats();
+
+        HP = MaxHp; //HP calculation moved to after CalculateStats() as it hadn't been defined previously (past error)
+
+        ResetStatBoost();
+        Status = null;
+        VolatileStatus = null;
     }
 
-    public int MaxHp
+    void CalculateStats()
     {
-        get { return Mathf.FloorToInt((Base.MaxHp * Level / 100f) + 10); } //Increases Pokemon health value based on level. FloorToInt present to remove decimal point by converting float to int. +10 instead of normal +5 increase intentional and only present for MaxHp.
+        Stats = new Dictionary<Stat, int>();
+        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.Attack * Level / 100f) + 5));
+        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.Defense * Level / 100f) + 5));
+        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((Base.SpAttack * Level / 100f) + 5));
+        Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level / 100f) + 5));
+        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level / 100f) + 5));
+
+        MaxHp = Mathf.FloorToInt((Base.MaxHp * Level / 100f) + 10 + Level);
     }
+
+    void ResetStatBoost()
+    {
+        StatBoosts = new Dictionary<Stat, int>()
+        {
+            {Stat.Attack, 0 },
+            {Stat.Defense, 0 },
+            {Stat.SpAttack, 0 },
+            {Stat.SpDefense, 0 },
+            {Stat.Speed, 0 },
+
+            {Stat.Accuracy, 0 },
+            {Stat.Evasion, 0 },
+        };
+    }
+
+    int GetStat(Stat stat) //By returning stat values through this function, stat boosters aren't required to be applied to each stat one by one, but rather all in at once 
+    {
+        int statVal = Stats[stat];
+
+        //Apply stat boost
+        int boost = StatBoosts[stat]; //Retrieves stat boost dictionary values
+        var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
+
+        if (boost >= 0)
+        {
+            statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
+        }
+        else
+        {
+            statVal = Mathf.FloorToInt(statVal / boostValues[-boost]);
+
+        }
+
+        return statVal;
+    }
+
+    public void ApplyBoosts(List<StatBoost> statBoosts)
+    {
+        foreach (var statBoost in statBoosts)
+        {
+            var stat = statBoost.stat;
+            var boost = statBoost.boost;
+
+            StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
+
+            if (boost > 0)
+            {
+                StatusChanges.Enqueue($"{Base.Name}'s {stat} rose!"); //Enqueue() same as a List<>'s Add() function
+            }
+            else
+            {
+                StatusChanges.Enqueue($"{Base.Name}'s {stat} fell!");
+            }
+
+            Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
+        }
+    }
+
+
+    public int MaxHp { get; private set; } //Get;Set; as MaxHp only calculated once
     public int Attack
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level / 100f) + 5); } //Same as above, repeated for below.
+        get { return GetStat(Stat.Attack); } //Same as above, repeated for below.
     } 
     public int Defense
     {
-        get { return Mathf.FloorToInt((Base.Defense * Level / 100f) + 5); } 
+        get { return GetStat(Stat.Defense); } 
     }
     public int SpAttack
     {
-        get { return Mathf.FloorToInt((Base.SpAttack * Level / 100f) + 5); } 
+        get { return GetStat(Stat.SpAttack); } 
     }
     public int SpDefense
     {
-        get { return Mathf.FloorToInt((Base.SpDefense * Level / 100f) + 5); } 
+        get { return GetStat(Stat.SpDefense); } 
     }
     public int Speed
     {
-        get { return Mathf.FloorToInt((Base.Speed * Level / 100f) + 5); } 
+        get { return GetStat(Stat.Speed); } 
     }
 
     public DamageDetails TakeDamage(Move move, Pokemon attacker)
@@ -94,8 +180,8 @@ public class Pokemon
             Fainted = false
         };
 
-        float attack = (move.Base.IsSpecial) ? attacker.SpAttack : attacker.Attack; //Determines if attack is special and should thus utilise a spAttack, or physical and utilise a normal attack. The conventions in this line are also simply a different way of if/else
-        float defense = (move.Base.IsSpecial) ? SpDefense : Defense; //Same as above line
+        float attack = (move.Base.Category == MoveCategory.Special) ? attacker.SpAttack : attacker.Attack; //Determines if attack is special and should thus utilise a spAttack, or physical and utilise a normal attack. The conventions in this line are also simply a different way of if/else
+        float defense = (move.Base.Category == MoveCategory.Special) ? SpDefense : Defense; //Same as above line
 
 
         //Following formula used in Pokemon games to calculate damage, referenced from Damage page in Bulbapedia
@@ -105,20 +191,88 @@ public class Pokemon
         float d = a * move.Base.Power * ((float)attack / defense) + 2; //Power of the move, attacker's attack stats, and current player pokemon defense stats
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        HP -= damage;
-        if (HP <= 0)
-        {
-            HP = 0; //Ensures negative HP is not displayed in UI
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(damage);
 
         return damageDetails;
     }
+
+    public void UpdateHP(int damage)
+    {
+        HP = Mathf.Clamp(HP - damage, 0, MaxHp);
+        HPChanged = true;
+    }
+
+    public void SetStatus(ConditionID conditionID)
+    {
+        if (Status != null) return;
+
+        Status = ConditionsDB.Conditions[conditionID];
+        Status?.OnStart?.Invoke(this); //Null conditional operators (?) to ensure project doesn't crash if object doesn't have an OnStart action
+        StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
+    }
+
+    public void CureStatus()
+    {
+        Status = null;
+        OnStatusChanged?.Invoke();
+    }
+
+    public void SetVolatileStatus(ConditionID conditionID) //FYI: Volatile statuses will only last until battle is over
+    {
+        if (VolatileStatus != null) return;
+
+        VolatileStatus = ConditionsDB.Conditions[conditionID];
+        VolatileStatus?.OnStart?.Invoke(this); //Null conditional operators (?) to ensure project doesn't crash if object doesn't have an OnStart action
+        StatusChanges.Enqueue($"{Base.Name} {VolatileStatus.StartMessage}");
+    }
+
+    public void CureVolatileStatus()
+    {
+        VolatileStatus = null;
+    }
+
 
     public Move GetRandomMove()
     {
         int r = Random.Range(0, Moves.Count);
         return Moves[r];
+    }
+
+    public bool OnBeforeMove()
+    {
+        bool canPerformMove = true;
+
+        if (Status?.OnBeforeMove != null) //Will return null in case status doesn't have a OnBeforeMove function
+        {
+            if (!Status.OnBeforeMove(this))
+            {
+                canPerformMove = false;
+            }
+        }
+
+        if (VolatileStatus?.OnBeforeMove != null) 
+        {
+            if (!VolatileStatus.OnBeforeMove(this))
+            {
+                canPerformMove = false;
+            }
+        }
+
+        return canPerformMove;
+    }
+
+    public void OnAfterTurn()
+    {
+        Status?.OnAfterTurn?.Invoke(this); //"?.Invoke" allows line to only invoke OnAfterTurn action if not null
+        VolatileStatus?.OnAfterTurn?.Invoke(this); 
+
+    }
+
+    public void OnBattleOver() //Resets applied stat boosts on Pokemon following battle end
+    {
+        VolatileStatus = null;
+        ResetStatBoost();
     }
 }
 
