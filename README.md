@@ -2,7 +2,7 @@
 ![Image of the Paper Paladin logo.](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/b2578251-f31d-4606-8441-32e63b760aff)
 
 ## Description:
-Paper Paladin is a 2D action-adventure RPG game created in Unity for my Year 12 Software Design and Development Assessment 3 Major Work. Through the manipulation of certain keys and cursor movements, within the application users will embark on an epic quest across a vast nonlinear gameworld and combat a diverse array of strange and sinister enemies in intuitive turn-based battle sequences. Users will also able to modify their game settings to their preferences for aspects such as music or sound volume levels, as well as save, load, or delete their respective game save files. 
+Paper Paladin is a 2D action-adventure RPG game created in Unity for my Year 12 Software Design and Development Assessment 3 Task. Through the manipulation of certain keys and cursor movements, within the application users will embark on an epic quest across a vast nonlinear gameworld and combat a diverse array of strange and sinister enemies in intuitive turn-based battle sequences. Users will also able to modify their game settings to their preferences for aspects such as music or sound volume levels, as well as save, load, or delete their respective game save files. 
 
 > [!IMPORTANT]
 > Due to the project's time constraints and lack of existing musical skill respectively, accessibility options for those with visual, motor, or neurological impairments are not supported unfortunately, and public audio libraries and copyrighted media have been used to create the application's in-game soundscape.
