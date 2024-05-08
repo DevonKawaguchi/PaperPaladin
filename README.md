@@ -22,14 +22,15 @@ To interact with the application, certain key inputs are required. The following
 | Z | Select |
 | X | Back |
 
-WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences.
+> [!NOTE]
+> WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences.
 
 ## Licence Information:
-The application is protected under the X Licence. As a result, 
+The application is protected under the MIT Licence. As a result, 
 
 ## Visuals:
 ![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/1e75745f-974a-4cd9-a554-d38306f3ffba)
-Landscape of the Forgotten Forests area.
+> Cutscene art of the Forgotten Forests area
 
 ## Acknowledgements:
 Although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application couldn't have been created without the use of copyrighted media and online Unity tutorials.
