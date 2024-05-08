@@ -30,7 +30,7 @@ The application is protected under the MIT Licence. As a result,
 
 ## Visuals:
 ![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/1e75745f-974a-4cd9-a554-d38306f3ffba)
-> Cutscene art of the Forgotten Forests area
+Cutscene art of the Forgotten Forests area
 
 ## Acknowledgements:
 Although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application couldn't have been created without the use of copyrighted media and online Unity tutorials.
