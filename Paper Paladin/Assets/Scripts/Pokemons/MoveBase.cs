@@ -15,6 +15,8 @@ public class MoveBase : ScriptableObject
     [SerializeField] int accuracy;
     [SerializeField] bool alwaysHits;
     [SerializeField] int pp; //PP stands for number of times a move can be performed.
+    [SerializeField] int priority; //Check
+
     [SerializeField] MoveCategory category;
     [SerializeField] MoveEffects effects;
     [SerializeField] List<SecondaryEffects> secondaries;
@@ -50,6 +52,12 @@ public class MoveBase : ScriptableObject
     {
         get { return pp; }
     }
+
+    public int Priority
+    {
+        get { return priority; }
+    }
+
     public MoveCategory Category
     {
         get { return category; }

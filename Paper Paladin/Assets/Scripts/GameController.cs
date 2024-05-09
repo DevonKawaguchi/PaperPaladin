@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FreeRoam, Battle }
+public enum GameState { FreeRoam, Battle, Dialogue }
 
 public class GameController : MonoBehaviour
 {
@@ -21,6 +21,19 @@ public class GameController : MonoBehaviour
     {
         playerController.OnEnountered += StartBattle;
         battleSystem.OnBattleOver += EndBattle;
+
+        DialogueManager.Instance.OnShowDialogue += () =>
+        {
+            state = GameState.Dialogue;
+        };
+
+        DialogueManager.Instance.OnCloseDialogue += () =>
+        {
+            if (state == GameState.Dialogue)
+            {
+                state = GameState.FreeRoam;
+            }
+        };
     }
 
     void StartBattle()
@@ -52,6 +65,10 @@ public class GameController : MonoBehaviour
         else if (state == GameState.Battle) //If battle is triggered, enable BattleSystem update functions. This thus disables PlayerController update functions
         {
             battleSystem.HandleUpdate();
+        }
+        else if (state == GameState.Dialogue)
+        {
+            DialogueManager.Instance.HandleUpdate();
         }
     }
 }

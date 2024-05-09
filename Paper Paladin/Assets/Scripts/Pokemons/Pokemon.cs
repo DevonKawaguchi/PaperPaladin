@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [System.Serializable] //Classes will only be shown in inspector if this attribute is applied 
 
@@ -236,8 +237,10 @@ public class Pokemon
 
     public Move GetRandomMove()
     {
-        int r = Random.Range(0, Moves.Count);
-        return Moves[r];
+        var movesWithPP = Moves.Where(x => x.PP > 0).ToList();
+
+        int r = Random.Range(0, movesWithPP.Count); //Makes the enemy unable to do moves if they run out of stamina
+        return movesWithPP[r];
     }
 
     public bool OnBeforeMove()
