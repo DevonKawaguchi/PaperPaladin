@@ -19,18 +19,18 @@ To interact with the application, certain key inputs are required. The following
 | A or ← Key | Move/Select Left |
 | S or ↓ Key | Move/Select Down |
 | D or → Key | Move/Select Right |
-| Z | Select |
+| Z | Select/Interact |
 | X | Back |
 
 > [!NOTE]
 > WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences.
 
 ## Licence Information:
-The application is protected under the MIT Licence. As a result, 
+The application is protected under the MIT Licence, allowing for the project, modifications, and/or larger works to be distributed under different terms without source code. The full licence can be found here in [LICENSE] (https://github.com/DevonKawaguchi/PaperPaladin/blob/8daaa0da968ec19d10b63b6a94b02d20e9ac40ee/LICENCE).
 
 ## Visuals:
 ![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/1e75745f-974a-4cd9-a554-d38306f3ffba)
-Cutscene art of the Forgotten Forests area
+Cutscene artwork of the Forgotten Forests area
 
 ## Acknowledgements:
 Although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application couldn't have been created without the use of copyrighted media and online Unity tutorials.
@@ -46,15 +46,17 @@ Although the application utilises original artwork, audio mixing, and game desig
 The above acknowledgements are also included in the applications's "Credits" page in the main menu.
 
 ## Author Details:
-Creator: Devon Kawaguchi
+### Creator: 
+Devon Kawaguchi
 
-Contact Information: 
+### Contact Information: 
+Email: DKawaguchi@student.saintaug.nsw.edu.au
 
-Personal Profiles:
-   - itch.io:
+### Personal Profiles:
+   * itch.io
 
 ## Documentation:
-Please refer to the following hyperlink: https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing 
+Documentation available in [Part B: Documentation] (https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing ).
 
 ## Additional Details:
 N/A - All relevant details have been included in the above sections.
