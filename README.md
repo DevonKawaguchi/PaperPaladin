@@ -26,10 +26,10 @@ To interact with the application, certain key inputs are required. The following
 > WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences.
 
 ## Licence Information:
-The application is protected under the MIT Licence, allowing for the project, modifications, and/or larger works to be distributed under different terms without source code. The full licence can be found here in [LICENSE] (https://github.com/DevonKawaguchi/PaperPaladin/blob/8daaa0da968ec19d10b63b6a94b02d20e9ac40ee/LICENCE).
+The application is protected under the MIT Licence, allowing for the project, modifications, and/or larger works to be distributed under different terms without source code. The full licence can be found here in [LICENSE](https://github.com/DevonKawaguchi/PaperPaladin/blob/8daaa0da968ec19d10b63b6a94b02d20e9ac40ee/LICENCE).
 
 ## Visuals:
-![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/1e75745f-974a-4cd9-a554-d38306f3ffba)
+![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/1e75745f-974a-4cd9-a554-d38306f3ffba/)
 Cutscene artwork of the Forgotten Forests area
 
 ## Acknowledgements:
@@ -56,7 +56,7 @@ Email: DKawaguchi@student.saintaug.nsw.edu.au
    * itch.io
 
 ## Documentation:
-Documentation available in [Part B: Documentation] (https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing ).
+Documentation available in [Part B: Documentation](https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing ).
 
 ## Additional Details:
 N/A - All relevant details have been included in the above sections.
