@@ -5,10 +5,10 @@ using UnityEditor;
 using UnityEngine;
 
 [ExecuteAlways]
-public class SavableEntity : MonoBehaviour
+public class SaveableEntity : MonoBehaviour
 {
     [SerializeField] string uniqueId = "";
-    static Dictionary<string, SavableEntity> globalLookup = new Dictionary<string, SavableEntity>();
+    static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
 
     public string UniqueId => uniqueId;
 

@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class SceneDetails : MonoBehaviour
 {
     [SerializeField] List<SceneDetails> connectedScenes;
 
     public bool IsLoaded { get; private set; }
+
+    List<SaveableEntity> saveableEntities;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,7 +28,9 @@ public class SceneDetails : MonoBehaviour
             }
 
             //Unload the scenes that are no longer connected
-            if (GameController.Instance.PrevScene != null)
+            var prevScene = GameController.Instance.PrevScene;
+
+            if (prevScene!= null)
             {
                 var previouslyLoadedScenes = GameController.Instance.PrevScene.connectedScenes;
                 foreach (var scene in previouslyLoadedScenes)
@@ -35,6 +40,11 @@ public class SceneDetails : MonoBehaviour
                         scene.UnloadScene();
                     }
                 }
+
+                if (!connectedScenes.Contains(prevScene)) //Scene will be unloaded if not connected scene
+                {
+                    prevScene.UnloadScene();
+                }
             }
         }
     }
@@ -43,8 +53,14 @@ public class SceneDetails : MonoBehaviour
     {
         if (!IsLoaded)
         {
-            SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+            var operation = SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive); //"LoadSceneAsync" means the line is being run in the background
             IsLoaded = true;
+
+            operation.completed += (AsyncOperation op) =>
+            {
+                saveableEntities = GetSaveableEntitiesInScene(); //Restores entity states after loading the scene
+                SavingSystem.i.RestoreEntityStates(saveableEntities);
+            }; //Function will only be called once this function is complete/when scene loading is complete
         }
     }
 
@@ -52,8 +68,17 @@ public class SceneDetails : MonoBehaviour
     {
         if (IsLoaded)
         {
+            SavingSystem.i.CaptureEntityStates(saveableEntities);
+
             SceneManager.UnloadSceneAsync(gameObject.name);
             IsLoaded = false;
         }
+    }
+
+    List<SaveableEntity> GetSaveableEntitiesInScene()
+    {
+        var currScene = SceneManager.GetSceneByName(gameObject.name);
+        var saveableEntities = FindObjectsOfType<SaveableEntity>().Where(x => x.gameObject.scene == currScene).ToList();
+        return saveableEntities;
     }
 }

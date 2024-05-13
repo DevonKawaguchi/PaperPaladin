@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public enum GameState { FreeRoam, Battle, Dialogue, Cutscene, Paused }
+public enum GameState { FreeRoam, Battle, Dialogue, Menu, PartyScreen, Bag, Cutscene, Paused }
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] Camera worldCamera;
+    [SerializeField] PartyScreen partyScreen;
+    [SerializeField] InventoryUI inventoryUI;
 
     GameState state;
     GameState stateBeforePause;
@@ -18,9 +21,13 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
 
+    MenuController menuController;
+
     private void Awake()
     {
         Instance = this;
+
+        menuController = GetComponent<MenuController>();
 
         PokemonDB.Init();
         MoveDB.Init();
@@ -31,6 +38,7 @@ public class GameController : MonoBehaviour
     {
         battleSystem.OnBattleOver += EndBattle;
 
+        partyScreen.Init();
 
         DialogueManager.Instance.OnShowDialogue += () =>
         {
@@ -44,6 +52,13 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
             }
         };
+
+        menuController.onBack += () =>
+        {
+            state = GameState.FreeRoam;
+        };
+
+        menuController.onMenuSelected += OnMenuSelected;
     }
 
     public void PauseGame(bool pause) //Assigns states when pausing or resuming the game
@@ -115,14 +130,20 @@ public class GameController : MonoBehaviour
         {
             playerController.HandleUpdate();
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
-                SavingSystem.i.Save("saveSlot1");
+                menuController.OpenMenu();
+                state = GameState.Menu;
             }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                SavingSystem.i.Load("saveSlot1");
-            }
+
+            //if (Input.GetKeyDown(KeyCode.S)) //Originally for debugging
+            //{
+            //    SavingSystem.i.Save("saveSlot1");
+            //}
+            //if (Input.GetKeyDown(KeyCode.L))
+            //{
+            //    SavingSystem.i.Load("saveSlot1");
+            //}
         }
         else if (state == GameState.Battle) //If battle is triggered, enable BattleSystem update functions. This thus disables PlayerController update functions
         {
@@ -132,11 +153,69 @@ public class GameController : MonoBehaviour
         {
             DialogueManager.Instance.HandleUpdate();
         }
+        else if (state == GameState.Menu)
+        {
+            menuController.HandleUpdate();
+        }
+        else if (state == GameState.PartyScreen)
+        {
+            Action onSelected = () =>
+            {
+                //Go to Summary Screen
+
+            };
+            Action onBack = () =>
+            {
+                partyScreen.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+
+            partyScreen.HandleUpdate(onSelected, onBack);
+        }
+        else if (state == GameState.Bag)
+        {
+            Action onBack = () =>
+            {
+                inventoryUI.gameObject.SetActive(false);
+                state = GameState.FreeRoam;
+            };
+
+            inventoryUI.HandleUpdate(onBack);
+        }
     }
 
     public void SetCurrentScene(SceneDetails currScene)
     {
         PrevScene = CurrentScene;
         CurrentScene = currScene;
+    }
+
+    void OnMenuSelected(int selectedItem)
+    {
+        if (selectedItem == 0)
+        {
+            //Pokemon is selected
+            partyScreen.gameObject.SetActive(true);
+            partyScreen.SetPartyData(playerController.GetComponent<PokemonParty>().Pokemons);
+            state = GameState.PartyScreen;
+        }
+        else if (selectedItem == 1)
+        {
+            //Bag is selected
+            inventoryUI.gameObject.SetActive(true);
+            state = GameState.Bag;
+        }
+        else if (selectedItem == 2)
+        {
+            //Save is selected
+            SavingSystem.i.Save("saveSlot1");
+            state = GameState.FreeRoam;
+        }
+        else if (selectedItem == 3)
+        {
+            //Load is selected
+            SavingSystem.i.Load("saveSlot1");
+            state = GameState.FreeRoam;
+        }
     }
 }

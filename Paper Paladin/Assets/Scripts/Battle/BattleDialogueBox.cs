@@ -7,8 +7,7 @@ using TMPro;
 public class BattleDialogueBox : MonoBehaviour
 {
     [SerializeField] int lettersPerSecond;
-    [SerializeField] Color highlightedColour;
-    [SerializeField] TextMeshProUGUI dialogueText;
+
     [SerializeField] GameObject actionSelector;
     [SerializeField] GameObject moveSelector;
     [SerializeField] GameObject moveDetails;
@@ -17,10 +16,18 @@ public class BattleDialogueBox : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> actionTexts;
     [SerializeField] List<TextMeshProUGUI> moveTexts;
 
+    [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] TextMeshProUGUI ppText;
     [SerializeField] TextMeshProUGUI typeText;
     [SerializeField] TextMeshProUGUI yesText;
     [SerializeField] TextMeshProUGUI noText;
+
+    Color highlightedColour;
+
+    private void Start()
+    {
+        highlightedColour = GlobalSettings.i.HighlightedColour;
+    }
 
     public void SetDialogue(string dialogue)
     {

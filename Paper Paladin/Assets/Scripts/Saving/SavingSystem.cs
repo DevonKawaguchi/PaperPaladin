@@ -16,21 +16,21 @@ public class SavingSystem : MonoBehaviour
 
     Dictionary<string, object> gameState = new Dictionary<string, object>();
 
-    public void CaptureEntityStates(List<SavableEntity> savableEntities)
+    public void CaptureEntityStates(List<SaveableEntity> savableEntities)
     {
-        foreach (SavableEntity savable in savableEntities)
+        foreach (SaveableEntity savable in savableEntities)
         {
             gameState[savable.UniqueId] = savable.CaptureState();
         }
     }
 
-    public void RestoreEntityStates(List<SavableEntity> savableEntities)
+    public void RestoreEntityStates(List<SaveableEntity> saveableEntities)
     {
-        foreach (SavableEntity savable in savableEntities)
+        foreach (SaveableEntity saveable in saveableEntities)
         {
-            string id = savable.UniqueId;
+            string id = saveable.UniqueId;
             if (gameState.ContainsKey(id))
-                savable.RestoreState(gameState[id]);
+                saveable.RestoreState(gameState[id]);
         }
     }
 
@@ -54,20 +54,20 @@ public class SavingSystem : MonoBehaviour
     // Used to capture states of all savable objects in the game
     private void CaptureState(Dictionary<string, object> state)
     {
-        foreach (SavableEntity savable in FindObjectsOfType<SavableEntity>())
+        foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
         {
-            state[savable.UniqueId] = savable.CaptureState();
+            state[saveable.UniqueId] = saveable.CaptureState();
         }
     }
 
     // Used to restore states of all savable objects in the game
     private void RestoreState(Dictionary<string, object> state)
     {
-        foreach (SavableEntity savable in FindObjectsOfType<SavableEntity>())
+        foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
         {
-            string id = savable.UniqueId;
+            string id = saveable.UniqueId;
             if (state.ContainsKey(id))
-                savable.RestoreState(state[id]);
+                saveable.RestoreState(state[id]);
         }
     }
 
