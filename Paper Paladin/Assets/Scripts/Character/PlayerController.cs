@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISavable
 {
+    [SerializeField] new string name;
+    [SerializeField] Sprite sprite;
+
     private Vector2 input;
 
     private Character character;
-
-    public event Action OnEnountered;
 
     private void Awake()
     {
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
             if (input != Vector2.zero) //Allows player to remain in previous animation, e.g: will remain in "idle_left" animation state if last input was left - this is because the if statement only changes "MoveX"/"MoveY" float parameters if input is not zero.
             {
-                StartCoroutine(character.Move(input, CheckForEncounters));
+                StartCoroutine(character.Move(input, OnMoveOver));
             }
         }
 
@@ -49,22 +51,68 @@ public class PlayerController : MonoBehaviour
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
-            collider.GetComponent<Interactable>()?.Interact(); //"?" to ensure line doesn't crash the application in case it returns null
+            collider.GetComponent<Interactable>()?.Interact(transform); //"?" to ensure line doesn't crash the application in case it returns null
         }
     }
 
-    private void CheckForEncounters()
+    private void OnMoveOver() //Wrapper (not actual name) function that allows multiple other functions to be run in "StartCoroutine(character.Move(input, OnMoveOver));" line
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
+        var colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, character.OffsetY), 0.2f, GameLayers.i.TriggerableLayers);
+
+        foreach (var collider in colliders)
         {
-            if (UnityEngine.Random.Range(1, 101) <= 10) //As System and UnityEngine both have their own interpretations of Random, UnityEngine.Random is used to specify
+            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if (triggerable != null)
             {
-                //Debug.Log("Encountered a wild pokemon"); //Temporary code
-                character.Animator.IsMoving = false; //Disables freeroam player moving animations when entering battle
-                OnEnountered();
+                //character.Animator.IsMoving = false;
+                triggerable.OnPlayerTriggered(this);
+                break;
             }
         }
     }
+
+    public object CaptureState() //Used to save data
+    {
+        var saveData = new PlayerSaveData()
+        {
+            position = new float[] { transform.position.x, transform.position.y },
+            pokemons = GetComponent<PokemonParty>().Pokemons.Select(p => p.GetSaveData()).ToList() //Converts list of Pokemons to list of Pokemon's save data
+
+        };
+
+        return saveData; 
+    }
+
+    public void RestoreState(object state) //Used to restore the data while the game is loading
+    {
+        var saveData = (PlayerSaveData)state;
+
+        //Restore Position
+        var pos = saveData.position;
+        transform.position = new Vector3(pos[0], pos[1]); //Restores Player's saved position
+
+        //Restore Party
+        GetComponent<PokemonParty>().Pokemons = saveData.pokemons.Select(s => new Pokemon(s)).ToList(); //Converts list of Pokemons to list of Pokemon's save data
+    }
+
+    public string Name
+    {
+        get => name;
+    }
+
+    public Sprite Sprite
+    {
+        get => sprite;
+    }
+
+    public Character Character => character;
+}
+
+[Serializable]
+public class PlayerSaveData
+{
+    public float[] position;
+    public List<PokemonSaveData> pokemons;
 }
 
 //Player Controller Position Note: Make sure x position value is in the format x.5 and y position value in the format x.8. y position value format can also be the default x.5, though x.8 is more visually appealing as it allows the player model to be slightly above the centre of the tiles

@@ -12,6 +12,14 @@ public class Pokemon
     [SerializeField] PokemonBase _base;
     [SerializeField] int level;
 
+    public Pokemon(PokemonBase pBase, int pLevel)
+    {
+        _base = pBase;
+        level = pLevel;
+
+        Init();
+    }
+
     public PokemonBase Base {
         get
         {
@@ -27,21 +35,25 @@ public class Pokemon
     }
 
     public int HP { get; set; }
-
-    public List<Move> Moves { get; set; }
-    public Move CurrentMove { get; set; }
-    public Dictionary<Stat, int> Stats { get; private set; } //Dictionary instead of list as it'll be easier to find values through keys - better storage of Pokemon stat values
-    public Dictionary<Stat, int> StatBoosts { get; private set; }
-    public Condition Status { get; private set; }
+    public int Exp { get; set; }
     public int StatusTime { get; set; }
-    public Condition VolatileStatus { get; private set; }
     public int VolatileStatusTime { get; set; }
 
-    public Queue<string> StatusChanges { get; private set; } = new Queue<string>(); //Queue<> used to store list of elements such as a list, and allows elements to be taken out of the queue while retaining order of elements added in the queue. Queue also simplifies code in comparison to List<>
     public bool HPChanged { get; set; }
 
-    public event System.Action OnStatusChanged; //Could use "using System", though just put "System." instead - same thing, different form
+    public List<Move> Moves { get; set; }
 
+    public Move CurrentMove { get; set; }
+
+    public Dictionary<Stat, int> Stats { get; private set; } //Dictionary instead of list as it'll be easier to find values through keys - better storage of Pokemon stat values
+    public Dictionary<Stat, int> StatBoosts { get; private set; }
+
+    public Condition Status { get; private set; }
+    public Condition VolatileStatus { get; private set; }
+
+    public Queue<string> StatusChanges { get; private set; } //Queue<> used to store list of elements such as a list, and allows elements to be taken out of the queue while retaining order of elements added in the queue. Queue also simplifies code in comparison to List<>
+
+    public event System.Action OnStatusChanged; //Could use "using System", though just put "System." instead - same thing, different form
 
     public void Init()
     {
@@ -54,19 +66,61 @@ public class Pokemon
                 Moves.Add(new Move(move.Base));
             }
 
-            if (Moves.Count >= 4) //Ensures Pokemon do not exceed 4 learned moves.
+            if (Moves.Count >= PokemonBase.MaxNumberOfMoves) //Ensures Pokemon do not exceed 4 learned moves.
             {
                 break;
             }
         }
 
+        Exp = Base.GetExpForLevel(Level);
+
         CalculateStats();
 
         HP = MaxHp; //HP calculation moved to after CalculateStats() as it hadn't been defined previously (past error)
 
+        StatusChanges = new Queue<string>();
         ResetStatBoost();
         Status = null;
         VolatileStatus = null;
+    }
+
+    public Pokemon(PokemonSaveData saveData) //Restores Pokemon using its saveable data when loading save file
+    {
+        _base = PokemonDB.GetPokemonByName(saveData.name);
+        HP = saveData.hp;
+        level = saveData.level;
+        Exp = saveData.exp;
+
+        if (saveData.statusID != null)
+        {
+            Status = ConditionsDB.Conditions[saveData.statusID.Value];
+        }
+        else
+        {
+            Status = null;
+        }
+
+        Moves = saveData.moves.Select(s => new Move(s)).ToList();
+
+        CalculateStats();
+        StatusChanges = new Queue<string>();
+        ResetStatBoost();
+        VolatileStatus = null;
+    }
+
+    public PokemonSaveData GetSaveData() //Converts Pokemon class to its save data class
+    {
+        var saveData = new PokemonSaveData()
+        {
+            name = Base.Name,
+            hp = HP,
+            level = Level,
+            exp = Exp,
+            statusID = Status?.ID,
+            moves = Moves.Select(m => m.GetSaveData()).ToList()
+        };
+
+        return saveData;
     }
 
     void CalculateStats()
@@ -139,6 +193,30 @@ public class Pokemon
         }
     }
 
+    public bool CheckForLevelUp() //Increases Pokemon level if XP greater than XP cap
+    {
+        if (Exp > Base.GetExpForLevel(level + 1)) 
+        {
+            ++level;
+            return true;
+        }
+        return false;
+    }
+    
+    public LearnableMove GetLearnableMoveAtCurrentLevel() //Checks if the Pokemon has any moves they can learn based on their level
+    {
+        return Base.LearnableMoves.Where(x => x.Level == level).FirstOrDefault(); //FirstOrDefault gets first item from list - present to return null if the list is empty
+    }
+
+    public void LearnMove(LearnableMove moveToLearn)
+    {
+        if (Moves.Count > PokemonBase.MaxNumberOfMoves)
+        {
+            return;
+        }
+
+        Moves.Add(new Move(moveToLearn.Base));
+    }
 
     public int MaxHp { get; private set; } //Get;Set; as MaxHp only calculated once
     public int Attack
@@ -285,4 +363,15 @@ public class DamageDetails
     public bool Fainted { get; set; }
     public float Critical { get; set; }
     public float TypeEffectiveness { get; set; }
+}
+
+[System.Serializable]
+public class PokemonSaveData //Contains all the Pokemon save data that has to be saved
+{
+    public string name; //Allows to get all the base data of a Pokemon by searching for the Pokemon's name
+    public int hp;
+    public int level;
+    public int exp;
+    public ConditionID? statusID; //Nullable as Pokemon may not have a status
+    public List<MoveSaveData> moves;
 }

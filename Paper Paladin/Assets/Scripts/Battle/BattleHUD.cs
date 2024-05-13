@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class BattleHUD : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI statusText;
+
     [SerializeField] HPBar hpBar;
+
+    [SerializeField] GameObject expBar;
 
     [SerializeField] Color poisonColour;
     [SerializeField] Color burnColour;
@@ -25,8 +29,9 @@ public class BattleHUD : MonoBehaviour
         _pokemon = pokemon;
 
         nameText.text = pokemon.Base.Name;
-        levelText.text = "Lvl " + pokemon.Level;
+        SetLevel();
         hpBar.SetHP((float) pokemon.HP / pokemon.MaxHp);
+        SetExp();
 
         statusColours = new Dictionary<ConditionID, Color>()
         {
@@ -52,6 +57,41 @@ public class BattleHUD : MonoBehaviour
             statusText.text = _pokemon.Status.ID.ToString().ToUpper();
             statusText.color = statusColours[_pokemon.Status.ID];
         }
+    }
+
+    public void SetLevel()
+    {
+        levelText.text = "Lvl " + _pokemon.Level;
+    }
+
+    public void SetExp()
+    {
+        if (expBar == null) return; //Ensures enemy Pokemons don't also set XP bars
+
+        float normalisedExp = GetNormalisedExp();
+        expBar.transform.localScale = new Vector3(normalisedExp, 1, 1);
+    }
+
+    public IEnumerator SetExpSmooth(bool reset = false)
+    {
+        if (expBar == null) yield break; //Ensures enemy Pokemons don't also set XP bars
+
+        if (reset)
+        {
+            expBar.transform.localScale = new Vector3(0, 1, 1); //Resets XP bar
+        }
+
+        float normalisedExp = GetNormalisedExp();
+        yield return expBar.transform.DOScaleX(normalisedExp, 1.5f).WaitForCompletion();
+    }
+
+    float GetNormalisedExp()
+    {
+        int currLevelExp = _pokemon.Base.GetExpForLevel(_pokemon.Level);
+        int nextLevelExp = _pokemon.Base.GetExpForLevel(_pokemon.Level + 1);
+
+        float normalisedExp = (float)(_pokemon.Exp - currLevelExp) / (nextLevelExp - currLevelExp);
+        return Mathf.Clamp01(normalisedExp); //Mathf.Clamp01 ensures normalisedExp is only between 0-1
     }
 
     public IEnumerator UpdateHP()

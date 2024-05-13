@@ -7,6 +7,9 @@ public class GameLayers : MonoBehaviour
     [SerializeField] LayerMask solidObjectsLayer;
     [SerializeField] LayerMask interactableLayer;
     [SerializeField] LayerMask grassLayer;
+    [SerializeField] LayerMask playerLayer;
+    [SerializeField] LayerMask fovLayer;
+    [SerializeField] LayerMask portalLayer;
 
     public static GameLayers i { get; set; } //i instead of Instance to shorten length when referencing layers in code
 
@@ -26,5 +29,25 @@ public class GameLayers : MonoBehaviour
     public LayerMask GrassLayer
     {
         get => grassLayer;
+    }
+
+    public LayerMask PlayerLayer
+    {
+        get => playerLayer;
+    }
+
+    public LayerMask FOVLayer
+    {
+        get => fovLayer;
+    }
+
+    public LayerMask PortalLayer
+    {
+        get => portalLayer;
+    }
+
+    public LayerMask TriggerableLayers
+    {
+        get => grassLayer | fovLayer | portalLayer;
     }
 }

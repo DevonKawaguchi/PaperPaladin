@@ -46,11 +46,18 @@ public class BattleUnit : MonoBehaviour
             image.sprite = Pokemon.Base.FrontSprite;
         }
 
+        hud.gameObject.SetActive(true);
         hud.SetData(pokemon);
 
+        transform.localScale = new Vector3(1, 1, 1);
         image.color = originalColour; //Reverts image to original color - this is to revert the faint transition if initiating another battle as originally the respective image would remain transparent
 
         PlayEnterAnimation();
+    }
+
+    public void Clear()
+    {
+        hud.gameObject.SetActive(false);
     }
 
     public void PlayEnterAnimation()
@@ -96,4 +103,23 @@ public class BattleUnit : MonoBehaviour
         sequence.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f));
         sequence.Join(image.DOFade(0f, 0.5f)); //Join() instead of Append() as doing Append() would make fade transition occur after the image transition downwards had completed. By  doing Join(), these transitions will instead play concurrently
     }
+
+    public IEnumerator PlayCaptureAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.DOFade(0, 0.5f));
+        sequence.Join(transform.DOLocalMoveY(originalPos.y + 50f, 0.5f));
+        sequence.Join(transform.DOScale(new Vector3(0.3f, 0.3f, 1f), 0.5f));
+        yield return sequence.WaitForCompletion();
+    }
+
+    public IEnumerator PlayBreakOutAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.DOFade(1, 0.5f));
+        sequence.Join(transform.DOLocalMoveY(originalPos.y, 0.5f));
+        sequence.Join(transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f));
+        yield return sequence.WaitForCompletion();
+    }
+
 }

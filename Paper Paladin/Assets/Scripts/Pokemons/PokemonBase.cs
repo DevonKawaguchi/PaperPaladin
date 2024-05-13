@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PokemonBase : ScriptableObject
 {
-    [SerializeField] string name;
+    [SerializeField] new string name; //
 
     [TextArea] 
     [SerializeField] string description;
@@ -25,8 +25,27 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int spAttack;
     [SerializeField] int spDefense;
     [SerializeField] int speed;
+    [SerializeField] int expYield; //XP provided to Player
+    [SerializeField] GrowthRate growthRate;
+    [SerializeField] int catchRate = 255;
 
-    [SerializeField] List<LearnableMove> learnableMoves; 
+    [SerializeField] List<LearnableMove> learnableMoves;
+
+    public static int MaxNumberOfMoves { get; set; } = 4; //Allows max move count to be modified across all scripts without having to go through and change each instance
+
+    public int GetExpForLevel(int level)
+    {
+        if (growthRate == GrowthRate.Fast)
+        {
+            return 4 * (level * level * level) / 5;
+        }
+        else if (growthRate == GrowthRate.MediumFast)
+        {
+            return level * level * level;
+        }
+
+        return -1; //If not above, throw error to indicate an error has occurred and that the GrowthRate doesn't exist
+    }
 
     //Allows Pokemon stats to be called by other scripts by making values public
     public string Name
@@ -85,6 +104,12 @@ public class PokemonBase : ScriptableObject
     {
         get { return learnableMoves; }
     }
+
+    public int CatchRate => catchRate; //Same as above get and returns, though shorter
+
+    public int ExpYield => expYield;
+
+    public GrowthRate GrowthRate => growthRate;
 }
 
 [System.Serializable]
@@ -121,6 +146,11 @@ public enum PokemonType
     Rock,
     Ghost,
     Dragon
+}
+
+public enum GrowthRate
+{
+    Fast, MediumFast
 }
 
 public enum Stat

@@ -13,6 +13,10 @@ public class PokemonParty : MonoBehaviour
         {
             return pokemons;
         }
+        set
+        {
+            pokemons = value;
+        }
     }
 
     private void Start()
@@ -27,5 +31,17 @@ public class PokemonParty : MonoBehaviour
     {
         return pokemons.Where(x => x.HP > 0).FirstOrDefault(); //Where() loops through list of pokemons to return list of pokemons which satisfies the condition, which is in this case is having a health greater than 0
         //FirstOrDefault returns the first pokemon in the party that hasn't fainted, and if all pokemon in party are fainted, it makes the line return null
+    }
+
+    public void AddPokemon(Pokemon newPokemon)
+    {
+        if (pokemons.Count < 6)
+        {
+            pokemons.Add(newPokemon);
+        }
+        else
+        {
+            //TO DO: Add to the PC once that's implemented
+        }
     }
 }
