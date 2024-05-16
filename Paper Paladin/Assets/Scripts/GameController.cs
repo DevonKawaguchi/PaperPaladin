@@ -29,6 +29,9 @@ public class GameController : MonoBehaviour
 
         menuController = GetComponent<MenuController>();
 
+        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+
         PokemonDB.Init();
         MoveDB.Init();
         ConditionsDB.Init();
@@ -196,7 +199,6 @@ public class GameController : MonoBehaviour
         {
             //Pokemon is selected
             partyScreen.gameObject.SetActive(true);
-            partyScreen.SetPartyData(playerController.GetComponent<PokemonParty>().Pokemons);
             state = GameState.PartyScreen;
         }
         else if (selectedItem == 1)

@@ -25,7 +25,7 @@ public class ConditionsDB
                 StartMessage = "has been poisoned!",
                 OnAfterTurn = (Pokemon pokemon) => //Lambda function
                 {
-                    pokemon.UpdateHP(pokemon.MaxHp / 8); //Reduces pokemon health by 1/8 of Pokemon HP after every turn
+                    pokemon.DecreaseHP(pokemon.MaxHp / 8); //Reduces pokemon health by 1/8 of Pokemon HP after every turn
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} hurt itself due to poison!");
                 }
             }
@@ -37,7 +37,7 @@ public class ConditionsDB
                 StartMessage = "has been burned!",
                 OnAfterTurn = (Pokemon pokemon) => //Lambda function
                 {
-                    pokemon.UpdateHP(pokemon.MaxHp / 16); //Reduces pokemon health by 1/16 of Pokemon HP after every turn
+                    pokemon.DecreaseHP(pokemon.MaxHp / 16); //Reduces pokemon health by 1/16 of Pokemon HP after every turn
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} hurt itself due to burn!");
                 }
             }
@@ -133,7 +133,7 @@ public class ConditionsDB
 
                     //Hurt by confusion
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is confused!");
-                    pokemon.UpdateHP(pokemon.MaxHp / 8);
+                    pokemon.DecreaseHP(pokemon.MaxHp / 8);
                     pokemon.StatusChanges.Enqueue($"It hurt itself due to confusion!");
                     return false; //Move can't be performed
                 }

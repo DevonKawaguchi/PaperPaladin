@@ -54,6 +54,7 @@ public class Pokemon
     public Queue<string> StatusChanges { get; private set; } //Queue<> used to store list of elements such as a list, and allows elements to be taken out of the queue while retaining order of elements added in the queue. Queue also simplifies code in comparison to List<>
 
     public event System.Action OnStatusChanged; //Could use "using System", though just put "System." instead - same thing, different form
+    public event System.Action OnHPChanged; 
 
     public void Init()
     {
@@ -271,14 +272,22 @@ public class Pokemon
         float d = a * move.Base.Power * ((float)attack / defense) + 2; //Power of the move, attacker's attack stats, and current player pokemon defense stats
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        UpdateHP(damage);
+        DecreaseHP(damage);
 
         return damageDetails;
     }
 
-    public void UpdateHP(int damage)
+    public void IncreaseHP(int amount)
+    {
+        HP = Mathf.Clamp(HP + amount, 0, MaxHp);
+        OnHPChanged?.Invoke();
+        HPChanged = true;
+    }
+
+    public void DecreaseHP(int damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, MaxHp);
+        OnHPChanged?.Invoke();
         HPChanged = true;
     }
 
