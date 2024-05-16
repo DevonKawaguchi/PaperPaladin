@@ -2,7 +2,7 @@
 ![Image of the Paper Paladin logo.](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/b2578251-f31d-4606-8441-32e63b760aff)
 
 ## Description:
-Created for my Year 12 Software Design and Development Assessment 3 Task, Paper Paladin is a 2D turn-based action-adventure RPG game. Through the manipulation of certain keys and cursor movements, within the application users will embark on an epic quest across a vast nonlinear gameworld and combat a diverse array of enemies in intuitive turn-based battle sequences. Users will also able to modify their game settings to their preferences for aspects such as music or sound volume levels, as well as save, load, or delete their respective game save files. 
+Created for my Year 12 Software Design and Development Assessment 3 Task, Paper Paladin is a 2D turn-based action-adventure RPG game. Through the manipulation of certain keys and cursor movements, within the application users will embark on an epic quest across a vast nonlinear gameworld and combat a diverse array of enemies in intuitive, turn-based battle sequences. Users will also able to modify their game settings to their preferences for aspects such as music or sound volume levels, as well as save, load, or delete their respective game save files. 
 
 > [!IMPORTANT]
 > Due to the project's time constraints and lack of existing musical skill respectively, accessibility options for those with visual, motor, or neurological impairments are unfortunately not supported, and public audio libraries and copyrighted media have been used to create the application's in-game soundscape.
@@ -23,7 +23,7 @@ To interact with the application, certain key inputs are required. The following
 | X | Back |
 
 > [!NOTE]
-> WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences. Z key will also interact when in the open-world, though will select in menu and other GUI screens.
+> WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences. Z key will also interact when in the open-world, though will select options in menu and other GUI screens.
 
 ## Licence Information:
 The application is protected under the MIT Licence. The full conditions of the licence can be found in this repository's [LICENCE](https://github.com/DevonKawaguchi/PaperPaladin/blob/8daaa0da968ec19d10b63b6a94b02d20e9ac40ee/LICENCE).
@@ -33,7 +33,7 @@ The application is protected under the MIT Licence. The full conditions of the l
 Cutscene artwork of the Forgotten Forests area
 
 ## Acknowledgements:
-Although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application has been created with the use of copyrighted media and online Unity tutorials.
+As aforementioned, although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application has been created through the use of copyrighted media and online Unity tutorials. 
 
 ### Music Acknowledgements:
    - **Manaka Kataoka, Masato Ohashi, Tsukasa Usui:**
@@ -63,7 +63,7 @@ The above acknowledgements are also included in the applications's "Credits" pag
    * itch.io
 
 ## Documentation:
-Documentation available in the [Year 12 SDD Assessment 3: Part B](https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing ) document on Google Docs.
+Project documentation available in the [Year 12 SDD Assessment 3: Part B](https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing ) Google Docs document.
 
 ## Additional Details:
 N/A - All relevant details have been included in the above sections.
