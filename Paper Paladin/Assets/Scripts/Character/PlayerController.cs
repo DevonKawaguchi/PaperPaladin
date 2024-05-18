@@ -37,11 +37,11 @@ public class PlayerController : MonoBehaviour, ISavable
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Interact();
+            StartCoroutine(Interact());
         }
     }
 
-    void Interact()
+    IEnumerator Interact()
     {
         var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
         var interactPos = transform.position + facingDir;
@@ -51,23 +51,37 @@ public class PlayerController : MonoBehaviour, ISavable
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
-            collider.GetComponent<Interactable>()?.Interact(transform); //"?" to ensure line doesn't crash the application in case it returns null
+            yield return collider.GetComponent<Interactable>()?.Interact(transform); //"?" to ensure line doesn't crash the application in case it returns null
         }
     }
+
+    IPlayerTriggerable currentlyInTrigger;
 
     private void OnMoveOver() //Wrapper (not actual name) function that allows multiple other functions to be run in "StartCoroutine(character.Move(input, OnMoveOver));" line
     {
         var colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, character.OffsetY), 0.2f, GameLayers.i.TriggerableLayers);
 
+        IPlayerTriggerable triggerable = null;
         foreach (var collider in colliders)
         {
-            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            triggerable = collider.GetComponent<IPlayerTriggerable>();
             if (triggerable != null)
             {
+                if (triggerable == currentlyInTrigger && !triggerable.TriggerRepeatedly) //If move over same trigger and TriggerRepeatedly set to false, don't trigger it
+                {
+                    break;
+                }
+
                 //character.Animator.IsMoving = false;
                 triggerable.OnPlayerTriggered(this);
+                currentlyInTrigger = triggerable;
                 break;
             }
+        }
+
+        if (colliders.Count() == 0 || triggerable != currentlyInTrigger) //
+        {
+            currentlyInTrigger = null;
         }
     }
 

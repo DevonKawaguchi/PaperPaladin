@@ -10,6 +10,7 @@ public class GameLayers : MonoBehaviour
     [SerializeField] LayerMask playerLayer;
     [SerializeField] LayerMask fovLayer;
     [SerializeField] LayerMask portalLayer;
+    [SerializeField] LayerMask triggersLayer;
 
     public static GameLayers i { get; set; } //i instead of Instance to shorten length when referencing layers in code
 
@@ -48,6 +49,6 @@ public class GameLayers : MonoBehaviour
 
     public LayerMask TriggerableLayers
     {
-        get => grassLayer | fovLayer | portalLayer;
+        get => grassLayer | fovLayer | portalLayer | triggersLayer;
     }
 }

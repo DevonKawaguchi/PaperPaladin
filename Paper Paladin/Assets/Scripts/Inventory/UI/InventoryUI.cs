@@ -120,6 +120,8 @@ public class InventoryUI : MonoBehaviour
     {
         state = InventoryUIState.Busy;
 
+        //yield return HandleTMItems();
+
         var usedItem = inventory.UseItem(selectedItem, partyScreen.SelectedMember);
         if (usedItem != null) //If true, item was used
         {
@@ -132,6 +134,11 @@ public class InventoryUI : MonoBehaviour
 
         ClosePartyScreen();
     }
+
+    //IEnumerator HandleTMItems()
+    //{
+    //    selectedItem 
+    //}
 
     void UpdateItemSelection()
     {

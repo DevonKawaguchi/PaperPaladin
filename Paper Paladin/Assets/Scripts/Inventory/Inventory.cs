@@ -12,6 +12,11 @@ public class Inventory : MonoBehaviour
 
     public List<ItemSlot> Slots => slots;
 
+    //public ItemBase GetItem(int itemIndex, int categoryIndex)
+    //{
+
+    //}
+
     public ItemBase UseItem(int itemIndex, Pokemon selectedPokemon)
     {
         var item = slots[itemIndex].Item;
@@ -25,6 +30,19 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
+    public void AddItem(ItemBase item, int count = 1) //Incomplete - From #64
+    {
+        var itemSlot = slots.First(slot => slot.Item == item);
+        if (itemSlot != null)
+        {
+            itemSlot.Count += count;
+        }
+        //NOTE: Do not add items that the player doesn't already have. Code logic for item types incomplete due to time constraints meaning new types of items will not be added to inventory.
+        //Temporary Fix: Have items set to 0 in inventory
+
+        OnUpdated?.Invoke();
+    }
+
     public void RemoveItem(ItemBase item)
     {
         var itemSlot = slots.First(slot => slot.Item == item);
@@ -36,6 +54,13 @@ public class Inventory : MonoBehaviour
 
         OnUpdated?.Invoke();
     }
+
+    //public bool HasItem(ItemBase item)
+    //{
+    //    var itemSlot = slots.First(slot => slot.Item == item);
+
+    //    //NOTE: Code logic incomplete
+    //}
 
     public static Inventory GetInventory()
     {

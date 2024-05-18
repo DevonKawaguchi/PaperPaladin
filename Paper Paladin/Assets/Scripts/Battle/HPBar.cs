@@ -8,7 +8,7 @@ public class HPBar : MonoBehaviour
 
     public void SetHP(float hpNormalised) //Changes scale of "Health" image based on Pokemon health value
     {
-        health.transform.localScale = new Vector3(hpNormalised, 1f);
+        health.transform.localScale = new Vector3(hpNormalised, 1f); //
     }
 
     public IEnumerator SetHPSmooth(float newHP)

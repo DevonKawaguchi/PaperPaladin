@@ -31,21 +31,18 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
         character.HandleUpdate();
     }
 
-    public void Interact(Transform initiator) //Shows dialogue if Player interacts with Trainer from another angle that's not in the Trainer's FOV
+    public IEnumerator Interact(Transform initiator) //Shows dialogue if Player interacts with Trainer from another angle that's not in the Trainer's FOV
     {
         character.LookTowards(initiator.position);
 
         if (!battleLost)
         {
-            StartCoroutine(DialogueManager.Instance.ShowDialogue(dialogue, () =>
-            {
-                //Debug.Log("Starting Trainer Battle");
-                GameController.Instance.StartTrainerBattle(this);
-            }));
+            yield return DialogueManager.Instance.ShowDialogue(dialogue);
+            GameController.Instance.StartTrainerBattle(this);
         }
         else
         {
-            StartCoroutine(DialogueManager.Instance.ShowDialogue(dialogueAfterBattle));
+            yield return DialogueManager.Instance.ShowDialogue(dialogueAfterBattle);
         }
     }
 
@@ -64,11 +61,8 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
         yield return character.Move(moveVec);
 
         //Show Trainer dialogue
-        StartCoroutine(DialogueManager.Instance.ShowDialogue(dialogue, () =>
-        {
-            //Debug.Log("Starting Trainer Battle");
-            GameController.Instance.StartTrainerBattle(this);
-        }));
+        yield return DialogueManager.Instance.ShowDialogue(dialogue);
+        GameController.Instance.StartTrainerBattle(this);
     }
 
     public void BattleLost()
