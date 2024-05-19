@@ -24,6 +24,11 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] MoveSelectionUI moveSelectionUI;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip wildBattleMusic;
+    [SerializeField] AudioClip trainerBattleMusic;
+    [SerializeField] AudioClip battleVictoryMusic;
+
     public event Action<bool> OnBattleOver; //Action<bool> used to determine whether the player won or lost the battle
 
     BattleState state;
@@ -52,6 +57,8 @@ public class BattleSystem : MonoBehaviour
         player = playerParty.GetComponent<PlayerController>();
         isTrainerBattle = false;
 
+        AudioManager.i.PlayMusic(wildBattleMusic);
+
         StartCoroutine(SetupBattle());
     }
 
@@ -63,6 +70,8 @@ public class BattleSystem : MonoBehaviour
         isTrainerBattle = true;
         player = playerParty.GetComponent<PlayerController>();
         trainer = trainerParty.GetComponent<TrainerController>();
+
+        AudioManager.i.PlayMusic(trainerBattleMusic);
 
         StartCoroutine(SetupBattle());
     }
@@ -256,11 +265,13 @@ public class BattleSystem : MonoBehaviour
 
         if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon))
         {
-
             sourceUnit.PlayAttackAnimation(); //Plays attack animation (from BattleUnit.cs script)
+            AudioManager.i.PlaySFX(move.Base.Sound); //Plays move sound
+
             yield return new WaitForSeconds(1f);
 
             targetUnit.PlayHitAnimation(); //Plays hit animation
+            AudioManager.i.PlaySFX(AudioID.Hit); //Plays hit sound
 
             //Applies stat boosters to Pokemon
             if (move.Base.Category == MoveCategory.Status)
@@ -400,6 +411,17 @@ public class BattleSystem : MonoBehaviour
 
         if (!faintedUnit.IsPlayerUnit) //If is Enemy unit
         {
+            bool battleWon = true;
+            if (isTrainerBattle) //Checks if all trainer Pokemon has fainted before playing victory music
+            {
+                battleWon = trainerParty.GetHealthyPokemon() == null; //If null, battleWon is true
+            }
+
+            if (battleWon)
+            {
+                AudioManager.i.PlayMusic(battleVictoryMusic);
+            }
+
             //Exp Gain
             int expYield = faintedUnit.Pokemon.Base.ExpYield;
             int enemyLevel = faintedUnit.Pokemon.Level;

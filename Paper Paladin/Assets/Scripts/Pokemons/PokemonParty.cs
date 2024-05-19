@@ -23,7 +23,7 @@ public class PokemonParty : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake() //Critical Error Fix (18/5/24): Executes initialisation of Pokemon party before initialising Pokemon party in other scripts by executing the initialisation in Awake() as Awake() is executed before Start()
     {
         foreach (var pokemon in pokemons)
         {

@@ -29,7 +29,7 @@ public class Character : MonoBehaviour
         transform.position = pos;
     }
 
-    public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null)
+    public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null, bool checkCollisions = true)
     {
         animator.MoveX = Mathf.Clamp(moveVec.x, -1f, 1f);
         animator.MoveY = Mathf.Clamp(moveVec.y, -1f, 1f);
@@ -38,7 +38,17 @@ public class Character : MonoBehaviour
         targetPos.x += moveVec.x;
         targetPos.y += moveVec.y;
 
-        if (!IsPathClear(targetPos)) //If IsPathClear = False, break the path and move onto the next viable path
+        var ledge = CheckForLedge(targetPos);
+        if (ledge != null)
+        {
+            if (ledge.TryToJump(this, moveVec)) //Character, move direction
+            {
+                yield break; //Won't execute rest of code if true
+            }
+        }
+
+        //checkCollisions allows cutscene moves to perform simulultaneously by setting below logic to false
+        if (checkCollisions && !IsPathClear(targetPos)) //If IsPathClear = False, break the path and move onto the next viable path
         {
             yield break; 
         }
@@ -82,6 +92,12 @@ public class Character : MonoBehaviour
         }
 
         return true;
+    }
+
+    Ledge CheckForLedge(Vector3 targetPos)
+    {
+        var collider = Physics2D.OverlapCircle(targetPos, 0.15f, GameLayers.i.LedgeLayer); //Anchor, radius, search term
+        return collider?.GetComponent<Ledge>();
     }
 
     public void LookTowards(Vector3 targetPos) //Makes the character looks towards the target position passed - For NPCs looking towards Player in dialogue

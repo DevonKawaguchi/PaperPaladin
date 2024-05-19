@@ -77,6 +77,16 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void StartCutsceneState()
+    {
+        state = GameState.Cutscene;
+    }
+
+    public void StartFreeRoamState()
+    {
+        state = GameState.FreeRoam;
+    }
+
     public void StartBattle()
     {
         state = GameState.Battle;
@@ -124,6 +134,8 @@ public class GameController : MonoBehaviour
         state = GameState.FreeRoam;
         battleSystem.gameObject.SetActive(false);
         worldCamera.gameObject.SetActive(true);
+
+        AudioManager.i.PlayMusic(CurrentScene.SceneMusic, fade: true);
     }
 
     //Ensures player can't move in freeroam and battle at the same time by enabling update functions for the respective "FreeRoam" or "Battle" state depending on whether the player is in battle or not
@@ -147,6 +159,10 @@ public class GameController : MonoBehaviour
             //{
             //    SavingSystem.i.Load("saveSlot1");
             //}
+        }
+        else if (state == GameState.Cutscene)
+        {
+            playerController.Character.HandleUpdate(); //Plays walking animation when player sprite is walking, but won't allow the player to control the sprite
         }
         else if (state == GameState.Battle) //If battle is triggered, enable BattleSystem update functions. This thus disables PlayerController update functions
         {

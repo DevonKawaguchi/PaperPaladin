@@ -7,6 +7,7 @@ using System.Linq;
 public class SceneDetails : MonoBehaviour
 {
     [SerializeField] List<SceneDetails> connectedScenes;
+    [SerializeField] AudioClip sceneMusic;
 
     public bool IsLoaded { get; private set; }
 
@@ -20,6 +21,11 @@ public class SceneDetails : MonoBehaviour
 
             LoadScene();
             GameController.Instance.SetCurrentScene(this); //Reference of current and previous scene
+
+            if (sceneMusic != null)
+            {
+                AudioManager.i.PlayMusic(sceneMusic, fade: true); //Plays music. 2nd parameter not passed as loop = True by default
+            }
 
             //Load all connected scenes
             foreach (var scene in connectedScenes)
@@ -81,4 +87,6 @@ public class SceneDetails : MonoBehaviour
         var saveableEntities = FindObjectsOfType<SaveableEntity>().Where(x => x.gameObject.scene == currScene).ToList();
         return saveableEntities;
     }
+
+    public AudioClip SceneMusic => sceneMusic;
 }

@@ -1122,6 +1122,9 @@ MonoBehaviour:
   trainerImage: {fileID: 5598339927699469652}
   pokeballSprite: {fileID: 2706541189364187171, guid: ea322e60d75b445bab2070b194026303, type: 3}
   moveSelectionUI: {fileID: 1786804495322594313}
+  wildBattleMusic: {fileID: 0}
+  trainerBattleMusic: {fileID: 0}
+  battleVictoryMusic: {fileID: 0}
 --- !u!1 &1755048688106315035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,7 +1874,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2456,13 +2459,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5530241035621498361}
+  - component: {fileID: 2536504813524801776}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5530241035621498361
 Transform:
   m_ObjectHideFlags: 0
@@ -2480,6 +2484,30 @@ Transform:
   - {fileID: 7267702479034991912}
   m_Father: {fileID: 1399074089985200726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2536504813524801776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377816395666274583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8127f52987a348419f6fbce0ec1ea1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxList:
+  - id: 0
+    clip: {fileID: 8300000, guid: 0c0aee68cd131429c99d65dd5c027859, type: 3}
+  - id: 1
+    clip: {fileID: 8300000, guid: 7df16f3382a9d40a2adce4e81c6bacf0, type: 3}
+  - id: 4
+    clip: {fileID: 8300000, guid: dbf72c1b7fc1545d9849e2110cb4ea8a, type: 3}
+  - id: 5
+    clip: {fileID: 8300000, guid: 9c89b8005b94e4d12803bafda3c5fa95, type: 3}
+  musicPlayer: {fileID: 7690360316135748409}
+  sfxPlayer: {fileID: 4439696678702480310}
+  fadeDuration: 0.75
 --- !u!1 &4698244445730862622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,9 +2550,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4f5be8b417b134523949e8516756d724, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4154,6 +4182,9 @@ MonoBehaviour:
   triggersLayer:
     serializedVersion: 2
     m_Bits: 4096
+  ledgeLayer:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!114 &2776763667338228627
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour
         IsShowing = true;
         dialogueBox.SetActive(true);
 
+        AudioManager.i.PlaySFX(AudioID.UISelect);
+
         yield return TypeDialogue(text);
         if (waitForInput)
         {
@@ -47,6 +49,8 @@ public class DialogueManager : MonoBehaviour
 
         foreach (var line in dialogue.Lines)
         {
+            AudioManager.i.PlaySFX(AudioID.UISelect);
+
             yield return TypeDialogue(line); //Shows first line of the dialogue
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Z));
 

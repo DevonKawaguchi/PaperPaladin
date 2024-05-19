@@ -102,4 +102,9 @@ public class BattleHUD : MonoBehaviour
             _pokemon.HPChanged = false;
         }
     }
+
+    public void ClearData() //Stops error when healing Pokemon after battle 
+    {
+
+    }
 }

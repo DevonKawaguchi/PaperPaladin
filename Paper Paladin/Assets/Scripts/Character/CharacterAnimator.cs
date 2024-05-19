@@ -14,6 +14,7 @@ public class CharacterAnimator : MonoBehaviour
     public float MoveX { get; set; }
     public float MoveY { get; set; }
     public bool IsMoving { get; set; }
+    public bool IsJumping { get; set; }
 
     //States
     SpriteAnimator walkUpAnim;
@@ -66,7 +67,11 @@ public class CharacterAnimator : MonoBehaviour
             currentAnim.Start();
         }
 
-        if (IsMoving)
+        if (IsJumping)
+        {
+            spriteRenderer.sprite = currentAnim.Frames[currentAnim.Frames.Count - 1]; //Jump animation is last frame of walk animation
+        }
+        else if (IsMoving) //Won't execute if character is jumping
         {
             currentAnim.HandleUpdate();
         }
@@ -80,6 +85,10 @@ public class CharacterAnimator : MonoBehaviour
 
     public void SetFacingDirection(FacingDirection dir)
     {
+        //For cutscene animations. Fixes error where character sometimes wouldn't turn in the intended direction. Occurred as MoveX/MoveY values would overlap in else-ifs
+        MoveX = 0;
+        MoveY = 0;
+
         if (dir == FacingDirection.Right)
         {
             MoveX = 1;
