@@ -179,7 +179,7 @@ PrefabInstance:
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: sceneMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 6f7bf2e9abdeb447dbbe6eb9c6421f8f, type: 3}
+      objectReference: {fileID: 8300000, guid: f74ffd31665ba432fad94ed693d02a46, type: 3}
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: connectedScenes.Array.size
       value: 2
@@ -769,6 +769,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: sfxList.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3fa306a012ef04a1a94f380375a3889b, type: 3}
     - target: {fileID: 2558517284111469969, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1953,6 +1957,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6726757956021318959, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726757956021318959, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726757956021318959, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6773930013395908264, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2537,7 +2553,7 @@ PrefabInstance:
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: sceneMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 7fb5edd454808460a9a63be86771f1fc, type: 3}
+      objectReference: {fileID: 8300000, guid: 67597a948a4a24472bfa8cb986ef7b41, type: 3}
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: connectedScenes.Array.size
       value: 1
@@ -2674,7 +2690,7 @@ PrefabInstance:
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: sceneMusic
       value: 
-      objectReference: {fileID: 8300000, guid: e0bc0b2c080ce48ef8fe323119398195, type: 3}
+      objectReference: {fileID: 8300000, guid: 51ec02a1b6bc048259b0fbcaaeb00c53, type: 3}
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: connectedScenes.Array.size
       value: 1
@@ -2823,7 +2839,7 @@ PrefabInstance:
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: sceneMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 726e8801718584f50ad3d00be90cff5d, type: 3}
+      objectReference: {fileID: 8300000, guid: 82248ff1473d74d19aaf4404d612de94, type: 3}
     - target: {fileID: 5013209623124200601, guid: 05c5dcae26f6546aca87c3d7dc411a67, type: 3}
       propertyPath: connectedScenes.Array.size
       value: 2
