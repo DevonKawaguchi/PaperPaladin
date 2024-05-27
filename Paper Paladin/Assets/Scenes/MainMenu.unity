@@ -420,12 +420,14 @@ MonoBehaviour:
   ControlsMenu: {fileID: 2131313870}
   DefaultControlsMenuButton: {fileID: 493147221}
   PlayMenuButton: {fileID: 1069155256}
+  ControlsMenuButton: {fileID: 492494723}
+  QuitMenuButton: {fileID: 982604079}
   MusicPlayer: {fileID: 620807834}
   SFXPlayer: {fileID: 2137988125}
   SelectMoveSound: {fileID: 8300000, guid: 6a576f05192874f12ad9b61c371b876c, type: 3}
   SelectSound: {fileID: 8300000, guid: 3fa306a012ef04a1a94f380375a3889b, type: 3}
   BackSound: {fileID: 8300000, guid: 9b7e9a4616c69413d9563145f8d062e9, type: 3}
-  StartSound: {fileID: 8300000, guid: 5c88e74536a4e47a5a1416df255e20c6, type: 3}
+  StartSound: {fileID: 8300000, guid: c0332cda71794405d84852d744001a3d, type: 3}
   highlightedColour: {r: 1, g: 1, b: 1, a: 1}
   playSelectedColour: {r: 0, g: 0, b: 0, a: 1}
   blackImage: {fileID: 430617041}
@@ -712,8 +714,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 1069155256}
-    m_SelectOnDown: {fileID: 982604079}
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1205,8 +1207,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 492494723}
-    m_SelectOnDown: {fileID: 982604079}
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1472,8 +1474,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 1069155256}
-    m_SelectOnDown: {fileID: 492494723}
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

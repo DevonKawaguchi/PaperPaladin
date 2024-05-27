@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject ControlsMenu;
     [SerializeField] private Button DefaultControlsMenuButton;
     [SerializeField] private Button PlayMenuButton;
+    [SerializeField] private Button ControlsMenuButton;
+    [SerializeField] private Button QuitMenuButton;
 
     [SerializeField] AudioSource MusicPlayer;
     [SerializeField] AudioSource SFXPlayer;
@@ -128,6 +130,19 @@ public class MainMenu : MonoBehaviour
     {
         //Debug.Log("Ran UpdateItemSelection");
 
+        if (selectedItem == 0)
+        {
+            DestinationButton(PlayMenuButton);
+        }
+        else if (selectedItem == 1)
+        {
+            DestinationButton(ControlsMenuButton);
+        }
+        else if (selectedItem == 2)
+        {
+            DestinationButton(QuitMenuButton);
+        }
+
         for (int i = 0; i < mainMenuItems.Count; i++)
         {
             if (i == selectedItem) //
@@ -145,14 +160,14 @@ public class MainMenu : MonoBehaviour
 
     void PlayButtonSelectedAnimation()
     {
-        if (interval == 8)
-        {
-            mainMenuItems[0].color = playSelectedColour;
-            Debug.Log("Changed play colour to playSelectedColour");
-        }
-        else if (interval == 16)
+        if (interval == 7)
         {
             mainMenuItems[0].color = highlightedColour;
+            Debug.Log("Changed play colour to playSelectedColour");
+        }
+        else if (interval == 14)
+        {
+            mainMenuItems[0].color = playSelectedColour;
             Debug.Log("Changed play colour to highlightedColour");
             interval = 0;
             Debug.Log("Reset interval to 0");

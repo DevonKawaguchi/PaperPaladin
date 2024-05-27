@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class OpeningCrawlCutscene : MonoBehaviour
 {
@@ -15,12 +16,19 @@ public class OpeningCrawlCutscene : MonoBehaviour
     [SerializeField] AudioSource SFXPlayer;
     [SerializeField] AudioClip SelectSound;
 
+    [SerializeField] Image blackImage;
+
     bool shownDialogue = false;
     bool dialogueComplete = false;
 
     [SerializeField] List<string> dialogueList;
 
     int dialogueCounter = 0;
+
+    private void Awake()
+    {
+        StartCoroutine(CutsceneFadeIn());
+    }
 
     private void Update()
     {
@@ -56,5 +64,10 @@ public class OpeningCrawlCutscene : MonoBehaviour
             yield return new WaitForSeconds(1f / lettersPerSecond); //Determines how fast letters are shown. For this, e.g 1f/30 (in lettersPerSecond variable) will add a character per every 30th of a second.
         }
         dialogueComplete = true;
+    }
+
+    IEnumerator CutsceneFadeIn()
+    {
+        yield return blackImage.DOFade(0, 2.5f).WaitForCompletion();
     }
 }
