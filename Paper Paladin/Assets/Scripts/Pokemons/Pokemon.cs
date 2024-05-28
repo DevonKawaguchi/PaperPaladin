@@ -126,14 +126,17 @@ public class Pokemon
 
     void CalculateStats()
     {
-        Stats = new Dictionary<Stat, int>();
-        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.Attack * Level / 100f) + 5));
-        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.Defense * Level / 100f) + 5));
-        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((Base.SpAttack * Level / 100f) + 5));
-        Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level / 100f) + 5));
-        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level / 100f) + 5));
+        //Debug.Log($"Base attack is {Base.Attack}");
+        //Debug.Log($"Base level is {Level}");
 
-        MaxHp = Mathf.FloorToInt((Base.MaxHp * Level / 100f) + 10 + Level);
+        Stats = new Dictionary<Stat, int>();
+        Stats.Add(Stat.Attack, Mathf.FloorToInt(Base.Attack * Level));
+        Stats.Add(Stat.Defense, Mathf.FloorToInt(Base.Defense * Level));
+        Stats.Add(Stat.SpAttack, Mathf.FloorToInt(Base.SpAttack * Level));
+        Stats.Add(Stat.SpDefense, Mathf.FloorToInt(Base.SpDefense * Level));
+        Stats.Add(Stat.Speed, Mathf.FloorToInt(Base.Speed * Level));
+
+        MaxHp = Mathf.FloorToInt(Base.MaxHp + Level);
     }
 
     void ResetStatBoost()
@@ -268,9 +271,11 @@ public class Pokemon
         //Following formula used in Pokemon games to calculate damage, referenced from Damage page in Bulbapedia
         //Damage is calculated by determining base damage based off attacker's level, of which is then multiplied by the value of the power of the move and the attacker's stats. Attacker's stats multiplier is mitigated by current player's pokemon defense stats. After multipliers are applied to damage, modifiers applies damage to target within an 85%-100% range.
         float modifiers = Random.Range(0.85f, 1f) * type * critical; 
-        float a = (2 * attacker.Level + 10) / 250f; //Level of the attacker
-        float d = a * move.Base.Power * ((float)attack / defense) + 2; //Power of the move, attacker's attack stats, and current player pokemon defense stats
+        float a = attacker.Level; //Level of the attacker
+        float d = defense; //Power of the move, attacker's attack stats, and current player pokemon defense stats
         int damage = Mathf.FloorToInt(d * modifiers);
+
+        Debug.Log($"Damage is {damage}");
 
         DecreaseHP(damage);
 

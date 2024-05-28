@@ -31,7 +31,7 @@ public class PokemonBase : ScriptableObject
 
     [SerializeField] List<LearnableMove> learnableMoves;
 
-    public static int MaxNumberOfMoves { get; set; } = 4; //Allows max move count to be modified across all scripts without having to go through and change each instance
+    public static int MaxNumberOfMoves { get; set; } = 8; //Allows max move count to be modified across all scripts without having to go through and change each instance
 
     public int GetExpForLevel(int level)
     {
@@ -149,9 +149,15 @@ public enum PokemonType
 
     None,
     Player,
-    Ground,
-    Air,
-    GroundArmoured
+    PlayerGroundMove,
+    PlayerAirMove,
+    BlockMove,
+    DeflectMove,
+    EnemyGround,
+    EnemyAir,
+    EnemyArmoured,
+    InstantKillPlayer,
+    PlayerRailgun,
 }
 
 public enum GrowthRate
@@ -201,11 +207,18 @@ public class TypeChart
         //    /*Steel*/  new float [] { 1f, 0.5f, 0.5f, 0.5f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 2f }, //Done
         //    /*Fairy*/  new float [] { 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 2f, 0.5f, 1f } //Done
 
-            //Player, Ground, Air, GroundArmoured (4)
-            /*Player*/  new float[] { 1f, 1f, 1f, 1f },
-            /*Ground*/  new float[] { 1f, 1f, 1f, 1f },
-            /*Air*/  new float[] { 1f, 1f, 1f, 1f },
-            /*GroundArmoured*/  new float[] { 1f, 1f, 1f },
+            //None,1Player,2PlayerGroundMove,3PlayerAirMove,4BlockMove,5DeflectMove,6EnemyGround,7EnemyAir,8EnemyArmoured,9InstantKillPlayer,10PlayerRailgun (10)
+            /*1Player*/  new float[]            { 1f, 1f, 1f, 0f, 0.5f, 1f, 0f, 0.25f, 1f, 1f },
+            /*2PlayerGroundMove*/  new float[]  { 1f, 1f, 1f, 0f, 0.5f, 1f, 0f, 0.25f, 1f, 1f },
+            /*3PlayerAirMove*/  new float[]     { 1f, 1f, 1f, 0f, 0.5f, 1f, 1f, 0.25f, 1f, 1f },
+            /*4BlockMove*/  new float[]         { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
+            /*5DeflectMove*/  new float[]       { 1f, 1f, 1f, 1f, 1f, 3f, 3f, 3f, 3f, 1f },
+            /*6EnemyGround*/  new float[]       { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
+            /*7EnemyAir*/  new float[]          { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
+            /*8EnemyArmoured*/  new float[]     { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
+            /*9InstantKillPlayer*/  new float[] { 99999f, 1f, 1f, 99999f, 99999f, 1f, 1f, 1f, 1f, 1f },
+            /*10PlayerRailgun*/  new float[]    { 1f, 1f, 1f, 1f, 0.25f, 1f, 0.25f, 3f, 1f, 1f }
+
         };
 
     public static float GetEffectiveness(PokemonType attackType, PokemonType defenseType)

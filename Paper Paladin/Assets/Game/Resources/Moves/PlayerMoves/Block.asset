@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Block
   description: 
-  type: 0
+  type: 4
   power: 2
   accuracy: 100
   alwaysHits: 1
@@ -27,4 +27,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaries: []
   target: 0
-  sound: {fileID: 8300000, guid: 848d18ce1e8434dc19fc07bd8857de0d, type: 3}
+  sound: {fileID: 8300000, guid: e307bb9c5cd91481b9ef05d883fcd38f, type: 3}

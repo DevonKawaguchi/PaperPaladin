@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   frontSprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   backSprite: {fileID: 21300000, guid: fa37a8eb1a86746dbbe2ae92efbb9322, type: 3}
-  type1: 0
+  type1: 1
   type2: 0
   maxHp: 6
   attack: 1
@@ -29,16 +29,16 @@ MonoBehaviour:
   catchRate: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: c6b714721c8a64c929781749a99db041, type: 2}
-    level: 0
-  - moveBase: {fileID: 11400000, guid: 2d5bc7cf182c8457aa0a55052282ee48, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: 076028e1ec4304d13a0a8ca3a6ee2224, type: 2}
+  - moveBase: {fileID: 11400000, guid: 2d5bc7cf182c8457aa0a55052282ee48, type: 2}
     level: 2
-  - moveBase: {fileID: 11400000, guid: bc29b11f5af8c48deaddf40966a28454, type: 2}
+  - moveBase: {fileID: 11400000, guid: 076028e1ec4304d13a0a8ca3a6ee2224, type: 2}
     level: 3
-  - moveBase: {fileID: 11400000, guid: b76062ddeb5804203b56a08d463f00cf, type: 2}
+  - moveBase: {fileID: 11400000, guid: bc29b11f5af8c48deaddf40966a28454, type: 2}
     level: 4
-  - moveBase: {fileID: 11400000, guid: 3b5f1c16786564ace8c97cdcc2ebd27d, type: 2}
+  - moveBase: {fileID: 11400000, guid: b76062ddeb5804203b56a08d463f00cf, type: 2}
     level: 5
-  - moveBase: {fileID: 11400000, guid: b84b4c50f74394dc7a8fba898ab11e98, type: 2}
+  - moveBase: {fileID: 11400000, guid: 3b5f1c16786564ace8c97cdcc2ebd27d, type: 2}
     level: 6
+  - moveBase: {fileID: 11400000, guid: b84b4c50f74394dc7a8fba898ab11e98, type: 2}
+    level: 7

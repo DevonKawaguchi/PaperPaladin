@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1d247ed5824c8f904f701de500891, type: 3}
   m_Name: InstantKill
   m_EditorClassIdentifier: 
-  name: Instant Kill
+  name: Enemy Instant Kill
   description: 
-  type: 0
-  power: 0
+  type: 9
+  power: 100
   accuracy: 0
-  alwaysHits: 0
+  alwaysHits: 1
   pp: 0
   priority: 0
   category: 0

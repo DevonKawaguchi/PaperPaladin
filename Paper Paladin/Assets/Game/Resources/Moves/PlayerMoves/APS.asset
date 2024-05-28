@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: APS
   description: 
-  type: 0
+  type: 4
   power: 2
   accuracy: 100
   alwaysHits: 1
@@ -27,4 +27,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaries: []
   target: 0
-  sound: {fileID: 8300000, guid: 848d18ce1e8434dc19fc07bd8857de0d, type: 3}
+  sound: {fileID: 8300000, guid: d27d6d992d1044dd8bbc82ae62df250a, type: 3}

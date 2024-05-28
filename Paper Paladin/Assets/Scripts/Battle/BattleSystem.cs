@@ -88,7 +88,7 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.Setup(wildPokemon);
 
             dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
-            yield return dialogueBox.TypeDialogue($"A wild {enemyUnit.Pokemon.Base.Name} appeared!"); //$ acts the same as f string in python. "StartCourotine" present as TypeDialogue is a coroutine. Also yield return means the coroutine will wait for this line to complete before continuing to next line
+            yield return dialogueBox.TypeDialogue($"{enemyUnit.Pokemon.Base.Name} appeared!"); //$ acts the same as f string in python. "StartCourotine" present as TypeDialogue is a coroutine. Also yield return means the coroutine will wait for this line to complete before continuing to next line
         }
         else
         {
@@ -104,21 +104,25 @@ public class BattleSystem : MonoBehaviour
             playerImage.sprite = player.Sprite;
             trainerImage.sprite = trainer.Sprite;
 
-            yield return dialogueBox.TypeDialogue($"{trainer.Name} wants to battle!");
+            yield return dialogueBox.TypeDialogue($"WARNING! Approaching {trainer.Name}!");
+            yield return dialogueBox.TypeDialogue($"Activating S-ARM shields...");
+            yield return dialogueBox.TypeDialogue($"Impact in 3...");
+            yield return dialogueBox.TypeDialogue($"Impact in 2...");
+            yield return dialogueBox.TypeDialogue($"Impact in 1...");
 
             //Send out the Trainer's first Pokemon
             trainerImage.gameObject.SetActive(false);
             enemyUnit.gameObject.SetActive(true);
             var enemyPokemon = trainerParty.GetHealthyPokemon();
             enemyUnit.Setup(enemyPokemon);
-            yield return dialogueBox.TypeDialogue($"{trainer.Name} sent out {enemyPokemon.Base.Name}!");
+            yield return dialogueBox.TypeDialogue($"{enemyPokemon.Base.Name} appeared!");
 
             //Send out the Player's first Pokemon
             playerImage.gameObject.SetActive(false);
             playerUnit.gameObject.SetActive(true);
             var playerPokemon = playerParty.GetHealthyPokemon();
             playerUnit.Setup(playerPokemon);
-            yield return dialogueBox.TypeDialogue($"Go {playerPokemon.Base.Name}!");
+            //yield return dialogueBox.TypeDialogue($"Go {playerPokemon.Base.Name}!");
             dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
         }
 
@@ -159,7 +163,8 @@ public class BattleSystem : MonoBehaviour
     IEnumerator AboutToUse(Pokemon newPokemon)
     {
         state = BattleState.Busy;
-        yield return dialogueBox.TypeDialogue($"{trainer.Name} is about to use {newPokemon.Base.Name}. Do you want to change Pokemon?");
+        //yield return dialogueBox.TypeDialogue($"{trainer.Name} is about to use {newPokemon.Base.Name}. Do you want to change Pokemon?");
+        yield return dialogueBox.TypeDialogue($"Objective located. Would you like to the destroyer towards the superstorm?");
 
         state = BattleState.AboutToUse;
         dialogueBox.EnableChoiceBox(true);
@@ -507,16 +512,16 @@ public class BattleSystem : MonoBehaviour
     {
         if (damageDetails.Critical > 1f)
         {
-            yield return dialogueBox.TypeDialogue("A critical hit!");
+            yield return dialogueBox.TypeDialogue(">A critical hit!");
         }
 
         if (damageDetails.TypeEffectiveness > 1f)
         {
-            yield return dialogueBox.TypeDialogue("It's super effective!");
+            yield return dialogueBox.TypeDialogue(">It's super effective!");
         }
         else if (damageDetails.TypeEffectiveness < 1f)
         {
-            yield return dialogueBox.TypeDialogue("It's not very effective!");
+            yield return dialogueBox.TypeDialogue(">It's not very effective!");
         }
     }
 
@@ -666,13 +671,13 @@ public class BattleSystem : MonoBehaviour
             var selectedMember = partyScreen.SelectedMember;
             if (selectedMember.HP <= 0)
             {
-                partyScreen.SetMessageText("You can't send out a fainted pokemon!"); //Displays message
+                partyScreen.SetMessageText("You can't send out a destroyed move!"); //Displays message
                 return; //Does not allow fainted pokemons to be called into battle
             }
 
             if (selectedMember == playerUnit.Pokemon)
             {
-                partyScreen.SetMessageText("You can't switch with the same pokemon!"); //Displays message
+                partyScreen.SetMessageText("You can't switch with the same move!"); //Displays message
                 return;
             }
 
@@ -695,7 +700,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (playerUnit.Pokemon.HP <= 0)
             {
-                partyScreen.SetMessageText("You have to choose a Pokemon to continue!");
+                partyScreen.SetMessageText("You have to choose a move to continue!");
                 return;
             }
 

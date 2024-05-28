@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1d247ed5824c8f904f701de500891, type: 3}
   m_Name: EnemyGroundAttack
   m_EditorClassIdentifier: 
-  name: Ground Attack
+  name: Enemy Ground Attack
   description: 
-  type: 0
-  power: 0
+  type: 6
+  power: 1
   accuracy: 0
-  alwaysHits: 0
-  pp: 0
+  alwaysHits: 1
+  pp: 5
   priority: 0
   category: 0
   effects:

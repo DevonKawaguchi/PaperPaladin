@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c27a80e720aec47b9b3d6409169ca65a, type: 3}
-  m_Name: Pidgey
+  m_Name: Pikachu
   m_EditorClassIdentifier: 
-  name: Pidgey
+  name: Pikachu
   description: 
-  frontSprite: {fileID: 21300000, guid: e2e89591e8567482ab393aaeb04f8355, type: 3}
-  backSprite: {fileID: 21300000, guid: 392e3d1ca0b0f4c8099de6db31bd7963, type: 3}
-  type1: 0
+  frontSprite: {fileID: 21300000, guid: d0663d547f83c4817a31f68944d71f34, type: 3}
+  backSprite: {fileID: 21300000, guid: c56fc5a9ab0724f839d22977915eede8, type: 3}
+  type1: 2
   type2: 0
-  maxHp: 40
-  attack: 45
+  maxHp: 35
+  attack: 55
   defense: 40
-  spAttack: 35
-  spDefense: 35
-  speed: 56
+  spAttack: 50
+  spDefense: 50
+  speed: 90
   expYield: 60
   growthRate: 0
   catchRate: 255
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 9db39d81489e24dd8bff2fc23b96a258, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: ebeaf95dca85847e58ae12a343175180, type: 2}
+  - moveBase: {fileID: 11400000, guid: 714521c105e254655a12c66b440bf4f8, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: 0a463e9279a004248b6ee6d18ad564d9, type: 2}
-    level: 1
+  - moveBase: {fileID: 11400000, guid: 18169863e9a6c41fc8c24a7be0a47211, type: 2}
+    level: 10

@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   frontSprite: {fileID: 0}
   backSprite: {fileID: 0}
-  type1: 0
+  type1: 9
   type2: 0
   maxHp: 0
   attack: 0

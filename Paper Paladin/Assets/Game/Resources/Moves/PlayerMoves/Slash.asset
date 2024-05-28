@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Slash
   description: A light sword slash ideal for all types of ground enemies.
-  type: 0
+  type: 1
   power: 2
-  accuracy: 100
+  accuracy: 0
   alwaysHits: 1
   pp: 4
   priority: 0
