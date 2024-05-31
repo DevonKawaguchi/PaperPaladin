@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Color playSelectedColour;
 
     [SerializeField] Image blackImage;
+    [SerializeField] Image introBlackImage;
 
     int selectedItem = 0;
     bool playButtonPressed = false;
@@ -42,6 +43,7 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked; //Disables mouse when opening menu
         mainMenuItems = Menu.GetComponentsInChildren<TextMeshProUGUI>().ToList();
+        StartCoroutine(MenuAwakeFade());
     }
 
     private void FixedUpdate()
@@ -114,6 +116,11 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1); //Plays next scene by finding scene that's +1 build setting index from the current scene the script is in
+    }
+
+    IEnumerator MenuAwakeFade()
+    {
+        yield return introBlackImage.DOFade(0, 1f);
     }
 
     public void QuitGame()

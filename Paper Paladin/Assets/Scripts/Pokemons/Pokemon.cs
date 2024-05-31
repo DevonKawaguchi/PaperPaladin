@@ -79,6 +79,8 @@ public class Pokemon
 
         HP = MaxHp; //HP calculation moved to after CalculateStats() as it hadn't been defined previously (past error)
 
+        Debug.Log($"{Base.Name}'s health is {HP}");
+
         StatusChanges = new Queue<string>();
         ResetStatBoost();
         Status = null;
@@ -126,15 +128,19 @@ public class Pokemon
 
     void CalculateStats()
     {
-        //Debug.Log($"Base attack is {Base.Attack}");
-        //Debug.Log($"Base level is {Level}");
+        Debug.Log($"{Base.Name}'s base attack is {Base.Attack}");
+        Debug.Log($"{Base.Name}'s base level is {Level}");
 
         Stats = new Dictionary<Stat, int>();
-        Stats.Add(Stat.Attack, Mathf.FloorToInt(Base.Attack * Level));
-        Stats.Add(Stat.Defense, Mathf.FloorToInt(Base.Defense * Level));
-        Stats.Add(Stat.SpAttack, Mathf.FloorToInt(Base.SpAttack * Level));
-        Stats.Add(Stat.SpDefense, Mathf.FloorToInt(Base.SpDefense * Level));
-        Stats.Add(Stat.Speed, Mathf.FloorToInt(Base.Speed * Level));
+        Stats.Add(Stat.Attack, Base.Attack);
+        Stats.Add(Stat.Defense, Base.Defense);
+        Stats.Add(Stat.SpAttack, Base.SpAttack);
+        Stats.Add(Stat.SpDefense, Base.SpDefense);
+        Stats.Add(Stat.Speed, Base.Speed);
+
+        Debug.Log($"{Base.Name}'s base attack is {Mathf.FloorToInt(Base.Attack)}");
+
+        Debug.Log($"{Base.Name}'s base defense is {Mathf.FloorToInt(Base.Defense)}");
 
         MaxHp = Mathf.FloorToInt(Base.MaxHp + Level);
     }
@@ -250,6 +256,7 @@ public class Pokemon
         float critical = 1f;
         if (Random.value * 100f <= 6.25f)
         {
+            Debug.Log("Critical status applied");
             critical = 2f;
         }
 

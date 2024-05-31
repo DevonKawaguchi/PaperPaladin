@@ -16,10 +16,10 @@ MonoBehaviour:
   description: 
   type: 6
   power: 1
-  accuracy: 0
+  accuracy: 100
   alwaysHits: 1
   pp: 5
-  priority: 0
+  priority: 1
   category: 0
   effects:
     boosts: []

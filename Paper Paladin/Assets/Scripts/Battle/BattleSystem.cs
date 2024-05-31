@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-using UnityEngine.UI;
-using DG.Tweening;
+using System.Collections;
 using System.Linq;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
 
 public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, PartyScreen, AboutToUse, MoveToForget, BattleOver }
 public enum BattleAction { Move, SwitchPokemon, UseItem, Run }
@@ -25,7 +24,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] MoveSelectionUI moveSelectionUI;
 
     [Header("Audio")]
-    [SerializeField] AudioClip wildBattleMusic;
+    [SerializeField] AudioClip[] enemyMusic; //Changed
     [SerializeField] AudioClip trainerBattleMusic;
     [SerializeField] AudioClip battleVictoryMusic;
 
@@ -49,6 +48,13 @@ public class BattleSystem : MonoBehaviour
     PlayerController player;
     TrainerController trainer;
 
+    public MapArea mapArea1;
+
+    public GlobalGameIndex globalGameIndex;
+    public GameObject[] longGrassList;
+
+    //public int enemyMusicIndex = -1;
+
     public void StartBattle(PokemonParty playerParty, Pokemon wildPokemon)
     {
         this.playerParty = playerParty;
@@ -57,7 +63,7 @@ public class BattleSystem : MonoBehaviour
         player = playerParty.GetComponent<PlayerController>();
         isTrainerBattle = false;
 
-        AudioManager.i.PlayMusic(wildBattleMusic);
+        AudioManager.i.PlayMusic(enemyMusic[globalGameIndex.enemyMusicIndex]);
 
         StartCoroutine(SetupBattle());
     }
@@ -88,6 +94,7 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.Setup(wildPokemon);
 
             dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
+            //AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"{enemyUnit.Pokemon.Base.Name} appeared!"); //$ acts the same as f string in python. "StartCourotine" present as TypeDialogue is a coroutine. Also yield return means the coroutine will wait for this line to complete before continuing to next line
         }
         else
@@ -164,7 +171,7 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;
         //yield return dialogueBox.TypeDialogue($"{trainer.Name} is about to use {newPokemon.Base.Name}. Do you want to change Pokemon?");
-        yield return dialogueBox.TypeDialogue($"Objective located. Would you like to the destroyer towards the superstorm?");
+        yield return dialogueBox.TypeDialogue($"Objective located. Would you like to align the destroyer towards the superstorm?");
 
         state = BattleState.AboutToUse;
         dialogueBox.EnableChoiceBox(true);
@@ -309,6 +316,7 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"{sourceUnit.Pokemon.Base.Name}'s attack missed!");
         }
 
@@ -410,6 +418,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator HandlePokemonFainted(BattleUnit faintedUnit)
     {
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         yield return dialogueBox.TypeDialogue($"{faintedUnit.Pokemon.Base.Name} fainted!");
         faintedUnit.PlayFaintAnimation(); //Plays faint animation
         yield return new WaitForSeconds(2f);
@@ -424,7 +433,17 @@ public class BattleSystem : MonoBehaviour
 
             if (battleWon)
             {
-                AudioManager.i.PlayMusic(battleVictoryMusic);
+                globalGameIndex.enemyIndex += 1;
+                Debug.Log("Increased areaEnemyNumber by 1");
+                globalGameIndex.enemyMusicIndex += 1;
+                Debug.Log($"areaEnemyMusicIndex is {globalGameIndex.enemyMusicIndex}");
+                //globalGameIndex.longGrassIndex += 1;
+                //longGrassList[globalGameIndex.longGrassIndex].SetActive(false);
+
+                Debug.Log($"longGrass {globalGameIndex.longGrassIndex} was destroyed");
+
+                //AudioManager.i.PlayMusic(battleVictoryMusic, false);
+                AudioManager.i.PlaySFX(AudioID.Victory);
             }
 
             //Exp Gain
@@ -435,6 +454,7 @@ public class BattleSystem : MonoBehaviour
             int expGain = Mathf.FloorToInt(expYield * enemyLevel * trainerBonus) / 7;
             playerUnit.Pokemon.Exp += expGain; //Adds XP to Pokemon
             yield return dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} gained {expGain} EXP!");
+            //AudioManager.i.PlaySFX(AudioID.ExpGain);
             yield return playerUnit.HUD.SetExpSmooth();
 
             //Check Level Up
@@ -512,15 +532,18 @@ public class BattleSystem : MonoBehaviour
     {
         if (damageDetails.Critical > 1f)
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue(">A critical hit!");
         }
 
         if (damageDetails.TypeEffectiveness > 1f)
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue(">It's super effective!");
         }
         else if (damageDetails.TypeEffectiveness < 1f)
         {
+            AudioManager.i.PlaySFX(AudioID.UIExit);
             yield return dialogueBox.TypeDialogue(">It's not very effective!");
         }
     }
@@ -580,19 +603,24 @@ public class BattleSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+
             ++currentAction;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             --currentAction;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentAction += 2;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentAction -= 2;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
 
         currentAction = Mathf.Clamp(currentAction, 0, 3); //Ensures currentAction doesn't exceed 3. Modify 3rd value if seeking to increase or decrease action options 
@@ -604,21 +632,25 @@ public class BattleSystem : MonoBehaviour
             if (currentAction == 0)
             {
                 //Fight
+                AudioManager.i.PlaySFX(AudioID.UISelect);
                 MoveSelection();
             }
             else if (currentAction == 1)
             {
                 //Bag
+                AudioManager.i.PlaySFX(AudioID.UISelect);
                 StartCoroutine(RunTurns(BattleAction.UseItem));
             }
             else if (currentAction == 2)
             {
                 //Pokemon
+                AudioManager.i.PlaySFX(AudioID.UISelect);
                 OpenPartyScreen();
             }
             else if (currentAction == 3)
             {
                 //Run
+                AudioManager.i.PlaySFX(AudioID.UISelect);
                 StartCoroutine(RunTurns(BattleAction.Run));
             }
         }
@@ -629,18 +661,22 @@ public class BattleSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             ++currentMove;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             --currentMove;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentMove += 2;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentMove -= 2;
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
 
         currentMove = Mathf.Clamp(currentMove, 0, playerUnit.Pokemon.Moves.Count - 1); //Ensures currentAction doesn't exceed 3
@@ -650,6 +686,7 @@ public class BattleSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z)) //Change to Enter in future
         {
             var move = playerUnit.Pokemon.Moves[currentMove];
+            AudioManager.i.PlaySFX(AudioID.UISelect);
             if (move.PP == 0) return; //If true, the function won't run the below code.
 
             dialogueBox.EnableMoveSelector(false);
@@ -658,6 +695,7 @@ public class BattleSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X)) //Returns player to PlayerAction() state if press X
         {
+            AudioManager.i.PlaySFX(AudioID.UIExit);
             dialogueBox.EnableMoveSelector(false);
             dialogueBox.EnableDialogueText(true);
             ActionSelection();
@@ -671,12 +709,14 @@ public class BattleSystem : MonoBehaviour
             var selectedMember = partyScreen.SelectedMember;
             if (selectedMember.HP <= 0)
             {
-                partyScreen.SetMessageText("You can't send out a destroyed move!"); //Displays message
+                AudioManager.i.PlaySFX(AudioID.UIError);
+                partyScreen.SetMessageText("You can't send out a fainted party member!"); //Displays message
                 return; //Does not allow fainted pokemons to be called into battle
             }
 
             if (selectedMember == playerUnit.Pokemon)
             {
+                AudioManager.i.PlaySFX(AudioID.UIError);
                 partyScreen.SetMessageText("You can't switch with the same move!"); //Displays message
                 return;
             }
@@ -700,6 +740,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (playerUnit.Pokemon.HP <= 0)
             {
+                AudioManager.i.PlaySFX(AudioID.UIError);
                 partyScreen.SetMessageText("You have to choose a move to continue!");
                 return;
             }
@@ -736,11 +777,13 @@ public class BattleSystem : MonoBehaviour
             if (aboutToUseChoice == true)
             {
                 //Yes option
+                AudioManager.i.PlaySFX(AudioID.UISelectionMove);
                 OpenPartyScreen();
             }
             else
             {
                 //No option
+                AudioManager.i.PlaySFX(AudioID.UISelectionMove);
                 StartCoroutine(SendNextTrainerPokemon());
             }
         }
@@ -783,6 +826,7 @@ public class BattleSystem : MonoBehaviour
         var nextPokemon = trainerParty.GetHealthyPokemon();
 
         enemyUnit.Setup(nextPokemon);
+        AudioManager.i.PlaySFX(AudioID.UIError);
         yield return dialogueBox.TypeDialogue($"{trainer.Name} sent out {nextPokemon.Base.Name}!");
 
         state = BattleState.RunningTurn;
@@ -880,6 +924,7 @@ public class BattleSystem : MonoBehaviour
 
         if (isTrainerBattle)
         {
+            AudioManager.i.PlaySFX(AudioID.UIError);
             yield return dialogueBox.TypeDialogue($"You can't run from trainer battles!");
             state = BattleState.RunningTurn;
             yield break;
@@ -892,6 +937,7 @@ public class BattleSystem : MonoBehaviour
 
         if (enemySpeed < playerSpeed)
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"Ran away safely!");
             BattleOver(true);
         }
@@ -902,12 +948,14 @@ public class BattleSystem : MonoBehaviour
 
             if (UnityEngine.Random.Range(0, 256) < f)
             {
+                AudioManager.i.PlaySFX(AudioID.UISelectionMove);
                 yield return dialogueBox.TypeDialogue($"Ran away safely!");
                 BattleOver(true);
 
             }
             else
             {
+                AudioManager.i.PlaySFX(AudioID.UIError);
                 yield return dialogueBox.TypeDialogue($"Can't escape!");
                 state = BattleState.RunningTurn;
             }
