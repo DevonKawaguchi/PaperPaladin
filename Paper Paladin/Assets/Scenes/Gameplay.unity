@@ -625,6 +625,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1582420776695327571, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1931817161566765525, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1028,6 +1032,10 @@ PrefabInstance:
     - target: {fileID: 3015499551765428494, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213293833383719233, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15.300003
       objectReference: {fileID: 0}
     - target: {fileID: 3330992388546417085, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2185,6 +2193,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7118440793323324124, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 18.587006
+      objectReference: {fileID: 0}
     - target: {fileID: 7178425347456627913, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2795,9 +2807,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a1612ed022148bcad4d5db87eeb3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalGameIndex: {fileID: 0}
+  globalGameIndex: {fileID: 1010843710}
   wildPokemons:
-  - _base: {fileID: 11400000, guid: 1fb2505d359bb414ead34f24723e813a, type: 2}
+  - _base: {fileID: 11400000, guid: 97a289c8fc9f046c8ab689db8112fbd2, type: 2}
     level: 8
 --- !u!1 &1182230924 stripped
 GameObject:
@@ -2816,7 +2828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a1612ed022148bcad4d5db87eeb3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalGameIndex: {fileID: 0}
+  globalGameIndex: {fileID: 1010843710}
   wildPokemons:
   - _base: {fileID: 11400000, guid: acbfd77be7f2a43559124f640f6ce39c, type: 2}
     level: 8
@@ -2940,7 +2952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a1612ed022148bcad4d5db87eeb3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalGameIndex: {fileID: 0}
+  globalGameIndex: {fileID: 1010843710}
   wildPokemons:
   - _base: {fileID: 11400000, guid: 3cdecb845cfb14f09add6a3772621e99, type: 2}
     level: 8
@@ -2970,8 +2982,8 @@ MonoBehaviour:
   globalGameIndex: {fileID: 1010843710}
   wildPokemons:
   - _base: {fileID: 11400000, guid: 97a289c8fc9f046c8ab689db8112fbd2, type: 2}
-    level: 1
-  - _base: {fileID: 11400000, guid: 2103ef2a4a5974ba583a7d8a532bf6e6, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 3b490b9c46afe484ea18198119e269ea, type: 2}
     level: 1
 --- !u!1001 &8398216408151975960
 PrefabInstance:

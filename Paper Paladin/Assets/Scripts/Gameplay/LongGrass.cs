@@ -5,11 +5,20 @@ using UnityEngine.TextCore.Text;
 
 public class LongGrass : MonoBehaviour, IPlayerTriggerable
 {
-    //[SerializeField] GameObject LongGrassObject;
-
+    //public GlobalGameIndex globalGameIndex;
 
     public void OnPlayerTriggered(PlayerController player)
     {
+        //longGrassObject.gameObject.SetActive(false);
+
+
+        Destroy(this.transform.gameObject);
+        Destroy(GameObject.Find($"LongGrass - {GlobalGameIndex.longGrassIndex}"));
+
+        Debug.Log($"LongGrass - {GlobalGameIndex.longGrassIndex} destroyed");
+
+        GlobalGameIndex.longGrassIndex += 1;
+
         player.Character.Animator.IsMoving = false;
 
         GameController.Instance.StartBattle();

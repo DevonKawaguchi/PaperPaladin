@@ -440,10 +440,10 @@ public class BattleSystem : MonoBehaviour
                 //globalGameIndex.longGrassIndex += 1;
                 //longGrassList[globalGameIndex.longGrassIndex].SetActive(false);
 
-                Debug.Log($"longGrass {globalGameIndex.longGrassIndex} was destroyed");
+                //Debug.Log($"longGrass {globalGameIndex.longGrassIndex} was destroyed");
 
-                //AudioManager.i.PlayMusic(battleVictoryMusic, false);
-                AudioManager.i.PlaySFX(AudioID.Victory);
+                AudioManager.i.PlayMusic(battleVictoryMusic, false);
+                //AudioManager.i.PlaySFX(AudioID.Victory);
             }
 
             //Exp Gain

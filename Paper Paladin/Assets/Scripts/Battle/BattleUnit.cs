@@ -49,7 +49,7 @@ public class BattleUnit : MonoBehaviour
         hud.gameObject.SetActive(true);
         hud.SetData(pokemon);
 
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         image.color = originalColour; //Reverts image to original color - this is to revert the faint transition if initiating another battle as originally the respective image would remain transparent
 
         PlayEnterAnimation();

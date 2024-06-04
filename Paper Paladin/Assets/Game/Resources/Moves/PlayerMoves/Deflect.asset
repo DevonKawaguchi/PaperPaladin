@@ -15,8 +15,8 @@ MonoBehaviour:
   name: Deflect
   description: 
   type: 5
-  power: 2
-  accuracy: 100
+  power: 50
+  accuracy: 50
   alwaysHits: 1
   pp: 4
   priority: 0

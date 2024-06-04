@@ -1914,12 +1914,12 @@ GameObject:
   - component: {fileID: 1641546494}
   - component: {fileID: 1641546493}
   m_Layer: 5
-  m_Name: IntroBlackImage
+  m_Name: IntroBlackImage (ReEnable)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1641546492
 RectTransform:
   m_ObjectHideFlags: 0

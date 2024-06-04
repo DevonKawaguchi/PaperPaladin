@@ -77,15 +77,16 @@ public class ConditionsDB
                 }
             }
         },
-        { ConditionID.SLP, //Pokemon paralysed and can't perform a move for 1-3 turns
+        { ConditionID.SLP, //Originally Sleep, now Attacking Pokemon paralysed and can't perform a move for 1-3 turns
             new Condition()
             {
-                Name = "Sleep",
-                StartMessage = "has fallen asleep!",
+                Name = "AttackTelegraph",
+                StartMessage = "is charging their weapon!",
                 OnStart = (Pokemon pokemon) =>
                 {
                     //Sleep for 1-3 turns
-                    pokemon.StatusTime = Random.Range(1,4); //1-3 (4 is exclusive)
+                    //pokemon.StatusTime = Random.Range(1,4); //1-3 (4 is exclusive)
+                    pokemon.StatusTime = 1; //1-3 (4 is exclusive)
                     Debug.Log($"Will be asleep for {pokemon.StatusTime} moves!");
                 },
                 OnBeforeMove = (Pokemon pokemon) =>
@@ -93,12 +94,12 @@ public class ConditionsDB
                     if (pokemon.StatusTime <= 0) //Wake up Pokemon if StatusTime reaches 0
                     {
                         pokemon.CureStatus();
-                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} woke up!");
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}'s weapon is charged!");
                         return true; //Move can now be performed
                     }
 
                     pokemon.StatusTime--;
-                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is sleeping!");
+                    //pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is preparing to attack!");
                     return false; //Move can't be performed
                 }
             }

@@ -25,6 +25,11 @@ MonoBehaviour:
     boosts: []
     status: 0
     volatileStatus: 0
-  secondaries: []
+  secondaries:
+  - boosts: []
+    status: 3
+    volatileStatus: 0
+    chance: 100
+    target: 0
   target: 0
   sound: {fileID: 8300000, guid: 848d18ce1e8434dc19fc07bd8857de0d, type: 3}
