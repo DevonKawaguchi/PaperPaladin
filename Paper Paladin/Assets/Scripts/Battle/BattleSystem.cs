@@ -63,7 +63,7 @@ public class BattleSystem : MonoBehaviour
         player = playerParty.GetComponent<PlayerController>();
         isTrainerBattle = false;
 
-        AudioManager.i.PlayMusic(enemyMusic[globalGameIndex.enemyMusicIndex]);
+        AudioManager.i.PlayMusic(enemyMusic[globalGameIndex.enemyMusicIndex], true, false);
 
         StartCoroutine(SetupBattle());
     }
@@ -449,9 +449,9 @@ public class BattleSystem : MonoBehaviour
             //Exp Gain
             int expYield = faintedUnit.Pokemon.Base.ExpYield;
             int enemyLevel = faintedUnit.Pokemon.Level;
-            float trainerBonus = (isTrainerBattle) ? 1.5f : 1f; //Multiplies XP gained by 1.5x if Trainer Pokemon
+            float trainerBonus = (isTrainerBattle) ? 2f : 1f; //Multiplies XP gained by 2x if Trainer Pokemon
 
-            int expGain = Mathf.FloorToInt(expYield * enemyLevel * trainerBonus) / 7;
+            int expGain = Mathf.FloorToInt(expYield * enemyLevel * trainerBonus);
             playerUnit.Pokemon.Exp += expGain; //Adds XP to Pokemon
             yield return dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} gained {expGain} EXP!");
             //AudioManager.i.PlaySFX(AudioID.ExpGain);

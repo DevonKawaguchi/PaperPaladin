@@ -205,7 +205,7 @@ public class Pokemon
 
     public bool CheckForLevelUp() //Increases Pokemon level if XP greater than XP cap
     {
-        if (Exp > Base.GetExpForLevel(level + 1)) 
+        if (Exp > Base.GetExpForLevel(level)) 
         {
             ++level;
             return true;

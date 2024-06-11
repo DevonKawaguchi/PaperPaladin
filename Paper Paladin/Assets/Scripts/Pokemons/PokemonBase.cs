@@ -37,11 +37,13 @@ public class PokemonBase : ScriptableObject
     {
         if (growthRate == GrowthRate.Fast)
         {
-            return 4 * (level * level * level) / 5;
+            //return 2 * (level * level * level) / 5;
+            return 2 * level;
         }
         else if (growthRate == GrowthRate.MediumFast)
         {
-            return level * level * level;
+            //return level * level * level;
+            return level;
         }
 
         return -1; //If not above, throw error to indicate an error has occurred and that the GrowthRate doesn't exist

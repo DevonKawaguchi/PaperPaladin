@@ -53,3 +53,6 @@ TagManager:
   - name: Battle
     uniqueID: 1521750259
     locked: 0
+  - name: ForwardForeground
+    uniqueID: 680964527
+    locked: 0

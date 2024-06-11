@@ -91,7 +91,7 @@ public class AudioManager : MonoBehaviour
 }
 
 
-public enum AudioID { UISelect, Hit, Faint, ExpGain, ItemObtained, PokemonObtained, UISelectionMove, UIExit, UIError, Victory }
+public enum AudioID { UISelect, Hit, Faint, ExpGain, ItemObtained, PokemonObtained, UISelectionMove, UIExit, UIError, Victory, BattleStart }
 
 [System.Serializable]
 public class AudioData

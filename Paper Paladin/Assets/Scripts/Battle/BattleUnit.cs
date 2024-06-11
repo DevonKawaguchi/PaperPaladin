@@ -49,7 +49,7 @@ public class BattleUnit : MonoBehaviour
         hud.gameObject.SetActive(true);
         hud.SetData(pokemon);
 
-        transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
         image.color = originalColour; //Reverts image to original color - this is to revert the faint transition if initiating another battle as originally the respective image would remain transparent
 
         PlayEnterAnimation();
@@ -64,11 +64,11 @@ public class BattleUnit : MonoBehaviour
     {
         if (isPlayerUnit)
         {
-            image.transform.localPosition = new Vector3(-500f, originalPos.y); //This may be required to be changed following tutorial setup if I decide to inrease resolution  
+            image.transform.localPosition = new Vector3(-1000f, originalPos.y); //This may be required to be changed following tutorial setup if I decide to inrease resolution  
         }
         else
         {
-            image.transform.localPosition = new Vector3(500f, originalPos.y);
+            image.transform.localPosition = new Vector3(1000f, originalPos.y);
         }
 
         image.transform.DOLocalMoveX(originalPos.x, 1f); //1st value is where the DOTween should move, and the 2nd is how long the transition should last
