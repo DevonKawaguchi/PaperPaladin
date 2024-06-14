@@ -47,6 +47,28 @@ public class Character : MonoBehaviour
             }
         }
 
+        var grass = CheckForGrass(targetPos);
+        //if (grass == null)
+        //{
+        //    LongGrass.currentlyStanding = false;
+        //    Debug.Log($"currentylStanding is {LongGrass.currentlyStanding}");
+        //}
+
+        if (grass != null)
+        {
+            if (grass.TryToJump(this, moveVec)) //Character, move direction
+            {
+                yield break; //Won't execute rest of code if true
+            }
+
+            //if (grass. == true)
+            //{
+            //    yield break;
+            //}
+
+        }
+
+
         //checkCollisions allows cutscene moves to perform simulultaneously by setting below logic to false
         if (checkCollisions && !IsPathClear(targetPos)) //If IsPathClear = False, break the path and move onto the next viable path
         {
@@ -98,6 +120,12 @@ public class Character : MonoBehaviour
     {
         var collider = Physics2D.OverlapCircle(targetPos, 0.15f, GameLayers.i.LedgeLayer); //Anchor, radius, search term
         return collider?.GetComponent<Ledge>();
+    }
+
+    LongGrass CheckForGrass(Vector3 targetPos)
+    {
+        var collider = Physics2D.OverlapCircle(targetPos, 0.15f, GameLayers.i.GrassLayer); //Anchor, radius, search term
+        return collider?.GetComponent<LongGrass>();
     }
 
     public void LookTowards(Vector3 targetPos) //Makes the character looks towards the target position passed - For NPCs looking towards Player in dialogue

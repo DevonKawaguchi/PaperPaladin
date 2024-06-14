@@ -2392,7 +2392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6491373203193648455, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_RenderPostProcessing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6638917917539515165, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_ReferenceResolution.x
@@ -2795,6 +2795,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2034677516}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: playerActor
+      value: 
+      objectReference: {fileID: 2058148119}
+    - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: enemyMusicIndex
       value: -1
       objectReference: {fileID: 0}
@@ -2802,6 +2806,10 @@ PrefabInstance:
       propertyPath: globalGameIndex
       value: 
       objectReference: {fileID: 1010843710}
+    - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: longGrassScript
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: wildBattleMusic
       value: 
@@ -2819,9 +2827,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 897a9f2a20e5b4efbb0c99c2bf38729c, type: 3}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: battleActor.isPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: longGrass.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: battleActor.character
+      value: 
+      objectReference: {fileID: 2058148119}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: enemyMusic.Array.size
       value: 3
@@ -2840,11 +2856,19 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: ae289c85e4d664e69befbbebca35c727, type: 3}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: longGrassList.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: movementPattern.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: longGrassList.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: movementPattern.Array.data[0].x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8119568617760194056, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3471,6 +3495,17 @@ MonoBehaviour:
     level: 1
   - _base: {fileID: 11400000, guid: 2103ef2a4a5974ba583a7d8a532bf6e6, type: 2}
     level: 1
+--- !u!114 &2058148119 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2430629960243645331, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+  m_PrefabInstance: {fileID: 1010843707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5198964f20775423e8b3d5b6eb0d5a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8398216408151975960
 PrefabInstance:
   m_ObjectHideFlags: 0

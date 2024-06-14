@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
@@ -30,6 +31,8 @@ public class BattleSystem : MonoBehaviour
 
     public event Action<bool> OnBattleOver; //Action<bool> used to determine whether the player won or lost the battle
 
+    //[SerializeField] BattleActor battleActor; //Character that should be moved
+
     BattleState state;
 
     int currentAction;
@@ -51,7 +54,11 @@ public class BattleSystem : MonoBehaviour
     public MapArea mapArea1;
 
     public GlobalGameIndex globalGameIndex;
-    public GameObject[] longGrassList;
+    //public GameObject[] longGrassList;
+
+    public LongGrass longGrassScript;
+
+    //[SerializeField] List<Vector2> movementPattern;
 
     //public int enemyMusicIndex = -1;
 
@@ -96,6 +103,18 @@ public class BattleSystem : MonoBehaviour
             dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
             //AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"{enemyUnit.Pokemon.Base.Name} appeared!"); //$ acts the same as f string in python. "StartCourotine" present as TypeDialogue is a coroutine. Also yield return means the coroutine will wait for this line to complete before continuing to next line
+
+            for (int i = 0; i < (playerUnit.Pokemon.Moves.Count - 1); ++i) //Returns all player moves to original values
+            {
+                Debug.Log($"Original {playerUnit.Pokemon.Moves[i]} PP is {playerUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
+                playerUnit.Pokemon.Moves[i].PP = playerUnit.Pokemon.Moves[i].Base.PP;
+            }
+
+            for (int i = 0; i < (enemyUnit.Pokemon.Moves.Count - 1); ++i) //Returns all enemy moves to original values
+            {
+                Debug.Log($"Original {enemyUnit.Pokemon.Moves[i]} PP is {enemyUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
+                enemyUnit.Pokemon.Moves[i].PP = enemyUnit.Pokemon.Moves[i].Base.PP;
+            }
         }
         else
         {
@@ -140,6 +159,7 @@ public class BattleSystem : MonoBehaviour
 
     void BattleOver(bool won)
     {
+        Debug.Log("Battle finished");
         state = BattleState.BattleOver;
         playerParty.Pokemons.ForEach(p => p.OnBattleOver()); //Shorter way of writing foreach using Linq. Resets each stat boosters applied to all pokemons in the party
         OnBattleOver(won);
@@ -503,6 +523,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                LongGrass.battleDefeat = true;
                 BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
             }
         }
@@ -510,6 +531,15 @@ public class BattleSystem : MonoBehaviour
         {
             if (!isTrainerBattle)
             {
+                Destroy(GameObject.Find($"LongGrass - {GlobalGameIndex.longGrassIndex}").transform.gameObject);
+
+                Debug.Log($"LongGrass - {GlobalGameIndex.longGrassIndex} destroyed");
+
+                GlobalGameIndex.longGrassIndex += 1;
+
+                Debug.Log($"LongGrassIndex increased to {GlobalGameIndex.longGrassIndex}");
+
+
                 BattleOver(true);
             }
             else
@@ -939,7 +969,13 @@ public class BattleSystem : MonoBehaviour
         {
             AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"Ran away safely!");
+            LongGrass.battleDefeat = true;
+            Debug.Log($"battleDefeat is {LongGrass.battleDefeat}");
+            //StartCoroutine(MakePlayerMove());
+
             BattleOver(true);
+
+            //Debug.Log($"Player should move now");
         }
         else
         {
@@ -950,6 +986,8 @@ public class BattleSystem : MonoBehaviour
             {
                 AudioManager.i.PlaySFX(AudioID.UISelectionMove);
                 yield return dialogueBox.TypeDialogue($"Ran away safely!");
+                LongGrass.battleDefeat = true;
+                Debug.Log($"battleDefeat is {LongGrass.battleDefeat} 2");
                 BattleOver(true);
 
             }
@@ -961,4 +999,27 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
+
+    //IEnumerator MakePlayerMove()
+    //{
+    //    GameController.Instance.StartCutsceneState();
+
+    //    var character = battleActor.GetCharacter();
+
+    //    Debug.Log("Executed MakePlayerMove() coroutine");
+    //    yield return character.Move(movementPattern[0]);
+
+    //    GameController.Instance.StartFreeRoamState();
+
+    //    yield break;
+    //}
 }
+
+//[System.Serializable]
+//public class BattleActor
+//{
+//    [SerializeField] bool isPlayer;
+//    [SerializeField] Character character;
+
+//    public Character GetCharacter() => (isPlayer) ? PlayerController.i.Character : character; //Returns character. Otherwise, return character assigned in the field
+//}
