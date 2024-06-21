@@ -96,8 +96,8 @@ public class BattleDialogueBox : MonoBehaviour
             }
         }
 
-        ppText.text = $"PP {move.PP}/{move.Base.PP}";
-        typeText.text = move.Base.Type.ToString(); //.ToString() as Type is an enum
+        ppText.text = $"Left: {move.PP}/{move.Base.PP}";
+        typeText.text = move.Base.Description.ToString(); //.ToString() as Type is an enum
 
         if (move.PP == 0)
         {

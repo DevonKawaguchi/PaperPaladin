@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlobalGameIndex : MonoBehaviour
 {
-    public int enemyIndex = 0;
+    public static int enemyIndex = 0;
     public int enemyMusicIndex = 0;
     public static int longGrassIndex = 1;
 

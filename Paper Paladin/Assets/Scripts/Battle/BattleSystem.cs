@@ -25,8 +25,10 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] MoveSelectionUI moveSelectionUI;
 
     [Header("Audio")]
-    [SerializeField] AudioClip[] enemyMusic; //Changed
-    [SerializeField] AudioClip trainerBattleMusic;
+    [SerializeField] AudioClip[] enemyMusic; //Changedf
+    [SerializeField] AudioClip bossBattleP1Music;
+    [SerializeField] AudioClip bossBattleP2Music;
+    [SerializeField] AudioClip bossBattleP3Music;
     [SerializeField] AudioClip battleVictoryMusic;
 
     public event Action<bool> OnBattleOver; //Action<bool> used to determine whether the player won or lost the battle
@@ -72,6 +74,12 @@ public class BattleSystem : MonoBehaviour
 
         AudioManager.i.PlayMusic(enemyMusic[globalGameIndex.enemyMusicIndex], true, false);
 
+        for (int i = 0; i < playerParty.Pokemons.Count; ++i)
+        {
+            playerParty.Pokemons[i].HP = (playerParty.Pokemons[i].Base.MaxHp); //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
+            Debug.Log($"{playerParty.Pokemons[i].Base.Name} HP is now {playerParty.Pokemons[i].HP}");
+        }
+
         StartCoroutine(SetupBattle());
     }
 
@@ -84,7 +92,7 @@ public class BattleSystem : MonoBehaviour
         player = playerParty.GetComponent<PlayerController>();
         trainer = trainerParty.GetComponent<TrainerController>();
 
-        AudioManager.i.PlayMusic(trainerBattleMusic);
+        AudioManager.i.PlayMusic(bossBattleP1Music);
 
         StartCoroutine(SetupBattle());
     }
@@ -104,8 +112,12 @@ public class BattleSystem : MonoBehaviour
             //AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"{enemyUnit.Pokemon.Base.Name} appeared!"); //$ acts the same as f string in python. "StartCourotine" present as TypeDialogue is a coroutine. Also yield return means the coroutine will wait for this line to complete before continuing to next line
 
-            for (int i = 0; i < (playerUnit.Pokemon.Moves.Count - 1); ++i) //Returns all player moves to original values
+            Debug.Log($"playerUnit.Pokemon.Moves.Count - 1 is {playerUnit.Pokemon.Moves.Count}");
+
+            for (int i = 0; i < (playerUnit.Pokemon.Moves.Count); ++i) //Returns all player moves to original values
             {
+                //Logic Error: set "playerUnit.Pokemon.Moves.Count - 1" to "playerUnit.Pokemon.Moves.Count" 
+
                 Debug.Log($"Original {playerUnit.Pokemon.Moves[i]} PP is {playerUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
                 playerUnit.Pokemon.Moves[i].PP = playerUnit.Pokemon.Moves[i].Base.PP;
             }
@@ -115,6 +127,12 @@ public class BattleSystem : MonoBehaviour
                 Debug.Log($"Original {enemyUnit.Pokemon.Moves[i]} PP is {enemyUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
                 enemyUnit.Pokemon.Moves[i].PP = enemyUnit.Pokemon.Moves[i].Base.PP;
             }
+
+            //for (int i = 0; i < playerParty.Pokemons.Count; ++i)
+            //{
+            //    playerParty.Pokemons[i].HP = (playerParty.Pokemons[i].Base.MaxHp) + 1; //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
+            //    Debug.Log($"{playerParty.Pokemons[i].Base.Name} HP is now {playerParty.Pokemons[i].HP}");
+            //}
         }
         else
         {
@@ -128,9 +146,9 @@ public class BattleSystem : MonoBehaviour
             trainerImage.gameObject.SetActive(true);
 
             playerImage.sprite = player.Sprite;
-            trainerImage.sprite = trainer.Sprite;
+            //trainerImage.sprite = trainer.Sprite;
 
-            yield return dialogueBox.TypeDialogue($"WARNING! Approaching {trainer.Name}!");
+            yield return dialogueBox.TypeDialogue($"WARNING! Approaching bob!");
             yield return dialogueBox.TypeDialogue($"Activating S-ARM shields...");
             yield return dialogueBox.TypeDialogue($"Impact in 3...");
             yield return dialogueBox.TypeDialogue($"Impact in 2...");
@@ -292,7 +310,11 @@ public class BattleSystem : MonoBehaviour
         }
         yield return ShowStatusChanges(sourceUnit.Pokemon);
 
-        move.PP--; //Decreases PP value by 1
+        if (sourceUnit.Pokemon == playerUnit.Pokemon) //Stops runtime error that happens when enemy had no stamina for moves
+        {
+            move.PP--; //Decreases PP value by 1
+        }
+
         yield return dialogueBox.TypeDialogue($"{sourceUnit.Pokemon.Base.Name} used {move.Base.Name}!");
 
         if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon))
@@ -351,17 +373,29 @@ public class BattleSystem : MonoBehaviour
             if (moveTarget == MoveTarget.Self)
             {
                 source.ApplyBoosts(effects.Boosts);
+                Debug.Log("Applied to self");
             }
             else
             {
                 target.ApplyBoosts(effects.Boosts);
+                Debug.Log("Applied to target");
+
             }
         }
 
         //Status condition
-        if (effects.Status != ConditionID.none)
+        if (effects.Status != ConditionID.none && moveTarget == MoveTarget.Foe)
         {
             target.SetStatus(effects.Status);
+            Debug.Log("Applied to target");
+        }
+        else
+        {
+            if (effects.Status != ConditionID.none && moveTarget == MoveTarget.Self)
+            {
+                source.SetStatus(effects.Status);
+                Debug.Log("Applied to self");
+            }
         }
 
         //Volatile status condition
@@ -453,7 +487,7 @@ public class BattleSystem : MonoBehaviour
 
             if (battleWon)
             {
-                globalGameIndex.enemyIndex += 1;
+                GlobalGameIndex.enemyIndex += 1;
                 Debug.Log("Increased areaEnemyNumber by 1");
                 globalGameIndex.enemyMusicIndex += 1;
                 Debug.Log($"areaEnemyMusicIndex is {globalGameIndex.enemyMusicIndex}");
@@ -538,7 +572,6 @@ public class BattleSystem : MonoBehaviour
                 GlobalGameIndex.longGrassIndex += 1;
 
                 Debug.Log($"LongGrassIndex increased to {GlobalGameIndex.longGrassIndex}");
-
 
                 BattleOver(true);
             }
@@ -653,11 +686,11 @@ public class BattleSystem : MonoBehaviour
             AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
 
-        currentAction = Mathf.Clamp(currentAction, 0, 3); //Ensures currentAction doesn't exceed 3. Modify 3rd value if seeking to increase or decrease action options 
+        currentAction = Mathf.Clamp(currentAction, 0, 2); //Ensures currentAction doesn't exceed 3. Modify 3rd value if seeking to increase or decrease action options 
 
         dialogueBox.UpdateActionSelection(currentAction);
 
-        if (Input.GetKeyDown(KeyCode.Z)) //MAKE SURE TO CHANGE! - When Z key is pressed during action selection, the dialogue box will show moves available. CHANGE THIS TO ENTER KEY! Z key only present in line for tutorial.
+        if (Input.GetKeyDown(KeyCode.Z)) //MAKE SURE TO CHANGE! - When Z key is pressed during action selection, the dialogue box will show moves available. CHANGE THIS TO ENTER KEY! Z key only present in line for tutorial. 20/6/24: Nevermind
         {
             if (currentAction == 0)
             {
@@ -667,22 +700,30 @@ public class BattleSystem : MonoBehaviour
             }
             else if (currentAction == 1)
             {
-                //Bag
-                AudioManager.i.PlaySFX(AudioID.UISelect);
-                StartCoroutine(RunTurns(BattleAction.UseItem));
-            }
-            else if (currentAction == 2)
-            {
+                ////Bag
+                //AudioManager.i.PlaySFX(AudioID.UISelect);
+                //StartCoroutine(RunTurns(BattleAction.UseItem));
+
                 //Pokemon
                 AudioManager.i.PlaySFX(AudioID.UISelect);
                 OpenPartyScreen();
             }
-            else if (currentAction == 3)
+            else if (currentAction == 2)
             {
+                ////Pokemon
+                //AudioManager.i.PlaySFX(AudioID.UISelect);
+                //OpenPartyScreen();
+
                 //Run
                 AudioManager.i.PlaySFX(AudioID.UISelect);
                 StartCoroutine(RunTurns(BattleAction.Run));
             }
+            //else if (currentAction == 3)
+            //{
+            //    //Run
+            //    AudioManager.i.PlaySFX(AudioID.UISelect);
+            //    StartCoroutine(RunTurns(BattleAction.Run));
+            //}
         }
     }
 
@@ -700,12 +741,12 @@ public class BattleSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            currentMove += 2;
+            currentMove += 3;
             AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            currentMove -= 2;
+            currentMove -= 3;
             AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         }
 
@@ -747,7 +788,7 @@ public class BattleSystem : MonoBehaviour
             if (selectedMember == playerUnit.Pokemon)
             {
                 AudioManager.i.PlaySFX(AudioID.UIError);
-                partyScreen.SetMessageText("You can't switch with the same move!"); //Displays message
+                partyScreen.SetMessageText("You can't switch with the same party member!"); //Displays message
                 return;
             }
 
@@ -884,7 +925,7 @@ public class BattleSystem : MonoBehaviour
         yield return pokeball.transform.DOMoveY(enemyUnit.transform.position.y - 1.3f, 0.5f).WaitForCompletion();
 
         int shakeCount = TryToCatchPokemon(enemyUnit.Pokemon);
-        
+
         for (int i = 0; i < MathF.Min(shakeCount, 3); ++i) //MathF.Min ensures shakeCount is 0-3
         {
             yield return new WaitForSeconds(0.5f);
@@ -952,13 +993,13 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;
 
-        if (isTrainerBattle)
-        {
-            AudioManager.i.PlaySFX(AudioID.UIError);
-            yield return dialogueBox.TypeDialogue($"You can't run from trainer battles!");
-            state = BattleState.RunningTurn;
-            yield break;
-        }
+        //if (isTrainerBattle)
+        //{
+        //    AudioManager.i.PlaySFX(AudioID.UIError);
+        //    yield return dialogueBox.TypeDialogue($"You can't run from trainer battles!");
+        //    state = BattleState.RunningTurn;
+        //    yield break;
+        //}
 
         ++escapeAttempts;
 
@@ -968,7 +1009,7 @@ public class BattleSystem : MonoBehaviour
         if (enemySpeed < playerSpeed)
         {
             AudioManager.i.PlaySFX(AudioID.UISelectionMove);
-            yield return dialogueBox.TypeDialogue($"Ran away safely!");
+            yield return dialogueBox.TypeDialogue($"You ran away safely!");
             LongGrass.battleDefeat = true;
             Debug.Log($"battleDefeat is {LongGrass.battleDefeat}");
             //StartCoroutine(MakePlayerMove());
@@ -999,27 +1040,4 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
-
-    //IEnumerator MakePlayerMove()
-    //{
-    //    GameController.Instance.StartCutsceneState();
-
-    //    var character = battleActor.GetCharacter();
-
-    //    Debug.Log("Executed MakePlayerMove() coroutine");
-    //    yield return character.Move(movementPattern[0]);
-
-    //    GameController.Instance.StartFreeRoamState();
-
-    //    yield break;
-    //}
 }
-
-//[System.Serializable]
-//public class BattleActor
-//{
-//    [SerializeField] bool isPlayer;
-//    [SerializeField] Character character;
-
-//    public Character GetCharacter() => (isPlayer) ? PlayerController.i.Character : character; //Returns character. Otherwise, return character assigned in the field
-//}

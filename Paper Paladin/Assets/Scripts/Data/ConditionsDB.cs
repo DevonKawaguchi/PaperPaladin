@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class ConditionsDB
 {
@@ -23,11 +24,22 @@ public class ConditionsDB
             {
                 Name = "Poison",
                 StartMessage = "has been poisoned!",
-                OnAfterTurn = (Pokemon pokemon) => //Lambda function
+                OnStart = (Pokemon pokemon) => //Lambda function
                 {
                     pokemon.DecreaseHP(pokemon.MaxHp / 8); //Reduces pokemon health by 1/8 of Pokemon HP after every turn
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} hurt itself due to poison!");
                 }
+            }
+        },
+        { ConditionID.STM,
+            new Condition()
+            {
+                Name = "Heal",
+                StartMessage = "has been healed by 2 HP!",
+                OnAfterTurn = (Pokemon pokemon) =>
+                {
+                    pokemon.IncreaseHP(2); //Increased player health by 2
+                },
             }
         },
         { ConditionID.BRN,
@@ -77,11 +89,11 @@ public class ConditionsDB
                 }
             }
         },
-        { ConditionID.SLP, //Originally Sleep, now Attacking Pokemon paralysed and can't perform a move for 1-3 turns
+        { ConditionID.CRG, //Originally Sleep (SLP), now Attacking Pokemon paralysed and can't perform a move for 1-3 turns
             new Condition()
             {
                 Name = "AttackTelegraph",
-                StartMessage = "is charging their weapon!",
+                StartMessage = "is recharging their weapon!",
                 OnStart = (Pokemon pokemon) =>
                 {
                     //Sleep for 1-3 turns
@@ -148,7 +160,7 @@ public class ConditionsDB
         {
             return 1f;
         }
-        else if (condition.ID == ConditionID.SLP || condition.ID == ConditionID.FRZ)
+        else if (condition.ID == ConditionID.CRG || condition.ID == ConditionID.FRZ)
         {
             return 2f;
         }
@@ -162,6 +174,6 @@ public class ConditionsDB
 
 public enum ConditionID //None, Poison, Burn, Sleep, Paralyse, Freeze
 {
-    none, PSN, BRN, SLP, PAR, FRZ,
+    none, PSN, STM, BRN, CRG, PAR, FRZ,
     Confusion
 }

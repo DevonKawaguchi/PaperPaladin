@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87c1d247ed5824c8f904f701de500891, type: 3}
-  m_Name: EnemyGroundAttack
+  m_Name: Rocket Volley
   m_EditorClassIdentifier: 
-  name: Enemy Ground Attack
+  name: Rockey Volley
   description: 
-  type: 6
+  type: 5
   power: 1
   accuracy: 100
   alwaysHits: 1
@@ -25,6 +25,11 @@ MonoBehaviour:
     boosts: []
     status: 0
     volatileStatus: 0
-  secondaries: []
+  secondaries:
+  - boosts: []
+    status: 4
+    volatileStatus: 0
+    chance: 100
+    target: 1
   target: 0
   sound: {fileID: 0}

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Bolt
   m_EditorClassIdentifier: 
   name: Bolt
-  description: 
-  type: 3
-  power: 2
+  description: A light S-ARM discharge effective against flying enemies
+  type: 2
+  power: 1
   accuracy: 100
   alwaysHits: 1
-  pp: 4
-  priority: 0
+  pp: 2
+  priority: 2
   category: 0
   effects:
     boosts: []

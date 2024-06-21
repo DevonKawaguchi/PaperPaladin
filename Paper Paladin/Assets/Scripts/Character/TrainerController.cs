@@ -42,7 +42,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
             AudioManager.i.PlayMusic(trainerAppearsClip);
 
             yield return DialogueManager.Instance.ShowDialogue(dialogue);
-            GameController.Instance.StartTrainerBattle(this);
+            //GameController.Instance.StartTrainerBattle(this);
         }
         else
         {
@@ -68,7 +68,7 @@ public class TrainerController : MonoBehaviour, Interactable, ISavable
 
         //Show Trainer dialogue
         yield return DialogueManager.Instance.ShowDialogue(dialogue);
-        GameController.Instance.StartTrainerBattle(this);
+        //GameController.Instance.StartTrainerBattle(this);
     }
 
     public void BattleLost()

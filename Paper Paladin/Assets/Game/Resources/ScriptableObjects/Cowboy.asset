@@ -14,19 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Cowboy
   description: 
+  flavourText: 'Hired Gun of Serious Duck '
   frontSprite: {fileID: 21300000, guid: fcd891dc530bc41138eda371d786f70d, type: 3}
   backSprite: {fileID: 21300000, guid: fcd891dc530bc41138eda371d786f70d, type: 3}
-  type1: 6
+  type1: 5
   type2: 0
-  maxHp: 0
-  attack: 1
+  maxHp: 2
+  attack: 2
   defense: 2
   spAttack: 0
   spDefense: 0
   speed: 0
-  expYield: 0
+  expYield: 1
   growthRate: 0
   catchRate: 0
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: df3ecda870bcd4793b647b28b90a2ce5, type: 2}
-    level: 0
+  - moveBase: {fileID: 11400000, guid: 6ff6a0922230543e5bde07603a072b90, type: 2}
+    level: 1

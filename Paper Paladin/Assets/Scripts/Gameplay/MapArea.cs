@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapArea : MonoBehaviour
 {
-    public GlobalGameIndex globalGameIndex;
+    //public GlobalGameIndex globalGameIndex;
 
     [SerializeField] List<Pokemon> wildPokemons;
 
@@ -17,9 +17,9 @@ public class MapArea : MonoBehaviour
     public Pokemon GetRandomWildPokemon()
     {
         //longGrassObject.gameObject.SetActive(false);
-        var wildPokemon = wildPokemons[globalGameIndex.enemyIndex];
+        var wildPokemon = wildPokemons[GlobalGameIndex.enemyIndex];
         wildPokemon.Init();
-        Debug.Log($"areaEnemyIndex is {globalGameIndex.enemyIndex}");
+        Debug.Log($"areaEnemyIndex is {GlobalGameIndex.enemyIndex}");
 
 
         return wildPokemon;

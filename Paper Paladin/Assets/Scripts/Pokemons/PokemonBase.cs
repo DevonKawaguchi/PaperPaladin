@@ -11,6 +11,8 @@ public class PokemonBase : ScriptableObject
 
     [TextArea] 
     [SerializeField] string description;
+    [SerializeField] string flavourText;
+
 
     [SerializeField] Sprite frontSprite;
     [SerializeField] Sprite backSprite;
@@ -57,6 +59,11 @@ public class PokemonBase : ScriptableObject
     public string Description
     {
         get { return description; }
+    }
+
+    public string FlavourText
+    {
+        get { return flavourText; }
     }
 
     public Sprite FrontSprite
@@ -147,19 +154,17 @@ public enum PokemonType
     //Bug,
     //Rock,
     //Ghost,
-    //Dragon
+    //Dragon. 1PlayerGround, 2PlayerAir, 3PlayerAnti-Armour, 4EnemyGround, 5EnemyAir, 6EnemyArmoured
 
     None,
-    Player,
-    PlayerGroundMove,
-    PlayerAirMove,
-    BlockMove,
-    DeflectMove,
+    PlayerGround,
+    PlayerAir,
+    PlayerAntiShield,
+    PlayerAntiArmour,
     EnemyGround,
     EnemyAir,
-    EnemyArmoured,
-    InstantKillPlayer,
-    PlayerRailgun,
+    EnemyShield,
+    EnemyArmoured
 }
 
 public enum GrowthRate
@@ -209,17 +214,15 @@ public class TypeChart
         //    /*Steel*/  new float [] { 1f, 0.5f, 0.5f, 0.5f, 1f, 2f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 0.5f, 2f }, //Done
         //    /*Fairy*/  new float [] { 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 2f, 0.5f, 1f } //Done
 
-            //None,1Player,2PlayerGroundMove,3PlayerAirMove,4BlockMove,5DeflectMove,6EnemyGround,7EnemyAir,8EnemyArmoured,9InstantKillPlayer,10PlayerRailgun (10)
-            /*1Player*/  new float[]            { 1f, 1f, 1f, 0f, 0.5f, 1f, 0f, 0.25f, 1f, 1f },
-            /*2PlayerGroundMove*/  new float[]  { 1f, 1f, 1f, 0f, 0.5f, 1f, 0f, 0.25f, 1f, 1f },
-            /*3PlayerAirMove*/  new float[]     { 1f, 1f, 1f, 0f, 0.5f, 1f, 1f, 0.25f, 1f, 1f },
-            /*4BlockMove*/  new float[]         { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
-            /*5DeflectMove*/  new float[]       { 1f, 1f, 1f, 1f, 1f, 3f, 3f, 3f, 3f, 1f },
-            /*6EnemyGround*/  new float[]       { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
-            /*7EnemyAir*/  new float[]          { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
-            /*8EnemyArmoured*/  new float[]     { 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, 1f },
-            /*9InstantKillPlayer*/  new float[] { 99999f, 1f, 1f, 99999f, 99999f, 1f, 1f, 1f, 1f, 1f },
-            /*10PlayerRailgun*/  new float[]    { 1f, 1f, 1f, 1f, 0.25f, 1f, 0.25f, 3f, 1f, 1f }
+            //None,1PlayerGround, 2PlayerAir, 3PlayerAntiShield, 4PlayerAntiArmour, 5EnemyGround, 6EnemyAir, 7EnemyShield, 8EnemyArmoured
+            /*1PlayerGround*/  new float[]       { 1f, 1f, 1f, 1f,   1f, 0f, 0f, 0.5f },
+            /*2PlayerAir*/  new float[]          { 1f, 1f, 1f, 1f,   0.5f, 1f, 0f, 0.5f },
+            /*3EnemyAntiShield*/  new float[]    { 1f, 1f, 1f, 1f,   1f, 1f, 2f, 0.5f },
+            /*4PlayerAntiArmour*/  new float[]   { 1f, 1f, 1f, 1f,   0.5f, 0.5f, 0f, 3f },
+            /*5EnemyGround*/  new float[]        { 1f, 1f, 1f, 1f,   1f, 1f, 1f, 1f },
+            /*6EnemyAir*/  new float[]           { 1f, 1f, 1f, 1f,   1f, 1f, 1f, 1f },
+            /*7EnemyShield*/  new float[]        { 1f, 1f, 1f, 1f,   1f, 1f, 1f, 1f },
+            /*8EnemyArmoured*/  new float[]      { 1f, 1f, 1f, 1f,   1f, 1f, 1f, 1f },
 
         };
 

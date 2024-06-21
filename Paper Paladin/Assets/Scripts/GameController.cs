@@ -101,9 +101,9 @@ public class GameController : MonoBehaviour
         battleSystem.StartBattle(playerParty, wildPokemonCopy);
     }
 
-    TrainerController trainer;
+    LongGrass trainer;
 
-    public void StartTrainerBattle(TrainerController trainer)
+    public void StartTrainerBattle(LongGrass trainer)
     {
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);

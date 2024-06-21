@@ -30,7 +30,7 @@ public class RecoveryItem : ItemBase
             {
                 return false;
             }
-            pokemon.IncreaseHP(hpAmount);
+            //pokemon.IncreaseHP(hpAmount, HP); Error
         }
         return true;
     }

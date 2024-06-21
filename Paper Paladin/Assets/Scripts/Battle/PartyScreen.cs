@@ -49,7 +49,7 @@ public class PartyScreen : MonoBehaviour
 
         UpdateMemberSelection(selection);
 
-        messageText.text = "Choose a Pokemon";
+        messageText.text = "Choose a Party Member";
     }
 
     public void HandleUpdate(Action onSelected, Action onBack)

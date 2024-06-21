@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27a80e720aec47b9b3d6409169ca65a, type: 3}
   m_Name: GooseLandship
   m_EditorClassIdentifier: 
-  name: G.O.O.S.E Landship
+  name: G.O.O.S.E. Landship
   description: 
-  frontSprite: {fileID: 0}
+  flavourText: 'Wrath of Serious Duck '
+  frontSprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   backSprite: {fileID: 0}
-  type1: 0
+  type1: 8
   type2: 0
-  maxHp: 0
-  attack: 0
-  defense: 0
+  maxHp: 4
+  attack: 1
+  defense: 2
   spAttack: 0
   spDefense: 0
   speed: 0
   expYield: 0
   growthRate: 0
   catchRate: 0
-  learnableMoves: []
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: e9d573835a2a74c78afbb5783a864484, type: 2}
+    level: 1

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Railgun
   m_EditorClassIdentifier: 
   name: Railgun
-  description: 
-  type: 10
-  power: 2
+  description: A heavy S-ARM discharge effective against armoured enemies
+  type: 4
+  power: 1
   accuracy: 100
   alwaysHits: 1
-  pp: 4
-  priority: 0
+  pp: 1
+  priority: 2
   category: 0
   effects:
     boosts: []

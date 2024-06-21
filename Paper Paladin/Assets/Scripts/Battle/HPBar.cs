@@ -11,18 +11,44 @@ public class HPBar : MonoBehaviour
         health.transform.localScale = new Vector3(hpNormalised, 1f); //
     }
 
-    public IEnumerator SetHPSmooth(float newHP)
+    public IEnumerator SetHPSmooth(float newHP) //1
     {
         float curHP = health.transform.localScale.x;
-        float changeAmt = curHP - newHP;
+        float changeAmt = curHP - newHP; //-value
 
-        while (curHP - newHP > Mathf.Epsilon)
+        Debug.Log($"changeAmt is {changeAmt}, curHP is {curHP}, newHP is {newHP}");
+
+        //changeAmt = 1.6667
+        //curHP = 1
+        //newHP = 0.8333
+        if (changeAmt > 0)
         {
-            curHP -= changeAmt * Time.deltaTime;
-            health.transform.localScale = new Vector3(curHP, 1f);
-            yield return null;
+            Debug.Log("Steve");
+            while (curHP - newHP > Mathf.Epsilon) //1 - 0.8333
+            {
+                curHP -= changeAmt * Time.deltaTime; //1 - 0.16667
+                health.transform.localScale = new Vector3(curHP, 1f); //1
+                yield return null;
+            }
+
+            health.transform.localScale = new Vector3(newHP, 1f); //0.8333
         }
 
-        health.transform.localScale = new Vector3(newHP, 1f);
+        //changeAmt = -0.16667
+        //curHP = 0.8333
+        //newHP = 1
+        else
+        {
+            Debug.Log("Bob");
+            while (newHP - curHP > Mathf.Epsilon) //1 - 0.8333
+            {
+                curHP += -(changeAmt) * Time.deltaTime; //0.83 - 0.167
+                health.transform.localScale = new Vector3(curHP, 1f); //1
+                yield return null;
+            }
+
+            health.transform.localScale = new Vector3(newHP, 1f); //0.8333
+        }
+
     }
 }

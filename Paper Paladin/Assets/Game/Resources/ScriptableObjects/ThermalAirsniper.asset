@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Thermal Airsniper
   description: 
-  frontSprite: {fileID: 0}
+  flavourText: 'Sentry of Serious Duck '
+  frontSprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   backSprite: {fileID: 0}
-  type1: 9
+  type1: 6
   type2: 0
   maxHp: 0
   attack: 0
-  defense: 0
+  defense: 2
   spAttack: 0
   spDefense: 0
   speed: 0
-  expYield: 0
+  expYield: 1
   growthRate: 0
   catchRate: 0
-  learnableMoves: []
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: cdc4e9f1a58aa41fe9530efbeeb72415, type: 2}
+    level: 1

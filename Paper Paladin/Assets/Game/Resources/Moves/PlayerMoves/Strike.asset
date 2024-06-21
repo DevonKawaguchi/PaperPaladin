@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Strike
   m_EditorClassIdentifier: 
   name: Strike
-  description: 
-  type: 2
-  power: 2
+  description: A heavy sword attack effective against shielded enemies
+  type: 3
+  power: 1
   accuracy: 100
   alwaysHits: 1
-  pp: 4
-  priority: 0
+  pp: 1
+  priority: 2
   category: 0
   effects:
     boosts: []

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using DG.Tweening;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine.U2D;
+using UnityEngine.Tilemaps;
 
 public class LongGrass : MonoBehaviour, IPlayerTriggerable
 {
@@ -11,26 +14,18 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
 
     [SerializeField] int xDir; //Where the player moves back in terms of x when colliding with grass
     [SerializeField] int yDir; //Where the player moves back in terms of y when colliding with grass
+    [SerializeField] List<Vector2> movementPattern;
 
     public static bool battleDefeat = false;
 
-    public static bool whatever = false;
+    [SerializeField] AudioClip bossBattleBeginMusic;
+    [SerializeField] Sprite sprite;
+    [SerializeField] new string name;
 
-    [SerializeField] List<Vector2> movementPattern;
-
-    //private void FixedUpdate()
-    //{
-    //    if (battleDefeat == true)
-    //    {
-    //        Character grassActor = PlayerController.i.Character;
-
-    //        whatever = true;
-    //        StartCoroutine(Jump(grassActor));
-    //        battleDefeat = false;
-
-    //        Debug.Log("Player should be able to move now");
-    //    }
-    //}
+    public void Start()
+    {
+        GetComponent<TilemapRenderer>().enabled = false;
+    }
 
     public bool TryToJump(Character character, Vector2 moveDir)
     {
@@ -63,10 +58,20 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
         //currentlyStanding = true;
         //Debug.Log($"ALERT! currentlyStanding is {currentlyStanding}");
 
-        AudioManager.i.PlayMusic(battleBeginMusic, false); //Plays "BattleStart" sound
+        if (GlobalGameIndex.enemyIndex == 2) //To be 5
+        {
+            AudioManager.i.PlayMusic(bossBattleBeginMusic, false);
 
-        player.Character.Animator.IsMoving = false;
-        StartCoroutine(WaitForBattle(player)); //Lets sound play before initiating battle
+            player.Character.Animator.IsMoving = false;
+            StartCoroutine(WaitForBattle(player));
+        }
+        else
+        {
+            AudioManager.i.PlayMusic(battleBeginMusic, false); //Plays "BattleStart" sound
+
+            player.Character.Animator.IsMoving = false;
+            StartCoroutine(WaitForBattle(player)); //Lets sound play before initiating battle
+        }
     }
 
     public bool TriggerRepeatedly => true;
@@ -79,7 +84,30 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
 
         player.Character.Animator.IsMoving = false;
         GameController.Instance.PauseGame(false);
-        GameController.Instance.StartBattle();
+
+        if (GlobalGameIndex.enemyIndex == 2)
+        {
+            GameController.Instance.StartTrainerBattle(this);
+        }
+        else
+        {
+            GameController.Instance.StartBattle();
+        }
+    }
+
+    public void BattleLost()
+    {
+        battleDefeat = true;
+    }
+
+    public string Name
+    {
+        get => name;
+    }
+
+    public Sprite Sprite
+    {
+        get => sprite;
     }
 
     //IEnumerator MakePlayerMove()

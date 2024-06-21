@@ -11,15 +11,18 @@ public class BattleHUD : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI statusText;
 
+    [SerializeField] TextMeshProUGUI flavourText;
+
     [SerializeField] HPBar hpBar;
 
     [SerializeField] GameObject expBar;
 
     [SerializeField] Color poisonColour;
+    [SerializeField] Color stimColour;
     [SerializeField] Color burnColour;
     [SerializeField] Color paralyseColour;
     [SerializeField] Color freezeColour;
-    [SerializeField] Color sleepColour;
+    [SerializeField] Color chargeColour;
 
     Pokemon _pokemon;
     Dictionary<ConditionID, Color> statusColours;
@@ -32,14 +35,16 @@ public class BattleHUD : MonoBehaviour
         SetLevel();
         hpBar.SetHP((float) pokemon.HP / pokemon.MaxHp);
         SetExp();
+        SetFlavourText();
 
         statusColours = new Dictionary<ConditionID, Color>()
         {
             {ConditionID.PSN, poisonColour },
+            {ConditionID.STM, stimColour },
             {ConditionID.BRN, burnColour },
             {ConditionID.PAR, paralyseColour },
             {ConditionID.FRZ, freezeColour },
-            {ConditionID.SLP, sleepColour },
+            {ConditionID.CRG, chargeColour },
         };
 
         SetStatusText(); //Whenever setting data, the HUD text will also be updated, as well as whenever the status of the pokemon changes
@@ -62,6 +67,11 @@ public class BattleHUD : MonoBehaviour
     public void SetLevel()
     {
         levelText.text = "Lvl " + _pokemon.Level;
+    }
+
+    public void SetFlavourText()
+    {
+        flavourText.text = _pokemon.Base.FlavourText;
     }
 
     public void SetExp()
@@ -98,7 +108,7 @@ public class BattleHUD : MonoBehaviour
     {
         if (_pokemon.HPChanged)
         {
-            yield return hpBar.SetHPSmooth((float)_pokemon.HP / _pokemon.MaxHp);
+            yield return hpBar.SetHPSmooth((float)_pokemon.HP / _pokemon.MaxHp); //1
             _pokemon.HPChanged = false;
         }
     }

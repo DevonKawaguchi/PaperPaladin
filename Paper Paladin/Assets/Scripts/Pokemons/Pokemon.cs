@@ -34,7 +34,7 @@ public class Pokemon
         }
     }
 
-    public int HP { get; set; }
+    public float HP { get; set; }
     public int Exp { get; set; }
     public int StatusTime { get; set; }
     public int VolatileStatusTime { get; set; }
@@ -142,12 +142,15 @@ public class Pokemon
 
         Debug.Log($"{Base.Name}'s base defense is {Mathf.FloorToInt(Base.Defense)}");
 
-        MaxHp = Mathf.FloorToInt(Base.MaxHp + Level);
+        //MaxHp = Mathf.FloorToInt(Base.MaxHp + Level);
+        MaxHp = Base.MaxHp;
+        Debug.Log($"MaxHP is {MaxHp}");
+
     }
 
     void ResetStatBoost()
     {
-        StatBoosts = new Dictionary<Stat, int>()
+        StatBoosts = new Dictionary<Stat, int>()//
         {
             {Stat.Attack, 0 },
             {Stat.Defense, 0 },
@@ -277,10 +280,12 @@ public class Pokemon
 
         //Following formula used in Pokemon games to calculate damage, referenced from Damage page in Bulbapedia
         //Damage is calculated by determining base damage based off attacker's level, of which is then multiplied by the value of the power of the move and the attacker's stats. Attacker's stats multiplier is mitigated by current player's pokemon defense stats. After multipliers are applied to damage, modifiers applies damage to target within an 85%-100% range.
-        float modifiers = Random.Range(0.85f, 1f) * type * critical; 
-        float a = attacker.Level; //Level of the attacker
-        float d = defense; //Power of the move, attacker's attack stats, and current player pokemon defense stats
-        int damage = Mathf.FloorToInt(d * modifiers);
+        float modifiers = type; 
+        float a = attacker.level; //Level of the attacker
+        float d = move.Base.Power + (float)attacker.Attack; //Power of the move and the attacker's attack value
+        float damage = move.Base.Power * type; //Move power multiplied by its type effectiveness against enemy
+
+        Debug.Log($"Base move power is {move.Base.Power}, type is {type}");
 
         Debug.Log($"Damage is {damage}");
 
@@ -289,14 +294,14 @@ public class Pokemon
         return damageDetails;
     }
 
-    public void IncreaseHP(int amount)
+    public void IncreaseHP(float amount)
     {
         HP = Mathf.Clamp(HP + amount, 0, MaxHp);
         OnHPChanged?.Invoke();
         HPChanged = true;
     }
 
-    public void DecreaseHP(int damage)
+    public void DecreaseHP(float damage)
     {
         HP = Mathf.Clamp(HP - damage, 0, MaxHp);
         OnHPChanged?.Invoke();
@@ -390,7 +395,7 @@ public class DamageDetails
 public class PokemonSaveData //Contains all the Pokemon save data that has to be saved
 {
     public string name; //Allows to get all the base data of a Pokemon by searching for the Pokemon's name
-    public int hp;
+    public float hp;
     public int level;
     public int exp;
     public ConditionID? statusID; //Nullable as Pokemon may not have a status
