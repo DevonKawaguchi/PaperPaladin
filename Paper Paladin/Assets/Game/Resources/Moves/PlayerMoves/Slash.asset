@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Slash
   m_EditorClassIdentifier: 
   name: Slash
-  description: A medium sword attack ideal for all types of ground enemies
+  description: A medium sword attack that deals 1 damage to ground enemies
   type: 1
   power: 1
   accuracy: 100
   alwaysHits: 1
-  pp: 2
+  pp: 3
   priority: 2
   category: 0
   effects:

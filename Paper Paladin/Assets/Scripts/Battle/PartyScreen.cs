@@ -58,18 +58,22 @@ public class PartyScreen : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             ++selection;
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             --selection;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             selection += 2;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             selection -= 2;
         }
 
@@ -86,6 +90,7 @@ public class PartyScreen : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
+            AudioManager.i.PlaySFX(AudioID.UIExit);
             onBack?.Invoke();
         }
     }

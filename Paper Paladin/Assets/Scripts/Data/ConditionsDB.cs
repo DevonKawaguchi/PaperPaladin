@@ -36,7 +36,7 @@ public class ConditionsDB
             {
                 Name = "Heal",
                 StartMessage = "has been healed by 2 HP!",
-                OnAfterTurn = (Pokemon pokemon) =>
+                OnStart = (Pokemon pokemon) =>
                 {
                     pokemon.IncreaseHP(2); //Increased player health by 2
                 },
@@ -93,7 +93,7 @@ public class ConditionsDB
             new Condition()
             {
                 Name = "AttackTelegraph",
-                StartMessage = "is recharging their weapon!",
+                StartMessage = "is recharging their weapon for 1 move!",
                 OnStart = (Pokemon pokemon) =>
                 {
                     //Sleep for 1-3 turns
@@ -106,7 +106,7 @@ public class ConditionsDB
                     if (pokemon.StatusTime <= 0) //Wake up Pokemon if StatusTime reaches 0
                     {
                         pokemon.CureStatus();
-                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}'s weapon is charged!");
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}'s weapon is now charged!");
                         return true; //Move can now be performed
                     }
 
@@ -116,6 +116,37 @@ public class ConditionsDB
                 }
             }
         },
+
+        { ConditionID.STN, //Originally Sleep (SLP), now Attacking Pokemon paralysed and can't perform a move for 1-3 turns
+            new Condition()
+            {
+                Name = "Stun",
+                StartMessage = "has been stunned for 2 moves!",
+                OnStart = (Pokemon pokemon) =>
+                {
+                    //Sleep for 1-3 turns
+                    //pokemon.StatusTime = Random.Range(1,4); //1-3 (4 is exclusive)
+                    pokemon.StatusTime = 2; //1-3 (4 is exclusive)
+                    Debug.Log($"Will be asleep for {pokemon.StatusTime} moves!");
+                },
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if (pokemon.StatusTime <= 0) //Wake up Pokemon if StatusTime reaches 0
+                    {
+                        pokemon.CureStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}'s no longer stunned!");
+                        return true; //Move can now be performed
+                    }
+
+                    pokemon.StatusTime--;
+                    //pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is preparing to attack!");
+                    return false; //Move can't be performed
+                }
+            }
+        },
+
+
+
         //Volatile Status Conditions
         { ConditionID.Confusion, //Lasts for 1-4 moves and causes Pokemon to potentially hurt itself and lose 1/8 of its health. However, the Pokemon will also have a 50% chance to be able to perform a move during this status
             new Condition()
@@ -174,6 +205,6 @@ public class ConditionsDB
 
 public enum ConditionID //None, Poison, Burn, Sleep, Paralyse, Freeze
 {
-    none, PSN, STM, BRN, CRG, PAR, FRZ,
+    none, PSN, STM, STN, BRN, CRG, PAR, FRZ,
     Confusion
 }

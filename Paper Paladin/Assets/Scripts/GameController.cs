@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
+using UnityEditor.SearchService;
 
 public enum GameState { FreeRoam, Battle, Dialogue, Menu, PartyScreen, Bag, Cutscene, Paused }
 
@@ -12,6 +15,11 @@ public class GameController : MonoBehaviour
     [SerializeField] Camera worldCamera;
     [SerializeField] PartyScreen partyScreen;
     [SerializeField] InventoryUI inventoryUI;
+
+    public GameObject essentialGameObjects;
+    public GameObject scene1;
+    public GameObject scene2;
+    public GameObject scene3;
 
     GameState state;
     GameState stateBeforePause;
@@ -214,14 +222,20 @@ public class GameController : MonoBehaviour
         if (selectedItem == 0)
         {
             //Pokemon is selected
+            AudioManager.i.PlaySFX(AudioID.UISelect);
             partyScreen.gameObject.SetActive(true);
             state = GameState.PartyScreen;
         }
         else if (selectedItem == 1)
         {
-            //Bag is selected
-            inventoryUI.gameObject.SetActive(true);
-            state = GameState.Bag;
+            //Return to Menu is selected
+            SceneManager.MoveGameObjectToScene(essentialGameObjects, SceneManager.GetSceneByName("Gameplay")); //Moves Essential Game Objects back into Gameplay
+
+            SceneManager.LoadSceneAsync("MainMenu");
+
+
+            //inventoryUI.gameObject.SetActive(true);
+            //state = GameState.Bag;
         }
         else if (selectedItem == 2)
         {

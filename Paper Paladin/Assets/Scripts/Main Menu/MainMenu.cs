@@ -167,12 +167,12 @@ public class MainMenu : MonoBehaviour
 
     void PlayButtonSelectedAnimation()
     {
-        if (interval == 7)
+        if (interval == 6)
         {
             mainMenuItems[0].color = highlightedColour;
             Debug.Log("Changed play colour to playSelectedColour");
         }
-        else if (interval == 14)
+        else if (interval == 12)
         {
             mainMenuItems[0].color = playSelectedColour;
             Debug.Log("Changed play colour to highlightedColour");

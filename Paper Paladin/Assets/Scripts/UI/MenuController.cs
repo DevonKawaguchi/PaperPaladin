@@ -25,6 +25,7 @@ public class MenuController : MonoBehaviour
 
     public void OpenMenu()
     {
+        AudioManager.i.PlaySFX(AudioID.UISelect);
         menu.SetActive(true);
         UpdateItemSelection();
     }
@@ -41,10 +42,12 @@ public class MenuController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             ++selectedItem;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             --selectedItem;
         }
 
@@ -57,11 +60,13 @@ public class MenuController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             onMenuSelected?.Invoke(selectedItem);
             CloseMenu();
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
+            AudioManager.i.PlaySFX(AudioID.UIExit);
             onBack?.Invoke();
             CloseMenu();
         }

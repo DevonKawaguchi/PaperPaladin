@@ -16,14 +16,14 @@ MonoBehaviour:
   description: 
   flavourText: 
   frontSprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
-  backSprite: {fileID: 21300000, guid: e86e5db94115d46e5a7aa2914cd5fc9e, type: 3}
+  backSprite: {fileID: 21300000, guid: 25b40ebb438314eb395be4e97763a8d0, type: 3}
   type1: 1
   type2: 0
   maxHp: 3
   attack: 0
-  defense: 2
-  spAttack: 1
-  spDefense: 1
+  defense: 0
+  spAttack: 0
+  spDefense: 0
   speed: 1
   expYield: 0
   growthRate: 1

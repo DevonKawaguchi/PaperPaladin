@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stim
   m_EditorClassIdentifier: 
   name: Stim
-  description: 'An in-built S-ARM emergency injection that recovers full HP
+  description: 'An in-built S-ARM emergency injection that heals by 2 HP
 
 '
   type: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
   accuracy: 100
   alwaysHits: 1
   pp: 1
-  priority: 0
+  priority: 5
   category: 1
   effects:
     boosts: []
@@ -34,4 +34,4 @@ MonoBehaviour:
     chance: 100
     target: 1
   target: 1
-  sound: {fileID: 8300000, guid: 93ca859f244d444c6b32c868814ba1d4, type: 3}
+  sound: {fileID: 8300000, guid: 86c33a63904b54df1ab64bbf76890f06, type: 3}

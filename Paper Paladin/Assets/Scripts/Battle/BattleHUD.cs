@@ -19,6 +19,7 @@ public class BattleHUD : MonoBehaviour
 
     [SerializeField] Color poisonColour;
     [SerializeField] Color stimColour;
+    [SerializeField] Color stunColour;
     [SerializeField] Color burnColour;
     [SerializeField] Color paralyseColour;
     [SerializeField] Color freezeColour;
@@ -41,6 +42,7 @@ public class BattleHUD : MonoBehaviour
         {
             {ConditionID.PSN, poisonColour },
             {ConditionID.STM, stimColour },
+            {ConditionID.STN, stunColour },
             {ConditionID.BRN, burnColour },
             {ConditionID.PAR, paralyseColour },
             {ConditionID.FRZ, freezeColour },

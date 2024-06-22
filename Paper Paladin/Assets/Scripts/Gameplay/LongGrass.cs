@@ -22,6 +22,8 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
     [SerializeField] Sprite sprite;
     [SerializeField] new string name;
 
+    public int bossIndexRequirement = 0;
+
     public void Start()
     {
         GetComponent<TilemapRenderer>().enabled = false;
@@ -58,7 +60,7 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
         //currentlyStanding = true;
         //Debug.Log($"ALERT! currentlyStanding is {currentlyStanding}");
 
-        if (GlobalGameIndex.enemyIndex == 2) //To be 5
+        if (GlobalGameIndex.enemyIndex == bossIndexRequirement) //To be 5
         {
             AudioManager.i.PlayMusic(bossBattleBeginMusic, false);
 
@@ -78,6 +80,12 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
 
     IEnumerator WaitForBattle(PlayerController player)
     {
+        GlobalGameIndex.longGrassMovementxDir = xDir;
+        GlobalGameIndex.longGrassMovementyDir = yDir;
+
+        Debug.Log($"GlobalGameIndex.longGrassMovementxDir is {GlobalGameIndex.longGrassMovementxDir}");
+        Debug.Log($"GlobalGameIndex.longGrassMovementyDir is {GlobalGameIndex.longGrassMovementyDir}");
+
         GameController.Instance.PauseGame(true);
 
         yield return new WaitForSeconds(1.4f);
@@ -85,7 +93,7 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
         player.Character.Animator.IsMoving = false;
         GameController.Instance.PauseGame(false);
 
-        if (GlobalGameIndex.enemyIndex == 2)
+        if (GlobalGameIndex.enemyIndex == bossIndexRequirement)
         {
             GameController.Instance.StartTrainerBattle(this);
         }

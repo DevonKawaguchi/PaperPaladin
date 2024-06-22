@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, PartyScreen, AboutToUse, MoveToForget, BattleOver }
@@ -24,6 +25,15 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] MoveSelectionUI moveSelectionUI;
 
+    [SerializeField] GameObject FFBattleBackground;
+    [SerializeField] GameObject FFSkyDestroyerBackground;
+    [SerializeField] GameObject FFDestroyerP1Background;
+    [SerializeField] GameObject FFDestroyerP2Background;
+    [SerializeField] GameObject FFDestroyerGarrison;
+    [SerializeField] Image WhiteScreen;
+
+    public GameObject essentialGameObjects;
+
     [Header("Audio")]
     [SerializeField] AudioClip[] enemyMusic; //Changedf
     [SerializeField] AudioClip bossBattleP1Music;
@@ -37,9 +47,10 @@ public class BattleSystem : MonoBehaviour
 
     BattleState state;
 
+    Vector3 originalPos;
+
     int currentAction;
     int currentMove;
-    int escapeAttempts;
 
     MoveBase moveToLearn;
 
@@ -139,6 +150,8 @@ public class BattleSystem : MonoBehaviour
             //Trainer Battle
 
             //Show Trainer and Player sprites
+            FFBattleBackground.gameObject.SetActive(false);
+
             playerUnit.gameObject.SetActive(false);
             enemyUnit.gameObject.SetActive(false);
 
@@ -148,18 +161,16 @@ public class BattleSystem : MonoBehaviour
             playerImage.sprite = player.Sprite;
             //trainerImage.sprite = trainer.Sprite;
 
-            yield return dialogueBox.TypeDialogue($"WARNING! Approaching bob!");
+            yield return dialogueBox.TypeDialogue($"WARNING! Approaching Serious Duck Air-Fleet!");
+            yield return dialogueBox.TypeDialogue($"Scrambling radar...");
             yield return dialogueBox.TypeDialogue($"Activating S-ARM shields...");
             yield return dialogueBox.TypeDialogue($"Impact in 3...");
-            yield return dialogueBox.TypeDialogue($"Impact in 2...");
-            yield return dialogueBox.TypeDialogue($"Impact in 1...");
+            yield return dialogueBox.TypeDialogue($"2...");
+            yield return dialogueBox.TypeDialogue($"1...");
+            yield return dialogueBox.TypeDialogue($"            ");
 
-            //Send out the Trainer's first Pokemon
             trainerImage.gameObject.SetActive(false);
-            enemyUnit.gameObject.SetActive(true);
-            var enemyPokemon = trainerParty.GetHealthyPokemon();
-            enemyUnit.Setup(enemyPokemon);
-            yield return dialogueBox.TypeDialogue($"{enemyPokemon.Base.Name} appeared!");
+            FFSkyDestroyerBackground.gameObject.SetActive(false);
 
             //Send out the Player's first Pokemon
             playerImage.gameObject.SetActive(false);
@@ -168,9 +179,15 @@ public class BattleSystem : MonoBehaviour
             playerUnit.Setup(playerPokemon);
             //yield return dialogueBox.TypeDialogue($"Go {playerPokemon.Base.Name}!");
             dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
+            yield return dialogueBox.TypeDialogue($"Entry successful! De-activating S-ARM shields...  ");
+
+            //Send out the Trainer's first Pokemon
+            enemyUnit.gameObject.SetActive(true);
+            var enemyPokemon = trainerParty.GetHealthyPokemon();
+            enemyUnit.Setup(enemyPokemon);
+            yield return dialogueBox.TypeDialogue($"{enemyPokemon.Base.Name} appeared!");
         }
 
-        escapeAttempts = 0;
         partyScreen.Init();
         ActionSelection();
     }
@@ -192,6 +209,8 @@ public class BattleSystem : MonoBehaviour
 
     void OpenPartyScreen()
     {
+        AudioManager.i.PlaySFX(AudioID.UISelect);
+
         partyScreen.CalledFrom = state;
         state = BattleState.PartyScreen;
         partyScreen.gameObject.SetActive(true);
@@ -315,6 +334,7 @@ public class BattleSystem : MonoBehaviour
             move.PP--; //Decreases PP value by 1
         }
 
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         yield return dialogueBox.TypeDialogue($"{sourceUnit.Pokemon.Base.Name} used {move.Base.Name}!");
 
         if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon))
@@ -465,6 +485,7 @@ public class BattleSystem : MonoBehaviour
     {
         while (pokemon.StatusChanges.Count > 0)
         {
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             var message = pokemon.StatusChanges.Dequeue();
             yield return dialogueBox.TypeDialogue(message);
         }
@@ -472,7 +493,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator HandlePokemonFainted(BattleUnit faintedUnit)
     {
-        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+        AudioManager.i.PlaySFX(AudioID.Faint);
         yield return dialogueBox.TypeDialogue($"{faintedUnit.Pokemon.Base.Name} fainted!");
         faintedUnit.PlayFaintAnimation(); //Plays faint animation
         yield return new WaitForSeconds(2f);
@@ -514,6 +535,8 @@ public class BattleSystem : MonoBehaviour
             //Check Level Up
             while (playerUnit.Pokemon.CheckForLevelUp()) //While loop ensures multiple level ups are taken into account
             {
+                AudioManager.i.PlaySFX(AudioID.ExpGain);
+
                 playerUnit.HUD.SetLevel();
                 yield return dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} grew to Level {playerUnit.Pokemon.Level}!");
 
@@ -523,6 +546,8 @@ public class BattleSystem : MonoBehaviour
                 {
                     if (playerUnit.Pokemon.Moves.Count < PokemonBase.MaxNumberOfMoves) //Will only learn a new move if current move count is less than 4
                     {
+                        AudioManager.i.PlaySFX(AudioID.ItemObtained);
+
                         playerUnit.Pokemon.LearnMove(newMove);
                         yield return dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} learned {newMove.Base.Name}!");
                         dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
@@ -557,8 +582,25 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                LongGrass.battleDefeat = true;
-                BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
+                if (!isTrainerBattle)
+                {
+                    Debug.Log("EnemyEncounter defeat");
+
+                    LongGrass.battleDefeat = true;
+                    BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
+                }
+                else
+                {
+                    Debug.Log("TrainerBattle defeat");
+
+                    LongGrass.battleDefeat = true; //
+                    BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
+
+                    FFBattleBackground.gameObject.SetActive(true);
+                    FFSkyDestroyerBackground.gameObject.SetActive(true);
+                    FFDestroyerP1Background.gameObject.SetActive(true);
+                    WhiteScreen.gameObject.SetActive(false);
+                }
             }
         }
         else
@@ -581,11 +623,17 @@ public class BattleSystem : MonoBehaviour
                 if (nextPokemon != null)
                 {
                     //Send out next Pokemon
-                    StartCoroutine(AboutToUse(nextPokemon));
+                    //StartCoroutine(AboutToUse(nextPokemon));
+
+                    StartCoroutine(SendNextTrainerPokemon());
                 }
                 else
                 {
-                    BattleOver(true);
+                    SceneManager.MoveGameObjectToScene(essentialGameObjects, SceneManager.GetSceneByName("Gameplay")); //Moves Essential Game Objects back into Gameplay
+
+                    SceneManager.LoadSceneAsync("MainMenu"); //Plays next scene by finding scene that's +1 build setting index from the current scene the script is in
+
+                    //BattleOver(true);
                 }
             }
         }
@@ -824,6 +872,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                AudioManager.i.PlaySFX(AudioID.UIExit);
                 ActionSelection();
             }
 
@@ -894,11 +943,63 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;
 
+        for (int i = 0; i < playerParty.Pokemons.Count; ++i)
+        {
+            playerParty.Pokemons[i].HP = (playerParty.Pokemons[i].Base.MaxHp); //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
+            Debug.Log($"{playerParty.Pokemons[i].Base.Name} HP is now {playerParty.Pokemons[i].HP}");
+        }
+
+        for (int i = 0; i < (playerUnit.Pokemon.Moves.Count); ++i) //Returns all player moves to original values
+        {
+            //Logic Error: set "playerUnit.Pokemon.Moves.Count - 1" to "playerUnit.Pokemon.Moves.Count" 
+
+            Debug.Log($"Original {playerUnit.Pokemon.Moves[i]} PP is {playerUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
+            playerUnit.Pokemon.Moves[i].PP = playerUnit.Pokemon.Moves[i].Base.PP;
+        }
+
+        originalPos = FFDestroyerGarrison.transform.localPosition; //localPosition ensures originalPos is image position in the canvas not the world
+
+        AudioManager.i.PlayMusic(bossBattleP3Music);
+
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+        yield return dialogueBox.TypeDialogue($"WARNING! Heavy reinforcements inbound...");
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+        yield return dialogueBox.TypeDialogue($"Calculating optimal countermeasures...");
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+        yield return dialogueBox.TypeDialogue($"Redirecting destroyer into Class VI superstorm...");
+        yield return dialogueBox.TypeDialogue($"Calculations predict 2 minutes until 0% chance of success, haste recommended...");
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+
+        //yield return dialogueBox.TypeDialogue($"                                              ");
+
+        yield return new WaitForSeconds(2.8f);
+
+        FFDestroyerP1Background.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(2f);
+
+        FFDestroyerGarrison.gameObject.SetActive(true);
+
+        FFDestroyerGarrison.transform.localPosition = new Vector3(1000f, originalPos.y);
+        FFDestroyerGarrison.transform.DOLocalMoveX(originalPos.x, 1f); //1st value is where the DOTween should move, and the 2nd is how long the transition should last
+
+        yield return new WaitForSeconds(15f);
+
+        WhiteScreen.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        yield return WhiteScreen.DOFade(0, 2.25f);
+
+        var sequence = DOTween.Sequence();
+        sequence.Append(FFDestroyerGarrison.transform.DOLocalMoveX(originalPos.x + 1500f, 0.1f));
+
+        yield return new WaitForSeconds(6f);
+
         var nextPokemon = trainerParty.GetHealthyPokemon();
 
         enemyUnit.Setup(nextPokemon);
-        AudioManager.i.PlaySFX(AudioID.UIError);
-        yield return dialogueBox.TypeDialogue($"{trainer.Name} sent out {nextPokemon.Base.Name}!");
+        //AudioManager.i.PlaySFX(AudioID.UIError);
+        AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+        yield return dialogueBox.TypeDialogue($"G.O.O.S.E. Landship appeared!");
 
         state = BattleState.RunningTurn;
     }
@@ -993,51 +1094,30 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;
 
-        //if (isTrainerBattle)
-        //{
-        //    AudioManager.i.PlaySFX(AudioID.UIError);
-        //    yield return dialogueBox.TypeDialogue($"You can't run from trainer battles!");
-        //    state = BattleState.RunningTurn;
-        //    yield break;
-        //}
-
-        ++escapeAttempts;
-
-        int playerSpeed = playerUnit.Pokemon.Speed;
-        int enemySpeed = enemyUnit.Pokemon.Speed;
-
-        if (enemySpeed < playerSpeed)
+        if (isTrainerBattle)
         {
+            Debug.Log($"BossBattle escape");
+
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+            yield return dialogueBox.TypeDialogue($"You ran away safely!");
+            LongGrass.battleDefeat = true;
+            Debug.Log($"battleDefeat is {LongGrass.battleDefeat}"); //
+
+            FFBattleBackground.gameObject.SetActive(true);
+            FFSkyDestroyerBackground.gameObject.SetActive(true);
+            FFDestroyerP1Background.gameObject.SetActive(true);
+            WhiteScreen.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log($"EnemyEncounter escape");
+
             AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"You ran away safely!");
             LongGrass.battleDefeat = true;
             Debug.Log($"battleDefeat is {LongGrass.battleDefeat}");
-            //StartCoroutine(MakePlayerMove());
 
-            BattleOver(true);
-
-            //Debug.Log($"Player should move now");
         }
-        else
-        {
-            float f = (playerSpeed * 128) / enemySpeed + 30 * escapeAttempts;
-            f = f % 256;
-
-            if (UnityEngine.Random.Range(0, 256) < f)
-            {
-                AudioManager.i.PlaySFX(AudioID.UISelectionMove);
-                yield return dialogueBox.TypeDialogue($"Ran away safely!");
-                LongGrass.battleDefeat = true;
-                Debug.Log($"battleDefeat is {LongGrass.battleDefeat} 2");
-                BattleOver(true);
-
-            }
-            else
-            {
-                AudioManager.i.PlaySFX(AudioID.UIError);
-                yield return dialogueBox.TypeDialogue($"Can't escape!");
-                state = BattleState.RunningTurn;
-            }
-        }
+        BattleOver(true);
     }
 }

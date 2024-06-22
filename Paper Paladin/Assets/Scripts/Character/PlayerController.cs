@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour, ISavable
 
     private Vector2 input;
 
+    private Vector2 longGrassMovement;
+
     public static PlayerController i { get; private set; }
     private Character character;
 
@@ -27,11 +29,23 @@ public class PlayerController : MonoBehaviour, ISavable
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
+            longGrassMovement.x = GlobalGameIndex.longGrassMovementxDir;
+            longGrassMovement.y = GlobalGameIndex.longGrassMovementyDir;
+
+            //Debug.Log($"GlobalGameIndex.longGrassMovementxDir is {GlobalGameIndex.longGrassMovementxDir}");
+            //Debug.Log($"GlobalGameIndex.longGrassMovementyDir is {GlobalGameIndex.longGrassMovementyDir}");
+
             if (input.x != 0) input.y = 0; //Removes diagonal movement
 
             if (input != Vector2.zero && LongGrass.battleDefeat == false) //Allows player to remain in previous animation, e.g: will remain in "idle_left" animation state if last input was left - this is because the if statement only changes "MoveX"/"MoveY" float parameters if input is not zero.
             {
                 StartCoroutine(character.Move(input, OnMoveOver));
+            }
+
+            if (LongGrass.battleDefeat == true)
+            {
+                StartCoroutine(character.Move(longGrassMovement, OnMoveOver));
+                //BattleSystem.startBackAnimation = false;
             }
         }
 

@@ -15,13 +15,13 @@ MonoBehaviour:
   name: Thermal Airsniper
   description: 
   flavourText: 'Sentry of Serious Duck '
-  frontSprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
+  frontSprite: {fileID: 21300000, guid: b450c308c65014484b7ebb7a0b512146, type: 3}
   backSprite: {fileID: 0}
   type1: 6
   type2: 0
-  maxHp: 0
+  maxHp: 1
   attack: 0
-  defense: 2
+  defense: 0
   spAttack: 0
   spDefense: 0
   speed: 0

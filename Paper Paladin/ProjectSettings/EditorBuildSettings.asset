@@ -21,15 +21,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Gameplay.unity
     guid: 4c8adc5979e4d42e796fc0b5a9b16fc2
   - enabled: 1
-    path: Assets/Scenes/HomeTown.unity
+    path: Assets/Scenes/FFArea1.unity
     guid: 561c84cba6a89437782297b301517c5a
   - enabled: 1
-    path: Assets/Scenes/Route1.unity
+    path: Assets/Scenes/FFArea2.unity
     guid: c72161ec42cc442829e8d2e146a761bf
   - enabled: 1
     path: Assets/Scenes/House1.unity
     guid: eafd9bd2668cf433e9a00b2a8b4a0a4b
   - enabled: 1
-    path: Assets/Scenes/Town2.unity
+    path: Assets/Scenes/FFArea3.unity
     guid: 6c350d0fc612e4f42b5d8b336d866022
   m_configObjects: {}

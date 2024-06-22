@@ -215,7 +215,7 @@ public class TypeChart
         //    /*Fairy*/  new float [] { 1f, 0.5f, 1f, 1f, 1f, 1f, 2f, 0.5f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 2f, 0.5f, 1f } //Done
 
             //None,1PlayerGround, 2PlayerAir, 3PlayerAntiShield, 4PlayerAntiArmour, 5EnemyGround, 6EnemyAir, 7EnemyShield, 8EnemyArmoured
-            /*1PlayerGround*/  new float[]       { 1f, 1f, 1f, 1f,   1f, 0f, 0f, 0.5f },
+            /*1PlayerGround*/  new float[]       { 1f, 1f, 1f, 1f,   1f, 0f, 0f, 1f },
             /*2PlayerAir*/  new float[]          { 1f, 1f, 1f, 1f,   0.5f, 1f, 0f, 0.5f },
             /*3EnemyAntiShield*/  new float[]    { 1f, 1f, 1f, 1f,   1f, 1f, 2f, 0.5f },
             /*4PlayerAntiArmour*/  new float[]   { 1f, 1f, 1f, 1f,   0.5f, 0.5f, 0f, 3f },
