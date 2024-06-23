@@ -80,11 +80,11 @@ public class BattleUnit : MonoBehaviour
         //Moves player image right when attacking, moves enemy image left when attacking
         if (isPlayerUnit)
         {
-            sequence.Append(image.transform.DOLocalMoveX(originalPos.x + 50f, 0.25f)); //1: Transition location, 2: Transition duration, as stated above
+            sequence.Append(image.transform.DOLocalMoveX(originalPos.x + 50f, 0.15f)); //1: Transition location, 2: Transition duration, as stated above
         }
-        else 
+        else
         {
-            sequence.Append(image.transform.DOLocalMoveX(originalPos.x - 50f, 0.25f));
+            sequence.Append(image.transform.DOLocalMoveX(originalPos.x - 50f, 0.15f));
         }
 
         sequence.Append(image.transform.DOLocalMoveX(originalPos.x, 0.25f)); //Returns respective image to original position
@@ -100,8 +100,8 @@ public class BattleUnit : MonoBehaviour
     public void PlayFaintAnimation()
     {
         var sequence = DOTween.Sequence();
-        sequence.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f));
-        sequence.Join(image.DOFade(0f, 0.5f)); //Join() instead of Append() as doing Append() would make fade transition occur after the image transition downwards had completed. By  doing Join(), these transitions will instead play concurrently
+        sequence.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.25f));
+        sequence.Join(image.DOFade(0f, 0.25f)); //Join() instead of Append() as doing Append() would make fade transition occur after the image transition downwards had completed. By  doing Join(), these transitions will instead play concurrently
     }
 
     public IEnumerator PlayCaptureAnimation()

@@ -1033,7 +1033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: sfxList.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: sfxList.Array.data[4].id
@@ -1062,6 +1062,10 @@ PrefabInstance:
     - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: sfxList.Array.data[10].id
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: sfxList.Array.data[11].id
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: sfxList.Array.data[0].clip
@@ -1107,6 +1111,10 @@ PrefabInstance:
       propertyPath: sfxList.Array.data[10].clip
       value: 
       objectReference: {fileID: 8300000, guid: 7594aec4a49a94d48ac8b3aebedf2666, type: 3}
+    - target: {fileID: 2536504813524801776, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: sfxList.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 663300c7b4da747b6a9e0229e5fd2fa8, type: 3}
     - target: {fileID: 2558517284111469969, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2922,7 +2930,7 @@ PrefabInstance:
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: battleVictoryMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 0d6768a09b7284224b449a3d45658d2a, type: 3}
+      objectReference: {fileID: 8300000, guid: 4fe3ed48971704b588c5bad1ec7ebcd1, type: 3}
     - target: {fileID: 8037320812061845472, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: trainerBattleMusic
       value: 
@@ -3704,7 +3712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1994834023
 MonoBehaviour:
   m_ObjectHideFlags: 0

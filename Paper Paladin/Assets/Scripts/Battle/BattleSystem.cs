@@ -103,6 +103,18 @@ public class BattleSystem : MonoBehaviour
         player = playerParty.GetComponent<PlayerController>();
         trainer = trainerParty.GetComponent<TrainerController>();
 
+        for (int i = 0; i < playerParty.Pokemons.Count; ++i)
+        {
+            playerParty.Pokemons[i].HP = (playerParty.Pokemons[i].Base.MaxHp); //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
+            Debug.Log($"{playerParty.Pokemons[i].Base.Name} HP is now {playerParty.Pokemons[i].HP}");
+        }
+
+        for (int i = 0; i < trainerParty.Pokemons.Count; ++i)
+        {
+            trainerParty.Pokemons[i].HP = (trainerParty.Pokemons[i].Base.MaxHp); //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
+            Debug.Log($"{trainerParty.Pokemons[i].Base.Name} HP is now {trainerParty.Pokemons[i].HP}");
+        }
+
         AudioManager.i.PlayMusic(bossBattleP1Music);
 
         StartCoroutine(SetupBattle());
@@ -149,7 +161,14 @@ public class BattleSystem : MonoBehaviour
         {
             //Trainer Battle
 
-            //Show Trainer and Player sprites
+            for (int i = 0; i < (playerUnit.Pokemon.Moves.Count); ++i) //Returns all player moves to original values
+            {
+                Debug.Log($"Original {playerUnit.Pokemon.Moves[i]} PP is {playerUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
+                playerUnit.Pokemon.Moves[i].PP = playerUnit.Pokemon.Moves[i].Base.PP;
+            }
+
+            //AudioManager.i.PlaySFX(AudioID.Warning);
+
             FFBattleBackground.gameObject.SetActive(false);
 
             playerUnit.gameObject.SetActive(false);
@@ -161,12 +180,15 @@ public class BattleSystem : MonoBehaviour
             playerImage.sprite = player.Sprite;
             //trainerImage.sprite = trainer.Sprite;
 
+            AudioManager.i.PlaySFX(AudioID.Warning);
+
             yield return dialogueBox.TypeDialogue($"WARNING! Approaching Serious Duck Air-Fleet!");
             yield return dialogueBox.TypeDialogue($"Scrambling radar...");
             yield return dialogueBox.TypeDialogue($"Activating S-ARM shields...");
             yield return dialogueBox.TypeDialogue($"Impact in 3...");
             yield return dialogueBox.TypeDialogue($"2...");
             yield return dialogueBox.TypeDialogue($"1...");
+
             yield return dialogueBox.TypeDialogue($"            ");
 
             trainerImage.gameObject.SetActive(false);
@@ -185,6 +207,7 @@ public class BattleSystem : MonoBehaviour
             enemyUnit.gameObject.SetActive(true);
             var enemyPokemon = trainerParty.GetHealthyPokemon();
             enemyUnit.Setup(enemyPokemon);
+            AudioManager.i.PlaySFX(AudioID.UISelectionMove);
             yield return dialogueBox.TypeDialogue($"{enemyPokemon.Base.Name} appeared!");
         }
 
@@ -518,6 +541,7 @@ public class BattleSystem : MonoBehaviour
                 //Debug.Log($"longGrass {globalGameIndex.longGrassIndex} was destroyed");
 
                 AudioManager.i.PlayMusic(battleVictoryMusic, false);
+                yield return new WaitForSeconds(4f);
                 //AudioManager.i.PlaySFX(AudioID.Victory);
             }
 
@@ -575,33 +599,26 @@ public class BattleSystem : MonoBehaviour
     {
         if (faintedUnit.IsPlayerUnit)
         {
-            var nextPokemon = playerParty.GetHealthyPokemon();
-            if (nextPokemon != null)
+            if (!isTrainerBattle)
             {
-                OpenPartyScreen(); //Open party screen when current Pokemon faints. This will allow the player to directly choose which Pokemon they'd like to choose in their party
+                Debug.Log("EnemyEncounter defeat");
+
+                LongGrass.battleDefeat = true;
+                BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
             }
             else
             {
-                if (!isTrainerBattle)
-                {
-                    Debug.Log("EnemyEncounter defeat");
+                Debug.Log("TrainerBattle defeat");
 
-                    LongGrass.battleDefeat = true;
-                    BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
-                }
-                else
-                {
-                    Debug.Log("TrainerBattle defeat");
+                FFBattleBackground.gameObject.SetActive(true);
+                FFSkyDestroyerBackground.gameObject.SetActive(true);
+                FFDestroyerP1Background.gameObject.SetActive(true);
+                WhiteScreen.gameObject.SetActive(false);
 
-                    LongGrass.battleDefeat = true; //
-                    BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
-
-                    FFBattleBackground.gameObject.SetActive(true);
-                    FFSkyDestroyerBackground.gameObject.SetActive(true);
-                    FFDestroyerP1Background.gameObject.SetActive(true);
-                    WhiteScreen.gameObject.SetActive(false);
-                }
+                LongGrass.battleDefeat = true; //
+                BattleOver(false); //False bool to indicate player lost the battle. Initiates when player has no pokemon left in party
             }
+            
         }
         else
         {
@@ -943,21 +960,21 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;
 
-        for (int i = 0; i < playerParty.Pokemons.Count; ++i)
-        {
-            playerParty.Pokemons[i].HP = (playerParty.Pokemons[i].Base.MaxHp); //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
-            Debug.Log($"{playerParty.Pokemons[i].Base.Name} HP is now {playerParty.Pokemons[i].HP}");
-        }
+        originalPos = FFDestroyerGarrison.transform.localPosition; //localPosition ensures originalPos is image position in the canvas not the world
 
         for (int i = 0; i < (playerUnit.Pokemon.Moves.Count); ++i) //Returns all player moves to original values
         {
-            //Logic Error: set "playerUnit.Pokemon.Moves.Count - 1" to "playerUnit.Pokemon.Moves.Count" 
-
             Debug.Log($"Original {playerUnit.Pokemon.Moves[i]} PP is {playerUnit.Pokemon.Moves[i].PP} though is now {playerUnit.Pokemon.Moves[i].Base.PP}");
             playerUnit.Pokemon.Moves[i].PP = playerUnit.Pokemon.Moves[i].Base.PP;
         }
 
-        originalPos = FFDestroyerGarrison.transform.localPosition; //localPosition ensures originalPos is image position in the canvas not the world
+        for (int i = 0; i < playerParty.Pokemons.Count; ++i)
+        {
+            playerParty.Pokemons[i].IncreaseHP(2); ; //Resets HP of each party member to their original values. Avoids logic error when HP health is 0 and starts another battle
+            Debug.Log($"{playerParty.Pokemons[i].Base.Name} HP is now {playerParty.Pokemons[i].HP}");
+        }
+
+        yield return playerUnit.HUD.UpdateHP();
 
         AudioManager.i.PlayMusic(bossBattleP3Music);
 
@@ -967,8 +984,8 @@ public class BattleSystem : MonoBehaviour
         yield return dialogueBox.TypeDialogue($"Calculating optimal countermeasures...");
         AudioManager.i.PlaySFX(AudioID.UISelectionMove);
         yield return dialogueBox.TypeDialogue($"Redirecting destroyer into Class VI superstorm...");
-        yield return dialogueBox.TypeDialogue($"Calculations predict 2 minutes until 0% chance of success, haste recommended...");
         AudioManager.i.PlaySFX(AudioID.UISelectionMove);
+        yield return dialogueBox.TypeDialogue($"Calculations predict 2 minutes until 0% chance of success, haste recommended...");
 
         //yield return dialogueBox.TypeDialogue($"                                              ");
 
