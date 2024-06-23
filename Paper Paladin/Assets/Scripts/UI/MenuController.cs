@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -15,10 +17,14 @@ public class MenuController : MonoBehaviour
 
     List<TextMeshProUGUI> menuItems;
 
+    [SerializeField] Image blackImage;
+
     int selectedItem = 0;
 
     private void Awake()
     {
+        StartCoroutine(StartTransition());
+
         menuItems = menu.GetComponentsInChildren<TextMeshProUGUI>().ToList();
 
     }
@@ -86,5 +92,12 @@ public class MenuController : MonoBehaviour
 
             }
         }
+    }
+
+    IEnumerator StartTransition()
+    {
+        yield return new WaitForSeconds(2f);
+
+        yield return blackImage.DOFade(0, 1.5f).WaitForCompletion();
     }
 }

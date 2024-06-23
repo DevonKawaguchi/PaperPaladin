@@ -19,6 +19,8 @@ public class ControlsMenu : MonoBehaviour
     [SerializeField] AudioClip SelectSound;
     [SerializeField] AudioClip BackSound;
 
+    [SerializeField] Image gameLogo;
+
     int selectedItem = 0;
 
     private void Awake()
@@ -46,18 +48,20 @@ public class ControlsMenu : MonoBehaviour
         {
             if (selectedItem == 0)
             {
+                SFXPlayer.PlayOneShot(BackSound);
                 controlsMenu.gameObject.SetActive(false);
+                gameLogo.gameObject.SetActive(true);
                 mainMenu.gameObject.SetActive(true);
                 DestinationButton(DefaultMainMenuButton);
-                SFXPlayer.PlayOneShot(BackSound);
             }
         }
         else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return))
         {
+            SFXPlayer.PlayOneShot(BackSound);
             controlsMenu.gameObject.SetActive(false);
+            gameLogo.gameObject.SetActive(true);
             mainMenu.gameObject.SetActive(true);
             DestinationButton(DefaultMainMenuButton);
-            SFXPlayer.PlayOneShot(BackSound);
         }
     }
 

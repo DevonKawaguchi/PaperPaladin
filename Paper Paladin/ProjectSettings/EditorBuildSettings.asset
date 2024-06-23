@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FFArea3.unity
     guid: 6c350d0fc612e4f42b5d8b336d866022
+  - enabled: 1
+    path: Assets/Scenes/VictoryCutscene1.unity
+    guid: 9568ea0b4dcfe42eeadc91485374feea
   m_configObjects: {}

@@ -648,7 +648,7 @@ public class BattleSystem : MonoBehaviour
                 {
                     SceneManager.MoveGameObjectToScene(essentialGameObjects, SceneManager.GetSceneByName("Gameplay")); //Moves Essential Game Objects back into Gameplay
 
-                    SceneManager.LoadSceneAsync("MainMenu"); //Plays next scene by finding scene that's +1 build setting index from the current scene the script is in
+                    SceneManager.LoadSceneAsync("VictoryCutscene1"); //Plays next scene by finding scene that's +1 build setting index from the current scene the script is in
 
                     //BattleOver(true);
                 }

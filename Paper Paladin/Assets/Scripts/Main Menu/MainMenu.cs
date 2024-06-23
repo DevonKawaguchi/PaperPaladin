@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] Image blackImage;
     [SerializeField] Image introBlackImage;
+    [SerializeField] Image gameLogo;
 
     int selectedItem = 0;
     bool playButtonPressed = false;
@@ -93,6 +94,7 @@ public class MainMenu : MonoBehaviour
                 {
                     SFXPlayer.PlayOneShot(SelectSound);
                     Menu.gameObject.SetActive(false);
+                    gameLogo.gameObject.SetActive(false);
                     ControlsMenu.gameObject.SetActive(true);
                     DestinationButton(DefaultControlsMenuButton);
                 }

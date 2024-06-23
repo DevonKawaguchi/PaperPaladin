@@ -2679,6 +2679,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7307031723412591314, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15.834961
+      objectReference: {fileID: 0}
     - target: {fileID: 7483002644352684746, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3098,6 +3102,14 @@ PrefabInstance:
     - target: {fileID: 8723011148860068445, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746752367753691663, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_Name
+      value: BlackImage (Enable)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746752367753691663, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8773419709602790952, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_AnchorMax.y
