@@ -17,7 +17,7 @@ MonoBehaviour:
   flavourText: 'Hired Gun of Serious Duck (?) '
   frontSprite: {fileID: 21300000, guid: 3a76060331e9e451f8bbd89ea9d7ccd5, type: 3}
   backSprite: {fileID: 0}
-  type1: 7
+  type1: 5
   type2: 0
   maxHp: 1
   attack: 0

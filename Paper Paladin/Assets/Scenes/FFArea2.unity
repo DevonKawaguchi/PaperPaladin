@@ -421,8 +421,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -2.4375496, y: 5.3280497, z: 0}
-    m_Extent: {x: 24.43255, y: 21.10205, z: 0}
+    m_Center: {x: -2.4300003, y: 5.3267, z: 0}
+    m_Extent: {x: 24.442, y: 21.101, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4982,7 +4982,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &536785459
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -5937,8 +5936,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 3.3664503, y: 2.1663501, z: 0}
-    m_Extent: {x: 18.113651, y: 9.22505, z: 0}
+    m_Center: {x: 3.3734503, y: 2.16465, z: 0}
+    m_Extent: {x: 18.11905, y: 9.22445, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -6457,7 +6456,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &880911712
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -16752,8 +16750,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.19689941, y: 1.789, z: 0}
-    m_Extent: {x: 18.4319, y: 8.2089, z: 0}
+    m_Center: {x: 0.18910027, y: 1.78145, z: 0}
+    m_Extent: {x: 18.4394, y: 8.20725, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -17280,7 +17278,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 0}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &1341741329
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -17647,7 +17644,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &1512021265
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -18503,7 +18499,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &1841539116
 CompositeCollider2D:
   m_ObjectHideFlags: 0

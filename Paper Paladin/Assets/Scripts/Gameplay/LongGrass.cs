@@ -22,7 +22,7 @@ public class LongGrass : MonoBehaviour, IPlayerTriggerable
     [SerializeField] Sprite sprite;
     [SerializeField] new string name;
 
-    public int bossIndexRequirement = 0;
+    private int bossIndexRequirement = 7;
 
     public void Start()
     {

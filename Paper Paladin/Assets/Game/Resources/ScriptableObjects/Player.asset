@@ -26,7 +26,7 @@ MonoBehaviour:
   spDefense: 0
   speed: 1
   expYield: 0
-  growthRate: 1
+  growthRate: 0
   catchRate: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: c6b714721c8a64c929781749a99db041, type: 2}

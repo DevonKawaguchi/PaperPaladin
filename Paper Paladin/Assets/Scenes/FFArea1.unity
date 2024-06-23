@@ -354,7 +354,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &51173409
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -877,6 +876,7 @@ GameObject:
   - component: {fileID: 99752760}
   - component: {fileID: 99752759}
   - component: {fileID: 99752758}
+  - component: {fileID: 99752764}
   m_Layer: 7
   m_Name: LongGrass - 2
   m_TagString: Untagged
@@ -915,10 +915,9 @@ MonoBehaviour:
   xDir: 0
   yDir: -1
   movementPattern: []
-  bossBattleBeginMusic: {fileID: 0}
+  bossBattleBeginMusic: {fileID: 8300000, guid: 7594aec4a49a94d48ac8b3aebedf2666, type: 3}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &99752759
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -1266,6 +1265,23 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &99752764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99752756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bbeb21cfeec343d5872788e2205a61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemons:
+  - _base: {fileID: 11400000, guid: c60ee10c030544998aa945e89a3022a7, type: 2}
+    level: 1
+  - _base: {fileID: 11400000, guid: f38c5beb460324914ac3e6969586ab9a, type: 2}
+    level: 1
 --- !u!1 &119509956
 GameObject:
   m_ObjectHideFlags: 0
@@ -12020,8 +12036,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 19.43975, y: 1.9798503, z: 0}
-    m_Extent: {x: 22.230549, y: 12.606649, z: 0}
+    m_Center: {x: 19.4353, y: 1.9762998, z: 0}
+    m_Extent: {x: 22.227, y: 12.600599, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -14463,7 +14479,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 8300000, guid: 7594aec4a49a94d48ac8b3aebedf2666, type: 3}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: Serious Duck Air-Fleet
-  bossIndexRequirement: 0
 --- !u!114 &1675684809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15247,6 +15262,7 @@ GameObject:
   - component: {fileID: 1888827031}
   - component: {fileID: 1888827030}
   - component: {fileID: 1888827029}
+  - component: {fileID: 1888827035}
   m_Layer: 7
   m_Name: LongGrass - 1
   m_TagString: Untagged
@@ -15288,7 +15304,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: 
-  bossIndexRequirement: 7
 --- !u!66 &1888827030
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -15560,6 +15575,23 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1888827035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888827027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bbeb21cfeec343d5872788e2205a61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemons:
+  - _base: {fileID: 11400000, guid: c60ee10c030544998aa945e89a3022a7, type: 2}
+    level: 1
+  - _base: {fileID: 11400000, guid: f38c5beb460324914ac3e6969586ab9a, type: 2}
+    level: 1
 --- !u!4 &1994799542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8181247510019745943, guid: d6cc1bad2075a43f293dcbe648bf0b19, type: 3}

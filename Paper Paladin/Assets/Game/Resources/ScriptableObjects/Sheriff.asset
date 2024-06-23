@@ -19,7 +19,7 @@ MonoBehaviour:
   backSprite: {fileID: 0}
   type1: 5
   type2: 0
-  maxHp: 1
+  maxHp: 3
   attack: 0
   defense: 0
   spAttack: 0

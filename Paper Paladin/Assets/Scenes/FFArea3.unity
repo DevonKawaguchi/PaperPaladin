@@ -4784,7 +4784,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 0}
   sprite: {fileID: 0}
   name: 
-  bossIndexRequirement: 7
 --- !u!1 &1841539113
 GameObject:
   m_ObjectHideFlags: 0
@@ -4842,7 +4841,6 @@ MonoBehaviour:
   bossBattleBeginMusic: {fileID: 8300000, guid: 7594aec4a49a94d48ac8b3aebedf2666, type: 3}
   sprite: {fileID: 21300000, guid: 286dddf57a29c48d99d1be0aea328d99, type: 3}
   name: Serious Duck Air-Fleet
-  bossIndexRequirement: 7
 --- !u!66 &1841539116
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -7321,8 +7319,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 1.1612501, y: 2.5421, z: 0}
-    m_Extent: {x: 12.77505, y: 14.2046, z: 0}
+    m_Center: {x: 1.1600499, y: 2.5324502, z: 0}
+    m_Extent: {x: 12.76545, y: 14.200951, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

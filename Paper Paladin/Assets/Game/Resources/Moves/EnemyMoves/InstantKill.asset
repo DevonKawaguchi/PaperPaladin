@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Enemy Instant Kill
   description: 
-  type: 9
+  type: 5
   power: 100
   accuracy: 0
   alwaysHits: 1
@@ -27,4 +27,4 @@ MonoBehaviour:
     volatileStatus: 0
   secondaries: []
   target: 0
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: 3c5287bcb98974cdc93640fc35a24aee, type: 3}
