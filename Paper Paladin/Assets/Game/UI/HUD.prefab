@@ -101,11 +101,11 @@ MonoBehaviour:
   expBar: {fileID: 0}
   poisonColour: {r: 0.8509804, g: 0.24313724, b: 0.7861752, a: 1}
   stimColour: {r: 0, g: 0, b: 0, a: 0}
-  stunColour: {r: 0, g: 0, b: 0, a: 0}
+  stunColour: {r: 0.79607844, g: 0.4, b: 0, a: 1}
   burnColour: {r: 0.8679245, g: 0.16785331, b: 0.16785331, a: 1}
   paralyseColour: {r: 0.8490566, g: 0.71281826, b: 0.18823424, a: 1}
   freezeColour: {r: 0.17515129, g: 0.6661251, b: 0.9056604, a: 1}
-  chargeColour: {r: 0, g: 0, b: 0, a: 0}
+  chargeColour: {r: 0.9647059, g: 0, b: 0.019607844, a: 1}
 --- !u!1 &4170898551991272274
 GameObject:
   m_ObjectHideFlags: 0

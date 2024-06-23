@@ -459,6 +459,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 43369830157227803, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: stimColour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 43369830157227803, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: stunColour.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 43369830157227803, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: stunColour.g
+      value: 0.7720523
+      objectReference: {fileID: 0}
+    - target: {fileID: 43369830157227803, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
+      propertyPath: stunColour.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 154402293163092449, guid: dff3d6ec2fcaa402b943fe1b341c2215, type: 3}
       propertyPath: m_IsActive
       value: 1

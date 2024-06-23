@@ -42,6 +42,33 @@ public class ConditionsDB
                 },
             }
         },
+        { ConditionID.STN, //Originally Sleep (SLP), now Attacking Pokemon paralysed and can't perform a move for 1-3 turns
+            new Condition()
+            {
+                Name = "Stun",
+                StartMessage = "has been stunned for 2 moves!",
+                OnStart = (Pokemon pokemon) =>
+                {
+                    //Sleep for 1-3 turns
+                    //pokemon.StatusTime = Random.Range(1,4); //1-3 (4 is exclusive)
+                    pokemon.StatusTime = 2; //1-3 (4 is exclusive)
+                    Debug.Log($"Will be asleep for {pokemon.StatusTime} moves!");
+                },
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if (pokemon.StatusTime <= 0) //Wake up Pokemon if StatusTime reaches 0
+                    {
+                        pokemon.CureStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}'s no longer stunned!");
+                        return true; //Move can now be performed
+                    }
+
+                    pokemon.StatusTime--;
+                    //pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is preparing to attack!");
+                    return false; //Move can't be performed
+                }
+            }
+        },
         { ConditionID.BRN,
             new Condition()
             {
@@ -117,34 +144,6 @@ public class ConditionsDB
             }
         },
 
-        { ConditionID.STN, //Originally Sleep (SLP), now Attacking Pokemon paralysed and can't perform a move for 1-3 turns
-            new Condition()
-            {
-                Name = "Stun",
-                StartMessage = "has been stunned for 2 moves!",
-                OnStart = (Pokemon pokemon) =>
-                {
-                    //Sleep for 1-3 turns
-                    //pokemon.StatusTime = Random.Range(1,4); //1-3 (4 is exclusive)
-                    pokemon.StatusTime = 2; //1-3 (4 is exclusive)
-                    Debug.Log($"Will be asleep for {pokemon.StatusTime} moves!");
-                },
-                OnBeforeMove = (Pokemon pokemon) =>
-                {
-                    if (pokemon.StatusTime <= 0) //Wake up Pokemon if StatusTime reaches 0
-                    {
-                        pokemon.CureStatus();
-                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}'s no longer stunned!");
-                        return true; //Move can now be performed
-                    }
-
-                    pokemon.StatusTime--;
-                    //pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is preparing to attack!");
-                    return false; //Move can't be performed
-                }
-            }
-        },
-
 
 
         //Volatile Status Conditions
@@ -205,6 +204,6 @@ public class ConditionsDB
 
 public enum ConditionID //None, Poison, Burn, Sleep, Paralyse, Freeze
 {
-    none, PSN, STM, STN, BRN, CRG, PAR, FRZ,
+    none, PSN, STM, STN, BRN, PAR, FRZ, CRG,
     Confusion
 }

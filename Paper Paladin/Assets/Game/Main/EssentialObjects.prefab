@@ -5526,12 +5526,12 @@ MonoBehaviour:
   hpBar: {fileID: 7316436341506638381}
   expBar: {fileID: 4853434764460966991}
   poisonColour: {r: 0.8509804, g: 0.24313724, b: 0.7861752, a: 1}
-  stimColour: {r: 0, g: 0, b: 0, a: 0}
-  stunColour: {r: 0, g: 0, b: 0, a: 0}
+  stimColour: {r: 0.07794954, g: 0.6226415, b: 0, a: 0}
+  stunColour: {r: 0.6792453, g: 0.56732845, b: 0, a: 1}
   burnColour: {r: 0.8679245, g: 0.16785331, b: 0.16785331, a: 1}
   paralyseColour: {r: 0.8490566, g: 0.71281826, b: 0.18823424, a: 1}
   freezeColour: {r: 0.17515129, g: 0.6661251, b: 0.9056604, a: 1}
-  chargeColour: {r: 0, g: 0, b: 0, a: 0}
+  chargeColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7933648261268678522
 GameObject:
   m_ObjectHideFlags: 0
@@ -6714,6 +6714,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8104111749871197771, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
+      propertyPath: stunColour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104111749871197771, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
+      propertyPath: stunColour.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104111749871197771, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
+      propertyPath: stunColour.r
+      value: 0.79607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104111749871197771, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
       propertyPath: chargeColour.a
       value: 1
       objectReference: {fileID: 0}
@@ -6728,6 +6740,10 @@ PrefabInstance:
     - target: {fileID: 8104111749871197771, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
       propertyPath: chargeColour.r
       value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400196623780410067, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 22.779938
       objectReference: {fileID: 0}
     - target: {fileID: 8430811118774719038, guid: cfd356d4859734883807b78c8f03de2b, type: 3}
       propertyPath: m_Pivot.x
