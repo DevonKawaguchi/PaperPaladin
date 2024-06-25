@@ -30,6 +30,9 @@ To interact with the application, certain arrow and letter key inputs are requir
 > [!NOTE]
 > WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences. Z key will also interact when in the open-world, though will select options in menu and other GUI screens.
 
+> [!TIP]
+> If some of the game's enemy encounters become too challenging, a "Gameplay Cheat Sheet" text file is also provided in the repository, of which lists guides for each enemy in the game and how to defeat them.
+
 ## Licence Information:
 The application is protected under the MIT Licence. The full conditions of the licence can be found in this repository's [LICENCE](https://github.com/DevonKawaguchi/PaperPaladin/blob/8daaa0da968ec19d10b63b6a94b02d20e9ac40ee/LICENCE).
 
