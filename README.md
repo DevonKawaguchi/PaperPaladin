@@ -1,4 +1,4 @@
-# PaperPaladin
+![PPMainMenuArt1](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/fc452d3b-3686-49b0-a2d5-1f200cfb0452)# PaperPaladin
 ![Image of the Paper Paladin logo.](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/b2578251-f31d-4606-8441-32e63b760aff)
 
 ## Description:
@@ -34,8 +34,17 @@ To interact with the application, certain arrow and letter key inputs are requir
 The application is protected under the MIT Licence. The full conditions of the licence can be found in this repository's [LICENCE](https://github.com/DevonKawaguchi/PaperPaladin/blob/8daaa0da968ec19d10b63b6a94b02d20e9ac40ee/LICENCE).
 
 ## Visuals:
-![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/1e75745f-974a-4cd9-a554-d38306f3ffba/)
+![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/27890587-a89d-4be7-b1f9-eea128a69daa)
 Cutscene artwork of the Forgotten Forests area
+
+![Cutscene Artwork of Serious Duck](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/a1660bd4-0fa6-43cb-978c-8f9eadcb47cd)
+Cutscene artwork of the game's antagonist, Serious Duck.
+
+<img width="1462" alt="Screenshot 2024-06-25 at 6 33 25 PM" src="https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/3bb601d8-fca8-4e9f-bc6b-6ba7b837e304">
+Screenshot of the player in the in-game world.
+
+<img width="1465" alt="Screenshot 2024-06-25 at 6 35 37 PM" src="https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/38a69432-4474-4ba6-ba2b-c9a875e1d622">
+Screenshot of the player interacting with an NPC.
 
 ## Acknowledgements:
 As aforementioned, although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application has been created through the use of copyrighted media and online Unity tutorials. 
