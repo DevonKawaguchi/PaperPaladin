@@ -8,10 +8,14 @@ Created for my Year 12 Software Design and Development Assessment 3 Task, Paper 
 > Due to the project's time constraints and lack of existing musical skill respectively, accessibility options for those with visual, motor, or neurological impairments are unfortunately not supported, and public audio libraries and copyrighted media have been used to create the application's in-game soundscape.
 
 ## Installation Instructions:
-N/A - The application was compiled in the Unity game engine and hence does not require any installation instructions. 
+To install the application, either:
+a. Open the application from the "Part A - Paper Paladin Programming Project" folder and download your respective platform version. Afterwards, you should be able to click on the application icon and open the application without any further installation instructions.
+b. Download to the .zip file submitted in SEQTA submissions, open the "Part A - Paper Paladin Programming Project" folder, open the folder of your respective platform, and click on the application icon inside. Afterwards, you should be able to open the appliation without any further installation instructions.
+
+To install the project file, either clone or download the repository.
 
 ## How to Use:
-To interact with the application, certain key inputs are required. The following is included in the application through in-game text prompts and a dedicated "Controls" page in the main menu:
+To interact with the application, certain arrow and letter key inputs are required. The following is included in the application through in-game text prompts and a dedicated "Controls" page in the main menu:
 
 | Control | Description |
 | --- | --- |
@@ -20,7 +24,8 @@ To interact with the application, certain key inputs are required. The following
 | S or ↓ Key | Move/Select Down |
 | D or → Key | Move/Select Right |
 | Z | Select/Interact |
-| X | Back |
+| X | Return/Exit |
+| Enter (When in In-Game World) | Open Menu |
 
 > [!NOTE]
 > WASD/↑ ← ↓ → keys will move the player character when in the in-game world, and will move the selection hover over options when in the menu or combat sequences. Z key will also interact when in the open-world, though will select options in menu and other GUI screens.
@@ -36,23 +41,34 @@ Cutscene artwork of the Forgotten Forests area
 As aforementioned, although the application utilises original artwork, audio mixing, and game design, due to time constraints and existing musical and technical skill, this application has been created through the use of copyrighted media and online Unity tutorials. 
 
 ### Music Acknowledgements:
-   - **Manaka Kataoka, Masato Ohashi, Tsukasa Usui:**
-     - Tears of the Kingdom:
-        - Hyrule Plains
-        - Gloom's Approach
-        - Kariko Village
-   - **Masayoshi Soken:**
-     - Final Fantasy XVI:
-        - Find the Flame
+   - **Peter Hont:**
+     - Minecraft Dungeons
+        - Dalarna
+   - **Zuntata:**
+     - DariusBurst: Another Chronicle EX
+        - Start
+   - **Wilbert Roget, II:**
+     - Helldivers 2
+        - Helldivers 2 Main Theme - "A Cup Of Liber-Tea"
+   - **Manaka Kataoka, Maasa Miyoshi, Masato Ohashi, Tsukasa Usui:**
+     - The Legend of Zelda: Tears of the Kingdom
+        - Descending into Gloom's Lair
+   - **Manaka Kataoka, Hajime Wakai, Yasuaki Iwata:**
+     - The Legend of Zelda: Breath of the Wild
+        - Stationary Guardian Battle
    - **Tee Lopes:**
      - Sonic Mania
-        - Mechanical
+        - Metallic Madness Zone Act 2
+        - Metallic Madness Zone Act 1
+        - Prime Time - Studiopolis Zone Act 2
+        - Havoc Prognosis - Eggman Boss 2
+        - Wildstyle Pistolero - Mirage Saloon Zone Act 1 K Mix
+        - Hi-Spec Robo Go! - Hard Boiled Heavy Boss
+        - Danger on the Dance Floor - Mid-Boss
 
 ### Code Acknowledgements:
    - Game Dev Experiments:
      - "How to Make a Game Like Pokemon" Series
-
-The above acknowledgements are also included in the applications's "Credits" page in the main menu.
 
 ## Author Details:
 **Name:** Devon Kawaguchi
