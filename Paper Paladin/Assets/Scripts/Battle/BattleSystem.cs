@@ -989,7 +989,7 @@ public class BattleSystem : MonoBehaviour
 
         //yield return dialogueBox.TypeDialogue($"                                              ");
 
-        yield return new WaitForSeconds(2.8f);
+        yield return new WaitForSeconds(2.6f);
 
         FFDestroyerP1Background.gameObject.SetActive(false);
 

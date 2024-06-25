@@ -40,7 +40,7 @@ public class MainMenu : MonoBehaviour
 
     int interval = 0;
 
-    private void Awake()
+    private void Awake() //Blocks the player's ability to use their mouse during the game
     {
         Cursor.lockState = CursorLockMode.Locked; //Disables mouse when opening menu
         mainMenuItems = Menu.GetComponentsInChildren<TextMeshProUGUI>().ToList();
@@ -58,7 +58,7 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if (playButtonPressed == false)
+        if (playButtonPressed == false) 
         {
             int prevSelection = selectedItem;
 
@@ -75,7 +75,7 @@ public class MainMenu : MonoBehaviour
 
             selectedItem = Mathf.Clamp(selectedItem, 0, mainMenuItems.Count - 1);
 
-            if (prevSelection != selectedItem || selectedItem == 0)
+            if (prevSelection != selectedItem || selectedItem == 0) //"|| selectedItem == 0" ensures the Play button can also be highlighted
             {
                 UpdateItemSelection();
             }
@@ -110,7 +110,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    IEnumerator PlayGame()
+    IEnumerator PlayGame() 
     {
         yield return new WaitForSeconds(4f);
 
@@ -120,7 +120,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1); //Plays next scene by finding scene that's +1 build setting index from the current scene the script is in
     }
 
-    IEnumerator MenuAwakeFade()
+    IEnumerator MenuAwakeFade() //Main menu intro animation
     {
         yield return introBlackImage.DOFade(0, 1f);
     }
@@ -139,22 +139,22 @@ public class MainMenu : MonoBehaviour
     {
         //Debug.Log("Ran UpdateItemSelection");
 
-        if (selectedItem == 0)
+        if (selectedItem == 0) //If the Play button, start the game
         {
             DestinationButton(PlayMenuButton);
         }
-        else if (selectedItem == 1)
+        else if (selectedItem == 1) //If the Controls button, view the controls
         {
-            DestinationButton(ControlsMenuButton);
+            DestinationButton(ControlsMenuButton); 
         }
-        else if (selectedItem == 2)
+        else if (selectedItem == 2) //If the Quit button, quit the game
         {
             DestinationButton(QuitMenuButton);
         }
 
-        for (int i = 0; i < mainMenuItems.Count; i++)
+        for (int i = 0; i < mainMenuItems.Count; i++) //Updates selection hover
         {
-            if (i == selectedItem) //
+            if (i == selectedItem) 
             {
                 mainMenuItems[i].color = highlightedColour;
             }
@@ -167,7 +167,7 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    void PlayButtonSelectedAnimation()
+    void PlayButtonSelectedAnimation() //Switches the Play button text's colour continuously based on multiple of 6 intervals.
     {
         if (interval == 6)
         {

@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
-using UnityEditor.SearchService;
 
 public enum GameState { FreeRoam, Battle, Dialogue, Menu, PartyScreen, Bag, Cutscene, Paused }
 
