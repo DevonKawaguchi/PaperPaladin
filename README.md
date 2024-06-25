@@ -9,8 +9,8 @@ Created for my Year 12 Software Design and Development Assessment 3 Task, Paper 
 
 ## Installation Instructions:
 To install the application, either:
-a. Open the application from the "Part A - Paper Paladin Programming Project" folder and download your respective platform version. Afterwards, you should be able to click on the application icon and open the application without any further installation instructions.
-b. Download to the .zip file submitted in SEQTA submissions, open the "Part A - Paper Paladin Programming Project" folder, open the folder of your respective platform, and click on the application icon inside. Afterwards, you should be able to open the appliation without any further installation instructions.
+1. Open the application from the "Part A - Paper Paladin Programming Project" folder and download your respective platform version. Afterwards, you should be able to click on the application icon and open the application without any further installation instructions.
+2. Download to the .zip file submitted in SEQTA submissions, open the "Part A - Paper Paladin Programming Project" folder, open the folder of your respective platform, and click on the application icon inside. Afterwards, you should be able to open the appliation without any further installation instructions.
 
 To install the project file, either clone or download the repository.
 
