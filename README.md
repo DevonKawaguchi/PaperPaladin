@@ -37,11 +37,8 @@ The application is protected under the MIT Licence. The full conditions of the l
 ![Aerial shot of the Forgotten Forests area](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/27890587-a89d-4be7-b1f9-eea128a69daa)
 Cutscene artwork of the Forgotten Forests area
 
-![Cutscene Artwork of Serious Duck](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/a1660bd4-0fa6-43cb-978c-8f9eadcb47cd)
+![Cutscene Artwork of Serious Duck](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/692fa359-b065-4a85-864e-ad46f0e605b2)
 Cutscene artwork of the game's antagonist, Serious Duck.
-
-<img width="1462" alt="Screenshot 2024-06-25 at 6 33 25 PM" src="https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/3bb601d8-fca8-4e9f-bc6b-6ba7b837e304">
-Screenshot of the player in the in-game world.
 
 <img width="1465" alt="Screenshot 2024-06-25 at 6 35 37 PM" src="https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/38a69432-4474-4ba6-ba2b-c9a875e1d622">
 Screenshot of the player interacting with an NPC.
