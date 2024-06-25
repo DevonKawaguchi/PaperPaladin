@@ -1,4 +1,4 @@
-![PPMainMenuArt1](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/fc452d3b-3686-49b0-a2d5-1f200cfb0452)# PaperPaladin
+# PaperPaladin
 ![Image of the Paper Paladin logo.](https://github.com/DevonKawaguchi/PaperPaladin/assets/150311640/b2578251-f31d-4606-8441-32e63b760aff)
 
 ## Description:
