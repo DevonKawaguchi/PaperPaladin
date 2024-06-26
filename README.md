@@ -91,4 +91,7 @@ As aforementioned, although the application utilises original artwork, audio mix
 Project documentation available in the [Year 12 SDD Assessment 3: Part B](https://docs.google.com/document/d/1GwFecuRqhQ_H97o8JEWmYJL6XtfuknjHlv-aiR1z5Gs/edit?usp=sharing ) Google Docs document.
 
 ## Additional Details:
-N/A - All relevant details have been included in the above sections.
+In the game, there are some in-game acronyms that are used:
+   - SDAF: Serious Duck Armed Forces
+   - S-ARM: Sidekick Augmented Refraction Machine
+   - GOOSE Landship: Gyroscopic Oriented Omnidirectional Self-Propelled Engine Landship
