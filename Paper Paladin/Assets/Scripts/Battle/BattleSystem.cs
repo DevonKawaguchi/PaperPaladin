@@ -189,7 +189,8 @@ public class BattleSystem : MonoBehaviour
             yield return dialogueBox.TypeDialogue($"2...");
             yield return dialogueBox.TypeDialogue($"1...");
 
-            yield return dialogueBox.TypeDialogue($"            ");
+            yield return new WaitForSeconds(0.7f);
+
 
             trainerImage.gameObject.SetActive(false);
             FFSkyDestroyerBackground.gameObject.SetActive(false);
@@ -573,7 +574,7 @@ public class BattleSystem : MonoBehaviour
                         AudioManager.i.PlaySFX(AudioID.ItemObtained);
 
                         playerUnit.Pokemon.LearnMove(newMove);
-                        yield return dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} learned {newMove.Base.Name}!");
+                        yield return dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} learnt {newMove.Base.Name}!");
                         dialogueBox.SetMoveNames(playerUnit.Pokemon.Moves);
                     }
                     else //Player must forget a move before adding a new one if current move count is 4
@@ -708,7 +709,7 @@ public class BattleSystem : MonoBehaviour
                 {
                     //Forget the selected move and learn the new move
                     var selectedMove = playerUnit.Pokemon.Moves[moveIndex].Base;
-                    StartCoroutine(dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} forgot {selectedMove.Name} and learned {moveToLearn.Name}!"));
+                    StartCoroutine(dialogueBox.TypeDialogue($"{playerUnit.Pokemon.Base.Name} forgot {selectedMove.Name} and learnt {moveToLearn.Name}!"));
 
                     playerUnit.Pokemon.Moves[moveIndex] = new Move(moveToLearn);
                 }
@@ -989,7 +990,7 @@ public class BattleSystem : MonoBehaviour
 
         //yield return dialogueBox.TypeDialogue($"                                              ");
 
-        yield return new WaitForSeconds(2.6f);
+        yield return new WaitForSeconds(1f);
 
         FFDestroyerP1Background.gameObject.SetActive(false);
 
